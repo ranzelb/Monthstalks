@@ -43,28 +43,11 @@ body{font-family:'Jost',sans-serif;background:var(--blush);color:var(--text);min
 .entry-btn{width:100%;padding:0.85rem;background:linear-gradient(135deg,var(--rose),var(--rose-deep));color:white;border:none;border-radius:999px;font-family:'Jost',sans-serif;font-size:0.9rem;font-weight:500;letter-spacing:0.08em;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 20px rgba(143,61,85,0.3)}
 .entry-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(143,61,85,0.4)}
 
-/* ═══════════════════════════════════════
-   MUSIC WIDGET — Floating draggable button
-═══════════════════════════════════════ */
-#music-fab{
-  position:fixed;
-  bottom:1.5rem;right:1.5rem;
-  z-index:900;
-  width:52px;height:52px;
-  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
-  border-radius:50%;
-  box-shadow:0 4px 20px rgba(110,31,60,0.4);
-  display:none;
-  align-items:center;justify-content:center;
-  cursor:grab;
-  touch-action:none;
-  transition:box-shadow 0.2s,transform 0.15s;
-  user-select:none;
-}
+/* MUSIC WIDGET */
+#music-fab{position:fixed;bottom:1.5rem;right:1.5rem;z-index:900;width:52px;height:52px;background:linear-gradient(135deg,var(--rose),var(--rose-deep));border-radius:50%;box-shadow:0 4px 20px rgba(110,31,60,0.4);display:none;align-items:center;justify-content:center;cursor:grab;touch-action:none;transition:box-shadow 0.2s,transform 0.15s;user-select:none}
 #music-fab:hover{box-shadow:0 6px 28px rgba(110,31,60,0.55);transform:scale(1.06)}
 #music-fab.dragging{cursor:grabbing;box-shadow:0 10px 36px rgba(110,31,60,0.5);transform:scale(1.1)}
 #music-fab.show{display:flex}
-.fab-icon{font-size:1.4rem;pointer-events:none;transition:transform 0.3s}
 .fab-wave{display:flex;gap:2px;align-items:flex-end;height:18px;pointer-events:none}
 .fab-bar{width:3px;background:white;border-radius:1px;animation:waveAnim 0.8s ease-in-out infinite alternate}
 .fab-bar:nth-child(1){height:5px;animation-delay:0s}
@@ -73,24 +56,7 @@ body{font-family:'Jost',sans-serif;background:var(--blush);color:var(--text);min
 .fab-bar:nth-child(4){height:15px;animation-delay:0.1s}
 @keyframes waveAnim{from{transform:scaleY(0.3)}to{transform:scaleY(1)}}
 .fab-bar.paused{animation-play-state:paused}
-
-/* Expanded music panel */
-#music-panel{
-  position:fixed;
-  bottom:5.5rem;right:1.5rem;
-  z-index:899;
-  background:white;
-  border:1px solid var(--petal);
-  border-radius:20px;
-  padding:1.1rem 1.25rem;
-  width:270px;
-  box-shadow:0 8px 32px var(--shadow);
-  display:none;
-  flex-direction:column;
-  gap:0.6rem;
-  animation:panelReveal 0.25s cubic-bezier(0.34,1.56,0.64,1) forwards;
-  transform-origin:bottom right;
-}
+#music-panel{position:fixed;bottom:5.5rem;right:1.5rem;z-index:899;background:white;border:1px solid var(--petal);border-radius:20px;padding:1.1rem 1.25rem;width:270px;box-shadow:0 8px 32px var(--shadow);display:none;flex-direction:column;gap:0.6rem;animation:panelReveal 0.25s cubic-bezier(0.34,1.56,0.64,1) forwards;transform-origin:bottom right}
 @keyframes panelReveal{from{opacity:0;transform:scale(0.85)}to{opacity:1;transform:scale(1)}}
 #music-panel.open{display:flex}
 .mp-row{display:flex;align-items:center;gap:0.5rem}
@@ -100,19 +66,16 @@ body{font-family:'Jost',sans-serif;background:var(--blush);color:var(--text);min
 .mp-yt:hover{opacity:1}
 .mp-close{background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px;flex-shrink:0;padding:0;line-height:1}
 .mp-close:hover{color:var(--rose-deep)}
-/* Seek */
 .mp-seek-wrap{position:relative;height:18px;display:flex;align-items:center;cursor:pointer}
 .mp-seek-track{position:absolute;left:0;right:0;height:3px;background:var(--blush-dark);border-radius:2px;overflow:hidden}
 .mp-seek-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--rose),var(--rose-deep));border-radius:2px;transition:width 0.4s linear}
 .mp-seek-thumb{position:absolute;top:50%;width:11px;height:11px;background:var(--rose-deep);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 1px 5px var(--shadow);transition:left 0.4s linear;pointer-events:none}
 input[type=range].mp-range{position:absolute;left:0;right:0;width:100%;opacity:0;cursor:pointer;height:18px;margin:0}
-/* Controls */
 .mp-controls{display:flex;align-items:center;gap:0.4rem}
 .mp-btn{background:none;border:none;cursor:pointer;color:var(--rose-deep);font-size:0.95rem;padding:4px;border-radius:50%;transition:background 0.15s,transform 0.15s;display:flex;align-items:center;justify-content:center;line-height:1}
 .mp-btn:hover{background:var(--blush);transform:scale(1.15)}
 .mp-btn.pp{background:linear-gradient(135deg,var(--rose),var(--rose-deep));color:white;width:30px;height:30px;font-size:0.8rem;box-shadow:0 2px 8px var(--shadow)}
 .mp-time{font-size:10px;color:var(--muted);margin-left:auto;white-space:nowrap}
-/* Volume */
 .mp-vol-wrap{display:flex;align-items:center;gap:4px}
 .mp-vol-icon{font-size:11px;color:var(--muted)}
 input[type=range].mp-vol{flex:1;height:3px;-webkit-appearance:none;appearance:none;background:var(--blush-dark);border-radius:2px;outline:none;cursor:pointer}
@@ -279,9 +242,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
 
 <div class="floaters" id="floaters"></div>
 
-<!-- ═══════════════════════════════════════
-     MUSIC — Floating Action Button
-═══════════════════════════════════════ -->
+<!-- MUSIC FAB -->
 <div id="music-fab" title="Music">
   <div class="fab-wave" id="fab-wave">
     <div class="fab-bar paused"></div>
@@ -291,7 +252,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
   </div>
 </div>
 
-<!-- Music Panel (expands above FAB) -->
+<!-- Music Panel -->
 <div id="music-panel">
   <div class="mp-row">
     <div style="flex:1;min-width:0">
@@ -301,19 +262,16 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
     <a href="https://youtu.be/rEpHKhvVfPI" target="_blank" class="mp-yt" title="Open in YouTube">↗</a>
     <button class="mp-close" onclick="togglePanel()" title="Close">✕</button>
   </div>
-  <!-- Seek -->
   <div class="mp-seek-wrap">
     <div class="mp-seek-track"><div class="mp-seek-fill" id="mp-fill"></div></div>
     <div class="mp-seek-thumb" id="mp-thumb"></div>
     <input type="range" class="mp-range" id="mp-range" min="0" max="147" step="1" value="0">
   </div>
-  <!-- Controls -->
   <div class="mp-controls">
     <button class="mp-btn" id="mp-stop" title="Stop">⏹</button>
     <button class="mp-btn pp" id="mp-pp" title="Play/Pause">▶</button>
     <span class="mp-time" id="mp-time">0:00 / 2:27</span>
   </div>
-  <!-- Volume -->
   <div class="mp-vol-wrap">
     <span class="mp-vol-icon">🔈</span>
     <input type="range" class="mp-vol" id="mp-vol" min="0" max="100" value="80">
@@ -377,7 +335,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
       <button class="gallery-submit-btn" id="gallery-submit-btn" onclick="addGalleryPhoto()" disabled>+ Add Photo</button>
       <div class="gallery-status" id="gallery-status"></div>
     </div>
-    <!-- Lightbox -->
     <div id="gallery-lightbox" onclick="closeLightbox()">
       <div class="lightbox-inner" onclick="event.stopPropagation()">
         <button class="lightbox-close" onclick="closeLightbox()">✕</button>
@@ -523,17 +480,69 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
 <script>
 // ══════════════════════════════════════════════
 //  SUPABASE CONFIG
+//  Tables used:
+//    gallery          { id, user_name, photos (jsonb), created_at }
+//    answers          { id, user_name, answers (jsonb), created_at }
+//    custom_questions { id, user_name, questions (jsonb), created_at }
 // ══════════════════════════════════════════════
 const SUPABASE_URL = 'https://egwxnuhoyhbulckiqvwe.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVnd3hudWhveWhidWxja2lxdndlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzNzA0MzksImV4cCI6MjA5MDk0NjQzOX0.tQtVjVga4ZxRmpKTh4zat6L2SAtFobc2egNjNv39ink';
+
+// Single shared row identifier — everything lives in one shared record per table
+const SHARED_USER = 'shared';
+
+const SB_HEADERS = {
+  'Content-Type': 'application/json',
+  'apikey': SUPABASE_KEY,
+  'Authorization': `Bearer ${SUPABASE_KEY}`,
+  'Prefer': 'return=representation'
+};
+
+// ── Generic GET: fetch the one shared row from a table ──────────────────────
+async function sbFetch(table) {
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/${table}?user_name=eq.${SHARED_USER}&limit=1`,
+    { headers: SB_HEADERS }
+  );
+  if (!res.ok) throw new Error(`sbFetch ${table}: ${res.status}`);
+  const rows = await res.json();
+  return rows.length ? rows[0] : null;
+}
+
+// ── Generic UPSERT: insert or update the shared row ─────────────────────────
+async function sbSave(table, column, data) {
+  // Try update first
+  const existing = await sbFetch(table);
+  if (existing) {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/${table}?user_name=eq.${SHARED_USER}`,
+      {
+        method: 'PATCH',
+        headers: SB_HEADERS,
+        body: JSON.stringify({ [column]: data })
+      }
+    );
+    if (!res.ok) throw new Error(`sbSave PATCH ${table}: ${res.status}`);
+  } else {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/${table}`,
+      {
+        method: 'POST',
+        headers: SB_HEADERS,
+        body: JSON.stringify({ user_name: SHARED_USER, [column]: data })
+      }
+    );
+    if (!res.ok) throw new Error(`sbSave POST ${table}: ${res.status}`);
+  }
+}
 
 // ══════════════════════════════════════════════
 //  STATE
 // ══════════════════════════════════════════════
 let currentUser = '';
-let galleryPhotos = [];
+let galleryPhotos = [];   // [{ id, dataUrl, caption, uploadedAt }]
 let lightboxIndex = 0;
-let customQuestions = [];
+let customQuestions = []; // [{ id, text, answer }]
 let selectedFileDataUrl = null;
 
 // Music
@@ -553,41 +562,15 @@ const MY_QUESTIONS = [
 const reasons = ["Your smile","Your eyes","Your hair","Your nose","Your kiss","Your name","Your nickname","Your outfits","Your caring","Your kindness","Your voice","Your height","Your scent","Your jokes","Your stories","Your forgiveness","Your patience","Your habits","Your talents","Your intelligence","Your strength","Your passion","Your clingy side","Your goofy side","Your style","Your sweetness","Your eyelashes","Your honesty","Your flaws","Your genuineness","Your baby side","Your uniqueness","Your hopes","Your goals","Your perspective","Your help","Your playfulness","Your music taste","Your favorite movie","Your favorite flower","Your favorite food","Your favorite drink","Your favorite color","The way you talk to me","The way you treat me","The way you make me feel wanted","The way you hug me","The way you kiss me","The way you care for me","The way you root for me","The way you make me laugh","The way you compliment me","The way we spend time together","The way you handle things","The way you surpass your problems","How excited you get to see me","How you miss me","How you feed me","The strength you give me","The advice you give me","The way you understand me","Your patience with me","The way we gossip together","The way you scold me","The way you make me blush","Your discipline","Being a sleepyhead","The way you text me","How confident you are","Your determination","The way you listen to me","The way you teach me","The way you keep it real","The way you hold me","The way you care for our relationship","The way you treat your family","The way you give me reasons to live","The way you give me hope","The way you believe in me","The way you boost my confidence","The way you comfort me","The way you talk about our future","The way you make me feel so lucky","The way you're comfortable around me","The way you respect my family","The warmth you bring","The light you are to me","Your contagious laughter","The courage you show","The way you love with your whole heart","The way you never give up on us","Your beautiful soul","Your resilience","The way you inspire me","The way you protect your peace","The way you make ordinary days special","Your unwavering loyalty","The way you forgive so gracefully","Your beautiful heart","You — the way you exist"];
 
 // ══════════════════════════════════════════════
-//  SUPABASE HELPERS
-// ══════════════════════════════════════════════
-async function sbGet(table, key) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?key=eq.${encodeURIComponent(key)}&order=created_at.desc&limit=1`, {
-    headers:{ 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-  });
-  const rows = await res.json();
-  return rows && rows.length ? rows[0] : null;
-}
-
-async function sbUpsert(table, key, value) {
-  // Try update first, then insert
-  const existing = await sbGet(table, key);
-  if (existing) {
-    await fetch(`${SUPABASE_URL}/rest/v1/${table}?key=eq.${encodeURIComponent(key)}`, {
-      method: 'PATCH',
-      headers:{ 'Content-Type':'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer':'return=minimal' },
-      body: JSON.stringify({ value, updated_at: new Date().toISOString() })
-    });
-  } else {
-    await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
-      method: 'POST',
-      headers:{ 'Content-Type':'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer':'return=minimal' },
-      body: JSON.stringify({ key, value })
-    });
-  }
-}
-
-// ══════════════════════════════════════════════
 //  ENTRY
 // ══════════════════════════════════════════════
 function enterSite() {
   const inp = document.getElementById('name-input');
   const name = inp ? inp.value.trim() : '';
-  if (!name) { if (inp) { inp.style.borderColor='var(--rose-deep)'; inp.placeholder='Please enter your name...'; inp.focus(); } return; }
+  if (!name) {
+    if (inp) { inp.style.borderColor='var(--rose-deep)'; inp.placeholder='Please enter your name...'; inp.focus(); }
+    return;
+  }
   currentUser = name;
   try { localStorage.setItem('lovesite_name', name); } catch(e) {}
   const h = document.getElementById('hero-name'); if (h) h.textContent = name;
@@ -633,7 +616,7 @@ function spawnEntryFloaters() {
 }
 
 // ══════════════════════════════════════════════
-//  MUSIC — FAB + Panel
+//  MUSIC
 // ══════════════════════════════════════════════
 function togglePanel() {
   panelOpen = !panelOpen;
@@ -642,47 +625,31 @@ function togglePanel() {
   else { panel.classList.remove('open'); setTimeout(() => { if (!panelOpen) panel.style.display='none'; }, 250); }
 }
 
-// Draggable FAB
 (function setupFabDrag() {
   let isDragging = false, startX, startY, fabLeft, fabBottom, moved = false;
   const fab = document.getElementById('music-fab');
   const panel = document.getElementById('music-panel');
-
   function getPos(e) { return e.touches ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : { x: e.clientX, y: e.clientY }; }
-
   function onDown(e) {
-    const pos = getPos(e);
-    startX = pos.x; startY = pos.y;
-    const rect = fab.getBoundingClientRect();
-    fabLeft = rect.left; fabBottom = window.innerHeight - rect.bottom;
-    isDragging = true; moved = false;
-    fab.classList.add('dragging');
-    e.preventDefault();
+    const pos = getPos(e); startX = pos.x; startY = pos.y;
+    const rect = fab.getBoundingClientRect(); fabLeft = rect.left; fabBottom = window.innerHeight - rect.bottom;
+    isDragging = true; moved = false; fab.classList.add('dragging'); e.preventDefault();
   }
-
   function onMove(e) {
     if (!isDragging) return;
-    const pos = getPos(e);
-    const dx = pos.x - startX, dy = pos.y - startY;
+    const pos = getPos(e); const dx = pos.x - startX, dy = pos.y - startY;
     if (Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
     const newLeft = Math.max(0, Math.min(window.innerWidth - 56, fabLeft + dx));
     const newBottom = Math.max(0, Math.min(window.innerHeight - 56, fabBottom - dy));
     fab.style.left = newLeft + 'px'; fab.style.right = 'auto';
     fab.style.bottom = newBottom + 'px'; fab.style.top = 'auto';
-    // Reposition panel above FAB
-    panel.style.left = Math.min(newLeft, window.innerWidth - 280) + 'px';
-    panel.style.right = 'auto';
-    panel.style.bottom = (newBottom + 62) + 'px';
-    panel.style.top = 'auto';
+    panel.style.left = Math.min(newLeft, window.innerWidth - 280) + 'px'; panel.style.right = 'auto';
+    panel.style.bottom = (newBottom + 62) + 'px'; panel.style.top = 'auto';
   }
-
-  function onUp(e) {
-    if (!isDragging) return;
-    isDragging = false;
-    fab.classList.remove('dragging');
+  function onUp() {
+    if (!isDragging) return; isDragging = false; fab.classList.remove('dragging');
     if (!moved) togglePanel();
   }
-
   fab.addEventListener('mousedown', onDown);
   fab.addEventListener('touchstart', onDown, { passive: false });
   document.addEventListener('mousemove', onMove);
@@ -691,13 +658,11 @@ function togglePanel() {
   document.addEventListener('touchend', onUp);
 })();
 
-// YouTube
 function ytCmd(func, args) {
   const f = document.getElementById('yt-iframe');
   if (!f || !f.contentWindow) return;
   try { f.contentWindow.postMessage(JSON.stringify({ event:'command', func, args: args||[] }), '*'); } catch(e) {}
 }
-
 function updateSeekUI(sec) {
   const pct = Math.min(sec / SONG_DUR, 1);
   const fill = document.getElementById('mp-fill'), thumb = document.getElementById('mp-thumb'), range = document.getElementById('mp-range'), time = document.getElementById('mp-time');
@@ -707,7 +672,6 @@ function updateSeekUI(sec) {
   if (time) time.textContent = fmtTime(sec)+' / '+fmtTime(SONG_DUR);
 }
 function fmtTime(s) { s=Math.floor(s); return Math.floor(s/60)+':'+(s%60).toString().padStart(2,'0'); }
-
 function startTicker() {
   clearInterval(progressInterval);
   progressInterval = setInterval(() => {
@@ -715,7 +679,6 @@ function startTicker() {
   }, 500);
 }
 function stopTicker() { clearInterval(progressInterval); }
-
 function setPlaying(val) {
   musicPlaying = val;
   const btn = document.getElementById('mp-pp');
@@ -724,7 +687,6 @@ function setPlaying(val) {
   bars.forEach(b => b.classList.toggle('paused', !val));
 }
 function setStatus(msg) { const el = document.getElementById('mp-status'); if (el) el.textContent = msg; }
-
 window.addEventListener('message', function(e) {
   try {
     const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
@@ -741,31 +703,34 @@ window.addEventListener('message', function(e) {
 });
 
 // ══════════════════════════════════════════════
-//  GALLERY — Supabase storage for cross-device
+//  GALLERY — stores base64 in Supabase `gallery` table
+//  Column: photos (jsonb) — array of { id, dataUrl, caption, uploadedAt }
 // ══════════════════════════════════════════════
 function setupGalleryUpload() {
   const fileInput = document.getElementById('gallery-file-input');
-  const dropZone = document.getElementById('gallery-drop-zone');
-  const previewImg = document.getElementById('gallery-preview-thumb');
+  const dropZone  = document.getElementById('gallery-drop-zone');
+  const previewImg  = document.getElementById('gallery-preview-thumb');
   const previewWrap = document.getElementById('gallery-preview-wrap');
-  const submitBtn = document.getElementById('gallery-submit-btn');
+  const submitBtn   = document.getElementById('gallery-submit-btn');
   if (!fileInput) return;
 
   fileInput.addEventListener('change', function() {
     const files = Array.from(this.files);
     if (!files.length) return;
+    // Multi-file: upload all immediately
     if (files.length > 1) {
       let done = 0;
       files.forEach((file, i) => {
         resizeAndRead(file, (dataUrl) => {
           const caption = document.getElementById('gallery-caption-input')?.value.trim() || '';
-          galleryPhotos.push({ id: Date.now()+i, dataUrl, caption });
+          galleryPhotos.push({ id: Date.now() + i, dataUrl, caption, uploadedAt: new Date().toISOString() });
           done++;
           if (done === files.length) { saveGallery(); renderGallery(); }
         });
       });
       fileInput.value = ''; return;
     }
+    // Single file: show preview first
     resizeAndRead(files[0], (dataUrl) => {
       selectedFileDataUrl = dataUrl;
       previewImg.src = dataUrl;
@@ -784,7 +749,7 @@ function setupGalleryUpload() {
     files.forEach((file, i) => {
       resizeAndRead(file, (dataUrl) => {
         const caption = document.getElementById('gallery-caption-input')?.value.trim() || '';
-        galleryPhotos.push({ id: Date.now()+i, dataUrl, caption });
+        galleryPhotos.push({ id: Date.now() + i, dataUrl, caption, uploadedAt: new Date().toISOString() });
         done++;
         if (done === files.length) { saveGallery(); renderGallery(); }
       });
@@ -792,22 +757,18 @@ function setupGalleryUpload() {
   });
 }
 
-// Resize images to reduce size before storing
 function resizeAndRead(file, cb) {
   const reader = new FileReader();
   reader.onload = (e) => {
     const img = new Image();
     img.onload = () => {
-      const maxW = 800, maxH = 800;
+      const maxW = 900, maxH = 900;
       let w = img.width, h = img.height;
-      if (w > maxW || h > maxH) {
-        const ratio = Math.min(maxW/w, maxH/h);
-        w = Math.round(w*ratio); h = Math.round(h*ratio);
-      }
+      if (w > maxW || h > maxH) { const ratio = Math.min(maxW/w, maxH/h); w = Math.round(w*ratio); h = Math.round(h*ratio); }
       const canvas = document.createElement('canvas');
       canvas.width = w; canvas.height = h;
       canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      cb(canvas.toDataURL('image/jpeg', 0.82));
+      cb(canvas.toDataURL('image/jpeg', 0.80));
     };
     img.src = e.target.result;
   };
@@ -817,13 +778,16 @@ function resizeAndRead(file, cb) {
 function addGalleryPhoto() {
   if (!selectedFileDataUrl) return;
   const caption = document.getElementById('gallery-caption-input')?.value.trim() || '';
-  galleryPhotos.push({ id: Date.now(), dataUrl: selectedFileDataUrl, caption });
+  galleryPhotos.push({ id: Date.now(), dataUrl: selectedFileDataUrl, caption, uploadedAt: new Date().toISOString() });
   selectedFileDataUrl = null;
-  const previewWrap = document.getElementById('gallery-preview-wrap'), submitBtn = document.getElementById('gallery-submit-btn'), capInp = document.getElementById('gallery-caption-input'), fileInput = document.getElementById('gallery-file-input');
+  const previewWrap = document.getElementById('gallery-preview-wrap');
+  const submitBtn   = document.getElementById('gallery-submit-btn');
+  const capInp      = document.getElementById('gallery-caption-input');
+  const fileInput   = document.getElementById('gallery-file-input');
   if (previewWrap) previewWrap.classList.remove('show');
-  if (submitBtn) submitBtn.disabled = true;
-  if (capInp) capInp.value = '';
-  if (fileInput) fileInput.value = '';
+  if (submitBtn)   submitBtn.disabled = true;
+  if (capInp)      capInp.value = '';
+  if (fileInput)   fileInput.value = '';
   saveGallery();
   renderGallery();
 }
@@ -838,58 +802,56 @@ function deleteGalleryPhoto(id, e) {
 
 async function saveGallery() {
   setGalleryStatus('Saving…');
+  // Always save to localStorage as instant fallback
+  try { localStorage.setItem('gallery_photos', JSON.stringify(galleryPhotos)); } catch(e) {}
+  // Save to Supabase gallery table, photos column
   try {
-    // Save to localStorage as backup
-    localStorage.setItem('gallery_photos', JSON.stringify(galleryPhotos));
-  } catch(e) {}
-  try {
-    // Save to Supabase — split into chunks if needed (5MB per key limit)
-    // Store as JSON string chunks
-    const json = JSON.stringify(galleryPhotos);
-    const chunkSize = 4 * 1024 * 1024; // 4MB chunks
-    const chunks = [];
-    for (let i = 0; i < json.length; i += chunkSize) chunks.push(json.slice(i, i+chunkSize));
-    await sbUpsert('app_data', 'gallery_chunk_count', String(chunks.length));
-    for (let i = 0; i < chunks.length; i++) await sbUpsert('app_data', `gallery_chunk_${i}`, chunks[i]);
-    setGalleryStatus('✓ Saved — visible on all devices');
+    await sbSave('gallery', 'photos', galleryPhotos);
+    setGalleryStatus('✓ Saved — photos visible on all devices');
     setTimeout(() => setGalleryStatus(''), 2500);
   } catch(err) {
-    console.warn('Supabase save error', err);
-    setGalleryStatus('⚠ Saved locally only');
-    setTimeout(() => setGalleryStatus(''), 3000);
+    console.warn('Gallery save error:', err);
+    setGalleryStatus('⚠ Saved locally — check your Supabase connection');
+    setTimeout(() => setGalleryStatus(''), 4000);
   }
 }
 
 async function loadGallery() {
-  // Try Supabase first (cross-device)
+  setGalleryStatus('Loading photos…');
   try {
-    const countRow = await sbGet('app_data', 'gallery_chunk_count');
-    if (countRow) {
-      const count = parseInt(countRow.value) || 0;
-      let json = '';
-      for (let i = 0; i < count; i++) {
-        const row = await sbGet('app_data', `gallery_chunk_${i}`);
-        if (row) json += row.value;
-      }
-      if (json) {
-        galleryPhotos = JSON.parse(json);
-        try { localStorage.setItem('gallery_photos', json); } catch(e) {}
-        renderGallery();
-        return;
-      }
+    const row = await sbFetch('gallery');
+    if (row && Array.isArray(row.photos) && row.photos.length > 0) {
+      galleryPhotos = row.photos;
+      // Sync to localStorage
+      try { localStorage.setItem('gallery_photos', JSON.stringify(galleryPhotos)); } catch(e) {}
+      setGalleryStatus('');
+      renderGallery();
+      return;
     }
-  } catch(e) { console.warn('Supabase load error', e); }
-  // Fallback to localStorage
-  try { galleryPhotos = JSON.parse(localStorage.getItem('gallery_photos') || '[]'); } catch(e) { galleryPhotos = []; }
+  } catch(err) {
+    console.warn('Gallery load error:', err);
+  }
+  // Fallback: localStorage
+  try {
+    const local = localStorage.getItem('gallery_photos');
+    galleryPhotos = local ? JSON.parse(local) : [];
+  } catch(e) { galleryPhotos = []; }
+  setGalleryStatus(galleryPhotos.length ? '⚠ Showing local photos — Supabase unavailable' : '');
+  setTimeout(() => setGalleryStatus(''), 3000);
   renderGallery();
 }
 
 function setGalleryStatus(msg) { const el = document.getElementById('gallery-status'); if (el) el.textContent = msg; }
 
 function renderGallery() {
-  const grid = document.getElementById('gallery-grid'), empty = document.getElementById('gallery-empty');
+  const grid  = document.getElementById('gallery-grid');
+  const empty = document.getElementById('gallery-empty');
   if (!grid) return;
-  if (!galleryPhotos.length) { grid.innerHTML = ''; if (empty) empty.style.display='block'; return; }
+  if (!galleryPhotos.length) {
+    grid.innerHTML = '';
+    if (empty) empty.style.display = 'block';
+    return;
+  }
   if (empty) empty.style.display = 'none';
   grid.innerHTML = galleryPhotos.map((p, i) =>
     `<div class="gallery-card" onclick="openLightbox(${i})" style="animation:fadeSlideUp 0.4s ${i*0.05}s both;opacity:0">
@@ -900,11 +862,15 @@ function renderGallery() {
   ).join('');
 }
 
-function openLightbox(index) { lightboxIndex=index; showLightboxPhoto(); document.getElementById('gallery-lightbox').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeLightbox() { document.getElementById('gallery-lightbox').classList.remove('open'); document.body.style.overflow=''; }
-function showLightboxPhoto() { const p=galleryPhotos[lightboxIndex]; if (!p) return; document.getElementById('lightbox-img').src=p.dataUrl; document.getElementById('lightbox-caption').textContent=p.caption||''; }
-function lightboxNext() { lightboxIndex=(lightboxIndex+1)%galleryPhotos.length; showLightboxPhoto(); }
-function lightboxPrev() { lightboxIndex=(lightboxIndex-1+galleryPhotos.length)%galleryPhotos.length; showLightboxPhoto(); }
+function openLightbox(index) {
+  lightboxIndex = index; showLightboxPhoto();
+  document.getElementById('gallery-lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() { document.getElementById('gallery-lightbox').classList.remove('open'); document.body.style.overflow = ''; }
+function showLightboxPhoto() { const p = galleryPhotos[lightboxIndex]; if (!p) return; document.getElementById('lightbox-img').src = p.dataUrl; document.getElementById('lightbox-caption').textContent = p.caption||''; }
+function lightboxNext() { lightboxIndex = (lightboxIndex+1) % galleryPhotos.length; showLightboxPhoto(); }
+function lightboxPrev() { lightboxIndex = (lightboxIndex-1+galleryPhotos.length) % galleryPhotos.length; showLightboxPhoto(); }
 
 // ══════════════════════════════════════════════
 //  REASONS
@@ -917,16 +883,17 @@ function buildReasons() {
 }
 function filterReasons() {
   const val = document.getElementById('reasonSearch')?.value.toLowerCase()||'';
-  document.querySelectorAll('.reason-card').forEach(c => { c.style.display=c.dataset.text.includes(val)?'':'none'; });
+  document.querySelectorAll('.reason-card').forEach(c => { c.style.display = c.dataset.text.includes(val) ? '' : 'none'; });
 }
 
 // ══════════════════════════════════════════════
-//  MONTH TALKS — Supabase persistence
+//  MONTH TALKS — answers table
 // ══════════════════════════════════════════════
 function setSyncStatus(msg, cls) {
   const el = document.getElementById('talks-sync-status');
   if (!el) return;
-  el.textContent = msg; el.className = 'sync-status' + (cls ? ' '+cls : '');
+  el.textContent = msg;
+  el.className = 'sync-status' + (cls ? ' '+cls : '');
   if (cls === 'ok') setTimeout(() => { el.textContent=''; el.className='sync-status'; }, 2500);
 }
 
@@ -934,48 +901,64 @@ async function buildQuestions() {
   const list = document.getElementById('questions-list'); if (!list) return;
   setSyncStatus('Loading answers…');
   let saved = {};
-  // Try Supabase
   try {
-    const row = await sbGet('app_data', 'talks_answers');
-    if (row) { saved = JSON.parse(row.value); try { localStorage.setItem('talks_answers', row.value); } catch(e) {} }
-    else { saved = JSON.parse(localStorage.getItem('talks_answers') || '{}'); }
+    const row = await sbFetch('answers');
+    if (row && row.answers) {
+      saved = typeof row.answers === 'string' ? JSON.parse(row.answers) : row.answers;
+      try { localStorage.setItem('talks_answers', JSON.stringify(saved)); } catch(e) {}
+    } else {
+      saved = JSON.parse(localStorage.getItem('talks_answers') || '{}');
+    }
     setSyncStatus('');
   } catch(e) {
+    console.warn('Load answers error:', e);
     saved = JSON.parse(localStorage.getItem('talks_answers') || '{}');
     setSyncStatus('⚠ Offline — showing local data', 'err');
   }
+
   list.innerHTML = MY_QUESTIONS.map((q, i) =>
-    `<div class="question-item" style="animation:fadeSlideUp 0.4s ${0.03*i}s both;opacity:0"><strong>Q${i+1}</strong>${q}<textarea class="q-answer" id="qa-${i}" placeholder="Her answer..." rows="1">${saved[i]||''}</textarea></div>`
+    `<div class="question-item" style="animation:fadeSlideUp 0.4s ${0.03*i}s both;opacity:0">
+      <strong>Q${i+1}</strong>${q}
+      <textarea class="q-answer" id="qa-${i}" placeholder="Her answer..." rows="1">${saved[i]||''}</textarea>
+    </div>`
   ).join('');
+
   list.querySelectorAll('.q-answer').forEach(ta => {
     ta.addEventListener('input', () => { ta.style.height='auto'; ta.style.height=ta.scrollHeight+'px'; });
+    // auto-height for pre-filled
+    setTimeout(() => { ta.style.height='auto'; ta.style.height=ta.scrollHeight+'px'; }, 50);
   });
 }
 
 async function saveAnswers() {
   const data = {};
-  MY_QUESTIONS.forEach((_, i) => { const el=document.getElementById('qa-'+i); data[i]=el?el.value:''; });
-  const json = JSON.stringify(data);
-  try { localStorage.setItem('talks_answers', json); } catch(e) {}
+  MY_QUESTIONS.forEach((_, i) => { const el = document.getElementById('qa-'+i); data[i] = el ? el.value : ''; });
+  try { localStorage.setItem('talks_answers', JSON.stringify(data)); } catch(e) {}
   try {
-    await sbUpsert('app_data', 'talks_answers', json);
+    await sbSave('answers', 'answers', data);
     showToast('save-toast-left');
-  } catch(e) {
+    setSyncStatus('Saved ✓', 'ok');
+  } catch(err) {
+    console.warn('Save answers error:', err);
     showToast('save-toast-left');
-    console.warn('Supabase save error', e);
   }
 }
 
+// ══════════════════════════════════════════════
+//  CUSTOM QUESTIONS — custom_questions table
+// ══════════════════════════════════════════════
 async function loadCustomQuestions() {
-  setSyncStatus('Loading questions…');
   try {
-    const row = await sbGet('app_data', 'custom_questions');
-    if (row) { customQuestions = JSON.parse(row.value); try { localStorage.setItem('custom_questions', row.value); } catch(e) {} }
-    else { customQuestions = JSON.parse(localStorage.getItem('custom_questions') || '[]'); }
-    setSyncStatus('');
+    const row = await sbFetch('custom_questions');
+    if (row && row.questions) {
+      customQuestions = typeof row.questions === 'string' ? JSON.parse(row.questions) : row.questions;
+      try { localStorage.setItem('custom_questions', JSON.stringify(customQuestions)); } catch(e) {}
+    } else {
+      customQuestions = JSON.parse(localStorage.getItem('custom_questions') || '[]');
+    }
   } catch(e) {
+    console.warn('Load custom_questions error:', e);
     customQuestions = JSON.parse(localStorage.getItem('custom_questions') || '[]');
-    setSyncStatus('');
   }
   renderCustomQuestions();
 }
@@ -995,57 +978,74 @@ function deleteCustomQuestion(id) {
 
 function renderCustomQuestions() {
   const list = document.getElementById('custom-questions-list'); if (!list) return;
-  if (!customQuestions.length) { list.innerHTML='<p style="font-size:0.8rem;color:var(--muted);text-align:center;padding:1rem 0">Add your first question above 💬</p>'; return; }
+  if (!customQuestions.length) {
+    list.innerHTML = '<p style="font-size:0.8rem;color:var(--muted);text-align:center;padding:1rem 0">Add your first question above 💬</p>';
+    return;
+  }
   list.innerHTML = customQuestions.map((q, i) =>
-    `<div class="custom-question"><div class="custom-q-header"><span class="custom-q-text"><strong style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--rose-deep);display:block;margin-bottom:.2rem">Q${i+1}</strong>${q.text}</span><button class="del-q-btn" onclick="deleteCustomQuestion(${q.id})">✕</button></div><textarea class="custom-q-answer" placeholder="My answer..." rows="1" oninput="updateCustomAnswer(${q.id},this.value)">${q.answer||''}</textarea></div>`
+    `<div class="custom-question">
+      <div class="custom-q-header">
+        <span class="custom-q-text"><strong style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--rose-deep);display:block;margin-bottom:.2rem">Q${i+1}</strong>${q.text}</span>
+        <button class="del-q-btn" onclick="deleteCustomQuestion(${q.id})">✕</button>
+      </div>
+      <textarea class="custom-q-answer" placeholder="My answer..." rows="1" oninput="updateCustomAnswer(${q.id},this.value)">${q.answer||''}</textarea>
+    </div>`
   ).join('');
   list.querySelectorAll('.custom-q-answer').forEach(ta => {
     ta.addEventListener('input', () => { ta.style.height='auto'; ta.style.height=ta.scrollHeight+'px'; });
+    setTimeout(() => { ta.style.height='auto'; ta.style.height=ta.scrollHeight+'px'; }, 50);
   });
 }
 
-function updateCustomAnswer(id, val) { const q=customQuestions.find(q=>q.id===id); if (q) q.answer=val; }
+function updateCustomAnswer(id, val) { const q = customQuestions.find(q => q.id === id); if (q) q.answer = val; }
 
 async function saveCustomAnswers() {
-  const json = JSON.stringify(customQuestions);
-  try { localStorage.setItem('custom_questions', json); } catch(e) {}
+  try { localStorage.setItem('custom_questions', JSON.stringify(customQuestions)); } catch(e) {}
   try {
-    await sbUpsert('app_data', 'custom_questions', json);
+    await sbSave('custom_questions', 'questions', customQuestions);
     showToast('save-toast-right');
-  } catch(e) {
+  } catch(err) {
+    console.warn('Save custom_questions error:', err);
     showToast('save-toast-right');
-    console.warn('Supabase save error', e);
   }
 }
 
-function showToast(id) { const el=document.getElementById(id); if (!el) return; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2500); }
+function showToast(id) {
+  const el = document.getElementById(id); if (!el) return;
+  el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2500);
+}
 
 // ══════════════════════════════════════════════
-//  TALK ANSWERS
+//  TALK ANSWERS VIEW
 // ══════════════════════════════════════════════
 async function buildAnswers() {
   const container = document.getElementById('answers-chat-list'); if (!container) return;
-  // Load fresh from Supabase
+  container.innerHTML = '<div class="answer-empty">Loading… 🌸</div>';
+
   let saved = {};
   let custom = [];
   try {
-    const r1 = await sbGet('app_data', 'talks_answers');
-    if (r1) saved = JSON.parse(r1.value);
+    const r1 = await sbFetch('answers');
+    if (r1 && r1.answers) saved = typeof r1.answers === 'string' ? JSON.parse(r1.answers) : r1.answers;
     else saved = JSON.parse(localStorage.getItem('talks_answers') || '{}');
-    const r2 = await sbGet('app_data', 'custom_questions');
-    if (r2) custom = JSON.parse(r2.value);
+
+    const r2 = await sbFetch('custom_questions');
+    if (r2 && r2.questions) custom = typeof r2.questions === 'string' ? JSON.parse(r2.questions) : r2.questions;
     else custom = JSON.parse(localStorage.getItem('custom_questions') || '[]');
   } catch(e) {
-    saved = JSON.parse(localStorage.getItem('talks_answers') || '{}');
+    saved  = JSON.parse(localStorage.getItem('talks_answers') || '{}');
     custom = JSON.parse(localStorage.getItem('custom_questions') || '[]');
   }
+
   let html = '', hasAny = false;
   const stdAnswered = MY_QUESTIONS.map((q,i) => ({ q, a: saved[i]||'' })).filter(x => x.a.trim());
   if (stdAnswered.length) {
     html += `<div class="answer-divider"><span>💭 My Questions — Her Answers</span></div>`;
     stdAnswered.forEach(({ q, a }, idx) => {
-      if (idx%2===0) html += `<div class="answer-bubble-wrap"><div class="answer-row left"><div class="answer-avatar">🌸</div><div><div class="answer-bubble"><div class="answer-question-label">Q: ${q}</div>${a}</div><div class="answer-bubble-name">Her ✦</div></div></div></div>`;
-      else           html += `<div class="answer-bubble-wrap"><div class="answer-row right"><div><div class="answer-bubble"><div class="answer-question-label">Q: ${q}</div>${a}</div><div class="answer-bubble-name">Her ✦</div></div><div class="answer-avatar">💗</div></div></div>`;
+      if (idx%2===0)
+        html += `<div class="answer-bubble-wrap"><div class="answer-row left"><div class="answer-avatar">🌸</div><div><div class="answer-bubble"><div class="answer-question-label">Q: ${q}</div>${a}</div><div class="answer-bubble-name">Her ✦</div></div></div></div>`;
+      else
+        html += `<div class="answer-bubble-wrap"><div class="answer-row right"><div><div class="answer-bubble"><div class="answer-question-label">Q: ${q}</div>${a}</div><div class="answer-bubble-name">Her ✦</div></div><div class="answer-avatar">💗</div></div></div>`;
       hasAny = true;
     });
   }
@@ -1053,8 +1053,10 @@ async function buildAnswers() {
   if (customAnswered.length) {
     html += `<div class="answer-divider"><span>💬 Your Questions — My Answers</span></div>`;
     customAnswered.forEach(({ text, answer }, idx) => {
-      if (idx%2===0) html += `<div class="answer-bubble-wrap"><div class="answer-row right"><div><div class="answer-bubble"><div class="answer-question-label">Q: ${text}</div>${answer}</div><div class="answer-bubble-name">Me ✦</div></div><div class="answer-avatar">💖</div></div></div>`;
-      else           html += `<div class="answer-bubble-wrap"><div class="answer-row left"><div class="answer-avatar">🌷</div><div><div class="answer-bubble"><div class="answer-question-label">Q: ${text}</div>${answer}</div><div class="answer-bubble-name">Me ✦</div></div></div>`;
+      if (idx%2===0)
+        html += `<div class="answer-bubble-wrap"><div class="answer-row right"><div><div class="answer-bubble"><div class="answer-question-label">Q: ${text}</div>${answer}</div><div class="answer-bubble-name">Me ✦</div></div><div class="answer-avatar">💖</div></div></div>`;
+      else
+        html += `<div class="answer-bubble-wrap"><div class="answer-row left"><div class="answer-avatar">🌷</div><div><div class="answer-bubble"><div class="answer-question-label">Q: ${text}</div>${answer}</div><div class="answer-bubble-name">Me ✦</div></div></div>`;
       hasAny = true;
     });
   }
@@ -1066,6 +1068,7 @@ async function buildAnswers() {
 //  INIT
 // ══════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', function() {
+
   // Music controls
   document.getElementById('mp-pp')?.addEventListener('click', function() {
     if (!musicReady) { ytCmd('unMute'); ytCmd('setVolume',[80]); }
@@ -1091,7 +1094,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => { ytCmd('addEventListener',['onReady']); ytCmd('addEventListener',['onStateChange']); }, 1500);
   });
 
-  // Entry
+  // Entry keyboard
   document.getElementById('name-input')?.addEventListener('keydown', e => { if (e.key==='Enter') enterSite(); });
   document.getElementById('new-question-input')?.addEventListener('keydown', e => { if (e.key==='Enter') addCustomQuestion(); });
 
@@ -1100,14 +1103,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const lb = document.getElementById('gallery-lightbox');
     if (!lb || !lb.classList.contains('open')) return;
     if (e.key==='ArrowRight') lightboxNext();
-    if (e.key==='ArrowLeft') lightboxPrev();
-    if (e.key==='Escape') closeLightbox();
+    if (e.key==='ArrowLeft')  lightboxPrev();
+    if (e.key==='Escape')     closeLightbox();
   });
 
   // Restore name
-  try { const saved=localStorage.getItem('lovesite_name'); if (saved) { const inp=document.getElementById('name-input'); if (inp) inp.value=saved; } } catch(e) {}
+  try { const saved = localStorage.getItem('lovesite_name'); if (saved) { const inp = document.getElementById('name-input'); if (inp) inp.value = saved; } } catch(e) {}
 
-  // Init
+  // Boot
   setupGalleryUpload();
   buildReasons();
   buildQuestions();
