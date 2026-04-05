@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love Story 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rose:        #a03060;
+  --rose-light:  #e0b8c8;
+  --rose-deep:   #6e1f3c;
+  --rose-soft:   #b86882;
+  --blush:       #f5e2ea;
+  --blush-dark:  #e8ccd6;
+  --mauve:       #7a3850;
+  --petal:       #d4a0b4;
+  --text:        #2e0f1e;
+  --muted:       #6a3048;
+  --gold:        #b8924a;
+  --shadow:      rgba(110,31,60,0.18);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--blush);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* FLOATERS */
+.floaters{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.floater{position:absolute;animation:floatUp linear infinite;opacity:0;font-size:14px;user-select:none}
+@keyframes floatUp{0%{transform:translateY(0) rotate(0deg) scale(0.8);opacity:0}10%{opacity:0.6}90%{opacity:0.35}100%{transform:translateY(-110vh) rotate(360deg) scale(1.2);opacity:0}}
+
+/* ENTRY */
+#entry-screen{position:fixed;inset:0;z-index:1000;background:linear-gradient(145deg,#f5e2ea,#d9a8bc,#f5e2ea);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s ease,visibility 0.8s ease}
+#entry-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.entry-card{background:white;border:1px solid var(--petal);border-radius:24px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px var(--shadow);animation:cardReveal 1s cubic-bezier(0.34,1.56,0.64,1) forwards}
+@keyframes cardReveal{from{opacity:0;transform:translateY(40px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.entry-bloom{font-size:3rem;display:block;margin-bottom:1.25rem;animation:spinBloom 4s ease-in-out infinite}
+@keyframes spinBloom{0%,100%{transform:rotate(-5deg) scale(1)}50%{transform:rotate(5deg) scale(1.1)}}
+.entry-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--text);margin-bottom:0.35rem}
+.entry-subtitle{font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:1.75rem}
+.entry-input{width:100%;padding:0.85rem 1.25rem;border:1.5px solid var(--petal);border-radius:999px;font-family:'Jost',sans-serif;font-size:0.95rem;color:var(--text);background:var(--blush);outline:none;text-align:center;transition:border-color 0.3s,box-shadow 0.3s;margin-bottom:1rem}
+.entry-input:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(184,92,116,0.14)}
+.entry-btn{width:100%;padding:0.85rem;background:linear-gradient(135deg,var(--rose),var(--rose-deep));color:white;border:none;border-radius:999px;font-family:'Jost',sans-serif;font-size:0.9rem;font-weight:500;letter-spacing:0.08em;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 20px rgba(143,61,85,0.3)}
+.entry-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(143,61,85,0.4)}
+
+/* MUSIC WIDGET */
+#music-widget{position:fixed;bottom:1.25rem;right:1.25rem;z-index:500;background:white;border:1px solid var(--petal);border-radius:16px;padding:0.85rem 1rem;width:265px;box-shadow:0 4px 24px var(--shadow);opacity:0;pointer-events:none;transition:opacity 0.5s}
+#music-widget.show{opacity:1;pointer-events:all}
+.music-song-title{font-size:11px;font-weight:500;color:var(--rose-deep);letter-spacing:0.06em;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-artist{font-size:10px;color:var(--muted);margin-bottom:0.7rem}
+.music-controls{display:flex;align-items:center;gap:0.6rem}
+.music-btn{background:none;border:none;cursor:pointer;color:var(--rose-deep);font-size:1rem;line-height:1;transition:transform 0.2s;padding:0}
+.music-btn:hover{transform:scale(1.2)}
+.music-progress{flex:1;height:3px;background:var(--petal);border-radius:2px;overflow:hidden;cursor:pointer}
+.music-bar-fill{height:100%;width:0%;background:var(--rose);border-radius:2px;transition:width 0.5s linear}
+.music-time{font-size:10px;color:var(--muted);white-space:nowrap}
+.music-wave{display:flex;gap:2px;align-items:flex-end;height:14px}
+.music-bar-wave{width:2px;background:var(--rose-soft);border-radius:1px;animation:waveAnim 0.8s ease-in-out infinite alternate}
+.music-bar-wave:nth-child(1){height:4px;animation-delay:0s}.music-bar-wave:nth-child(2){height:10px;animation-delay:0.15s}.music-bar-wave:nth-child(3){height:7px;animation-delay:0.3s}.music-bar-wave:nth-child(4){height:12px;animation-delay:0.1s}.music-bar-wave:nth-child(5){height:5px;animation-delay:0.25s}
+@keyframes waveAnim{from{transform:scaleY(0.4)}to{transform:scaleY(1)}}
+.music-wave.paused .music-bar-wave{animation-play-state:paused}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--petal);padding:0 1rem;display:flex;align-items:center;justify-content:center;flex-wrap:wrap}
+.nav-btn{font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;padding:1rem 0.7rem;position:relative;transition:color 0.25s;white-space:nowrap}
+.nav-btn::after{content:'';position:absolute;bottom:0.55rem;left:0.7rem;right:0.7rem;height:1.5px;background:var(--rose-deep);border-radius:1px;transform:scaleX(0);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1)}
+.nav-btn:hover{color:var(--rose-deep)}.nav-btn.active{color:var(--rose-deep)}.nav-btn.active::after{transform:scaleX(1)}
+
+/* PAGES */
+.page{display:none;position:relative;z-index:1;min-height:calc(100vh - 49px)}
+.page.active{display:block;animation:pageFadeIn 0.55s ease forwards}
+@keyframes pageFadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* HOME */
+.home-hero{min-height:calc(100vh - 49px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 2rem}
+.hero-greeting{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose-soft);margin-bottom:1rem;animation:fadeSlideUp 1s 0.2s both}
+.home-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,9vw,6rem);font-weight:300;line-height:1.1;color:var(--text);margin-bottom:1.25rem;animation:fadeSlideUp 1s 0.4s both}
+.home-hero h1 em{font-style:italic;color:var(--rose-deep)}
+.home-hero>p{font-size:1rem;font-weight:300;color:var(--muted);max-width:400px;line-height:1.9;margin-bottom:2rem;animation:fadeSlideUp 1s 0.6s both}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.divider{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--rose),transparent);margin:1.5rem auto;animation:fadeSlideUp 1s 0.5s both}
+.quote-block{background:white;border:1px solid var(--petal);border-radius:20px;padding:1.75rem 2rem;max-width:480px;margin:0 auto;animation:fadeSlideUp 1s 0.8s both}
+.quote-block p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.25rem;color:var(--mauve);line-height:1.8;margin:0}
+.since-badge{display:inline-block;margin-top:1.5rem;padding:0.45rem 1.3rem;background:var(--petal);border-radius:999px;font-size:11px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--mauve);animation:fadeSlideUp 1s 1s both}
+
+/* SECTION */
+.section-wrap{max-width:760px;margin:0 auto;padding:3rem 1.5rem 5rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;text-align:center;margin-bottom:0.4rem;color:var(--text)}
+.section-title em{font-style:italic;color:var(--rose-deep)}
+.section-sub{text-align:center;font-size:0.75rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:2.5rem}
+
+/* GALLERY */
+.gallery-add-form{background:white;border:1px solid var(--petal);border-radius:16px;padding:1.5rem;margin-bottom:1.75rem}
+.gallery-input-row{display:flex;gap:0.6rem;margin-bottom:0.75rem}
+.gallery-url-input{flex:1;padding:0.75rem 1rem;border:1.5px solid var(--petal);border-radius:999px;font-family:'Jost',sans-serif;font-size:0.85rem;color:var(--text);background:var(--blush);outline:none;transition:border-color 0.3s;min-width:0}
+.gallery-url-input:focus{border-color:var(--rose)}
+.gallery-caption-input{width:100%;padding:0.65rem 1rem;border:1.5px solid var(--petal);border-radius:999px;font-family:'Jost',sans-serif;font-size:0.85rem;color:var(--text);background:var(--blush);outline:none;transition:border-color 0.3s}
+.gallery-caption-input:focus{border-color:var(--rose)}
+.gallery-submit-btn{padding:0.75rem 1.25rem;background:linear-gradient(135deg,var(--rose),var(--rose-deep));color:white;border:none;border-radius:999px;font-family:'Jost',sans-serif;font-size:0.82rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 14px var(--shadow)}
+.gallery-submit-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--shadow)}
+.gallery-tip{font-size:0.72rem;color:var(--muted);margin-top:0.6rem}
+.gallery-tip a{color:var(--rose-deep);text-decoration:none}
+.gallery-tip a:hover{text-decoration:underline}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.85rem}
+.gallery-card{background:white;border:1px solid var(--petal);border-radius:14px;overflow:hidden;aspect-ratio:1;position:relative;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s}
+.gallery-card:hover{transform:scale(1.03);box-shadow:0 12px 32px var(--shadow)}
+.gallery-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s}
+.gallery-card:hover img{transform:scale(1.06)}
+.gallery-card-caption{position:absolute;bottom:0;left:0;right:0;padding:0.5rem 0.75rem;background:linear-gradient(transparent,rgba(46,15,30,0.7));color:white;font-size:0.72rem;font-weight:400;opacity:0;transition:opacity 0.25s;text-align:center}
+.gallery-card:hover .gallery-card-caption{opacity:1}
+.gallery-card-del{position:absolute;top:6px;right:6px;background:rgba(46,15,30,0.65);color:white;border:none;border-radius:50%;width:24px;height:24px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s;z-index:2}
+.gallery-card:hover .gallery-card-del{opacity:1}
+.gallery-card-del:hover{background:var(--rose-deep)}
+.gallery-empty{text-align:center;padding:4rem 2rem;color:var(--muted)}
+.gallery-empty span{font-size:3rem;display:block;margin-bottom:1rem}
+.gallery-empty p{font-size:0.9rem}
+/* LIGHTBOX */
+#gallery-lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(30,8,18,0.92);align-items:center;justify-content:center}
+#gallery-lightbox.open{display:flex;animation:pageFadeIn 0.3s ease}
+.lightbox-inner{position:relative;max-width:90vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:0.75rem}
+.lightbox-inner img{max-width:90vw;max-height:75vh;border-radius:12px;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.lightbox-close{position:absolute;top:-40px;right:0;background:none;border:none;color:white;font-size:1.5rem;cursor:pointer;opacity:0.8;line-height:1}
+.lightbox-close:hover{opacity:1}
+#lightbox-caption{color:rgba(255,255,255,0.8);font-size:0.85rem;text-align:center}
+.lightbox-nav{display:flex;gap:1rem}
+.lightbox-nav button{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;font-size:1.5rem;width:44px;height:44px;border-radius:50%;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;justify-content:center}
+.lightbox-nav button:hover{background:rgba(255,255,255,0.28)}
+
+/* LETTER */
+.letter-card{background:white;border:1px solid var(--petal);border-radius:20px;padding:2.75rem;position:relative;overflow:hidden}
+.letter-card::before{content:'"';position:absolute;top:-1rem;left:1rem;font-family:'Cormorant Garamond',serif;font-size:9rem;color:var(--petal);line-height:1;pointer-events:none}
+.letter-card p{font-family:'Cormorant Garamond',serif;font-size:1.18rem;line-height:2.1;color:var(--text);margin-bottom:1rem;position:relative}
+.letter-sign{text-align:right;margin-top:1.5rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--mauve)}
+
+/* REASONS */
+.reasons-search{width:100%;padding:0.75rem 1.25rem;border:1.5px solid var(--petal);border-radius:999px;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--text);background:white;outline:none;margin-bottom:1.5rem;transition:border-color 0.3s,box-shadow 0.3s}
+.reasons-search:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(184,92,116,0.12)}
+.reasons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:0.75rem}
+.reason-card{background:white;border:1px solid var(--petal);border-radius:12px;padding:1rem;display:flex;gap:0.75rem;align-items:flex-start;transition:border-color 0.2s,transform 0.2s}
+.reason-card:hover{border-color:var(--rose-soft);transform:translateY(-2px)}
+.reason-num{font-size:10px;font-weight:500;color:var(--rose-deep);min-width:28px;background:var(--rose-light);border-radius:6px;padding:0.15rem 0.4rem;text-align:center;margin-top:0.15rem;flex-shrink:0}
+.reason-text{font-size:0.86rem;color:var(--text);line-height:1.55}
+
+/* BOUQUET */
+.bouquet-page{min-height:calc(100vh - 49px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;position:relative;overflow:hidden;text-align:center}
+.bouquet-label{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;animation:fadeSlideUp 1s 0.2s both;opacity:0}
+.bouquet-title-h{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--text);margin-bottom:2rem;animation:fadeSlideUp 1s 0.4s both;opacity:0}
+.bouquet-title-h em{font-style:italic;color:var(--rose-deep)}
+.bouquet-container{position:relative;animation:floatBouquet 5s ease-in-out infinite;margin:0 auto 2.5rem;filter:drop-shadow(0 16px 32px rgba(143,61,85,0.22))}
+@keyframes floatBouquet{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-14px) rotate(1deg)}}
+.sparkle-dot{position:absolute;border-radius:50%;animation:sparklePop ease-in-out infinite}
+@keyframes sparklePop{0%,100%{opacity:0;transform:scale(0.4)}50%{opacity:1;transform:scale(1.3)}}
+.bouquet-msg{background:white;border:1px solid var(--petal);border-radius:20px;padding:2rem 2.5rem;max-width:500px;margin:0 auto;animation:fadeSlideUp 1s 0.9s both;opacity:0}
+.bouquet-msg h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.6rem;color:var(--rose-deep);margin-bottom:0.75rem}
+.bouquet-msg p{font-size:0.93rem;color:var(--muted);line-height:1.95;font-weight:300}
+
+/* MONTH TALKS */
+.month-talks-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem}
+.talks-panel{background:white;border:1px solid var(--petal);border-radius:18px;padding:1.75rem;display:flex;flex-direction:column;gap:0.85rem}
+.talks-panel-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--rose-deep);font-style:italic;padding-bottom:0.75rem;border-bottom:1px solid var(--petal);margin-bottom:0.25rem}
+.question-item{background:var(--blush);border:1px solid var(--petal);border-radius:10px;padding:0.85rem 1rem;font-size:0.82rem;color:var(--text);line-height:1.6;transition:border-color 0.2s}
+.question-item:hover{border-color:var(--rose-soft)}
+.question-item strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--rose-deep);margin-bottom:0.3rem}
+.q-answer{width:100%;margin-top:0.5rem;border:none;border-bottom:1px solid var(--petal);background:transparent;font-family:'Jost',sans-serif;font-size:0.82rem;color:var(--text);padding:0.3rem 0;outline:none;resize:none;min-height:36px;transition:border-color 0.2s}
+.q-answer:focus{border-bottom-color:var(--rose)}
+.add-question-form{display:flex;gap:0.5rem;margin-bottom:0.5rem}
+.add-q-input{flex:1;padding:0.65rem 1rem;border:1.5px solid var(--petal);border-radius:999px;font-family:'Jost',sans-serif;font-size:0.82rem;color:var(--text);background:var(--blush);outline:none;transition:border-color 0.3s}
+.add-q-input:focus{border-color:var(--rose)}
+.add-q-btn{padding:0.65rem 1.1rem;background:var(--rose-deep);color:white;border:none;border-radius:999px;cursor:pointer;font-size:0.82rem;font-family:'Jost',sans-serif;font-weight:500;transition:transform 0.2s,box-shadow 0.2s;white-space:nowrap}
+.add-q-btn:hover{transform:translateY(-2px);box-shadow:0 4px 14px var(--shadow)}
+.custom-question{background:var(--blush);border:1px solid var(--petal);border-radius:10px;padding:0.85rem 1rem;animation:fadeSlideUp 0.4s ease forwards}
+.custom-q-header{display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;margin-bottom:0.4rem}
+.custom-q-text{font-size:0.83rem;color:var(--text);line-height:1.5;flex:1}
+.del-q-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.9rem;transition:color 0.2s;flex-shrink:0;padding:0}
+.del-q-btn:hover{color:var(--rose-deep)}
+.custom-q-answer{width:100%;border:none;border-bottom:1px solid var(--petal);background:transparent;font-family:'Jost',sans-serif;font-size:0.82rem;color:var(--text);padding:0.3rem 0;outline:none;resize:none;min-height:36px;transition:border-color 0.2s}
+.custom-q-answer:focus{border-bottom-color:var(--rose)}
+.talks-save-btn{width:100%;padding:0.75rem;background:linear-gradient(135deg,var(--rose),var(--rose-deep));color:white;border:none;border-radius:999px;font-family:'Jost',sans-serif;font-size:0.85rem;font-weight:500;letter-spacing:0.08em;cursor:pointer;margin-top:0.5rem;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 16px var(--shadow)}
+.talks-save-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--shadow)}
+.save-toast{text-align:center;font-size:0.78rem;color:var(--rose-deep);padding:0.5rem;opacity:0;transition:opacity 0.3s}
+.save-toast.show{opacity:1}
+
+@media(max-width:640px){.gallery-grid{grid-template-columns:repeat(2,1fr)}.gallery-input-row{flex-direction:column}.month-talks-layout{grid-template-columns:1fr}.nav-btn{font-size:9px;padding:0.8rem 0.4rem}nav{justify-content:flex-start;overflow-x:auto}.bouquet-msg{padding:1.5rem}}
+@media(max-width:400px){.entry-card{padding:2rem 1.5rem}.section-title{font-size:2rem}}
+
+/* TALK ANSWERS CHAT LAYOUT */
+.answer-bubble-wrap{display:flex;flex-direction:column;gap:0.4rem}
+.answer-question-label{font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:0.2rem}
+.answer-row{display:flex;gap:1rem;align-items:flex-start}
+.answer-row.left{justify-content:flex-start}
+.answer-row.right{justify-content:flex-end}
+.answer-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--rose-deep));display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;box-shadow:0 2px 8px var(--shadow)}
+.answer-bubble{max-width:68%;padding:0.9rem 1.2rem;border-radius:18px;font-size:0.87rem;line-height:1.7;color:var(--text);position:relative}
+.answer-row.left .answer-bubble{background:white;border:1px solid var(--petal);border-top-left-radius:4px}
+.answer-row.right .answer-bubble{background:linear-gradient(135deg,var(--rose-deep),var(--rose));color:white;border-top-right-radius:4px}
+.answer-row.right .answer-bubble .answer-question-label{color:rgba(255,255,255,0.7)}
+.answer-bubble-name{font-size:10px;color:var(--muted);margin-top:0.3rem;padding:0 0.2rem}
+.answer-row.right .answer-bubble-name{text-align:right;color:var(--muted)}
+.answer-divider{text-align:center;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0.5rem 0;position:relative}
+.answer-divider::before{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:var(--petal);z-index:0}
+.answer-divider span{background:var(--blush);padding:0 1rem;position:relative;z-index:1}
+.answer-empty{text-align:center;padding:3rem 1rem;font-size:0.9rem;color:var(--muted);font-style:italic}
+</style>
+</head>
+<body>
+
+<div class="floaters" id="floaters"></div>
+
+<!-- MUSIC WIDGET -->
+<div id="music-widget">
+  <div class="music-song-title">Kahit 1 Month Pa Lang</div>
+  <div class="music-artist">Hattus &amp; Eunice Rain</div>
+  <div class="music-controls">
+    <button class="music-btn" id="music-toggle" title="Play / Pause">▶</button>
+    <div class="music-progress" id="music-progress"><div class="music-bar-fill" id="music-bar-fill"></div></div>
+    <span class="music-time" id="music-time">0:00</span>
+    <div class="music-wave paused" id="music-wave">
+      <div class="music-bar-wave"></div><div class="music-bar-wave"></div>
+      <div class="music-bar-wave"></div><div class="music-bar-wave"></div>
+      <div class="music-bar-wave"></div>
+    </div>
+    <a href="https://youtu.be/rEpHKhvVfPI" target="_blank" class="music-btn" title="Open in YouTube" style="font-size:0.75rem;text-decoration:none;opacity:0.7">↗</a>
+  </div>
+  <div id="music-status" style="font-size:9px;color:var(--muted);margin-top:4px;text-align:center;min-height:12px">Loading… ⏳</div>
+</div>
+
+
+<!-- ENTRY SCREEN -->
+<div id="entry-screen">
+  <div class="floaters" id="entry-floaters"></div>
+  <div class="entry-card">
+    <span class="entry-bloom">🌸</span>
+    <h2 class="entry-title">Welcome, Love</h2>
+    <p class="entry-subtitle">Enter your name first</p>
+    <input class="entry-input" type="text" id="name-input" placeholder="Your name..." maxlength="30"/>
+    <button class="entry-btn" onclick="enterSite()">Continue &rarr;</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="main-nav" style="display:none">
+  <button class="nav-btn active" onclick="goto('home',this)">Home</button>
+  <button class="nav-btn" onclick="goto('gallery',this)">Gallery</button>
+  <button class="nav-btn" onclick="goto('message',this)">Message</button>
+  <button class="nav-btn" onclick="goto('reasons',this)">100 Reasons</button>
+  <button class="nav-btn" onclick="goto('bouquet',this)">Bouquet 🌷</button>
+  <button class="nav-btn" onclick="goto('talks',this)">Month Talks</button>
+  <button class="nav-btn" onclick="goto('answers',this)">Talk Answers 💬</button>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="home-hero">
+    <p class="hero-greeting">A place just for us ✦</p>
+    <h1>Welcome, <em id="hero-name">[Name]</em></h1>
+    <div class="divider"></div>
+    <p>This little corner of the internet belongs to us — every memory, every laugh, every moment we've shared together.</p>
+    <div class="quote-block">
+      <p>"Love isn't about how many days or months you've been together, it's about how much you love each other every single day."</p>
+    </div>
+    <span class="since-badge">💕 Together Since [Date]</span>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="page" id="page-gallery">
+  <div class="section-wrap" style="max-width:900px">
+    <div class="section-title">Our <em>Gallery</em></div>
+    <div class="section-sub">Moments frozen in time</div>
+
+    <!-- Add photo form -->
+    <div class="gallery-add-form" id="gallery-add-form">
+      <div class="gallery-input-row">
+        <input type="url" id="gallery-url-input" class="gallery-url-input" placeholder="Paste an image URL here... (e.g. https://i.imgur.com/xxx.jpg)" />
+        <button class="gallery-submit-btn" onclick="addGalleryPhoto()">+ Add Photo</button>
+      </div>
+      <input type="text" id="gallery-caption-input" class="gallery-caption-input" placeholder="Caption (optional)" maxlength="60" />
+      <p class="gallery-tip">💡 Tip: Upload your photo to <a href="https://imgur.com" target="_blank">imgur.com</a> or <a href="https://imgbb.com" target="_blank">imgbb.com</a> for free, then paste the direct link here.</p>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="gallery-lightbox" onclick="closeLightbox()">
+      <div class="lightbox-inner" onclick="event.stopPropagation()">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+        <img id="lightbox-img" src="" alt="" />
+        <div id="lightbox-caption"></div>
+        <div class="lightbox-nav">
+          <button onclick="lightboxPrev()">‹</button>
+          <button onclick="lightboxNext()">›</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="gallery-grid" id="gallery-grid"></div>
+    <div class="gallery-empty" id="gallery-empty" style="display:none">
+      <span>📷</span>
+      <p>No photos yet — add your first memory above!</p>
+    </div>
+  </div>
+</div>
+
+<!-- MESSAGE -->
+<div class="page" id="page-message">
+  <div class="section-wrap">
+    <div class="section-title">A <em>Message</em> For You</div>
+    <div class="section-sub">From my heart to yours</div>
+    <div class="letter-card">
+      <p>My love,</p>
+      <p>There are days when I look at you and I can't quite believe that I get to call you mine. You've walked into my life and colored it in ways I never knew were possible.</p>
+      <p>Every morning I wake up grateful — not for anything grand, but for the small things. The way you laugh at your own jokes. The way you check on me when I'm quiet. The way you make the ordinary feel extraordinary just by being there.</p>
+      <p>This little website is my way of telling you — in a place that won't fade — how much every moment with you means to me. You are my favorite everything.</p>
+      <div class="letter-sign">Forever yours, [Your Name] 🌸</div>
+    </div>
+  </div>
+</div>
+
+<!-- 100 REASONS -->
+<div class="page" id="page-reasons">
+  <div class="section-wrap">
+    <div class="section-title">100 <em>Reasons</em></div>
+    <div class="section-sub">Why I love you</div>
+    <input class="reasons-search" type="text" placeholder="Search a reason..." id="reasonSearch" oninput="filterReasons()"/>
+    <div class="reasons-grid" id="reasonsGrid"></div>
+  </div>
+</div>
+
+<!-- BOUQUET — reference image recreation: lily of the valley, pink wrap paper, bow -->
+<div class="page" id="page-bouquet">
+  <div class="bouquet-page">
+    <p class="bouquet-label">A gift from my heart ✦</p>
+    <h2 class="bouquet-title-h">A <em>Bouquet</em> For You</h2>
+
+    <div class="bouquet-container" id="bouquet-container">
+      <!-- sparkle dots -->
+      <div class="sparkle-dot" style="width:7px;height:7px;background:#f9e08a;top:-8px;left:75px;animation-duration:2.2s;animation-delay:0s"></div>
+      <div class="sparkle-dot" style="width:5px;height:5px;background:#f4c0d0;top:18px;right:55px;animation-duration:1.8s;animation-delay:0.6s"></div>
+      <div class="sparkle-dot" style="width:6px;height:6px;background:#f9e08a;top:-2px;right:28px;animation-duration:2.6s;animation-delay:1.1s"></div>
+      <div class="sparkle-dot" style="width:5px;height:5px;background:#f4c0d0;bottom:90px;left:-12px;animation-duration:2s;animation-delay:0.3s"></div>
+      <div class="sparkle-dot" style="width:4px;height:4px;background:#f9e08a;bottom:110px;right:-8px;animation-duration:1.6s;animation-delay:0.9s"></div>
+
+      <svg width="300" height="420" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Wrap paper gradients - richer pink -->
+          <linearGradient id="wG1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f8c0d4"/>
+            <stop offset="50%" stop-color="#ee90b0"/>
+            <stop offset="100%" stop-color="#d46090"/>
+          </linearGradient>
+          <linearGradient id="wG2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fad4e4"/>
+            <stop offset="100%" stop-color="#e07898"/>
+          </linearGradient>
+          <linearGradient id="wG3" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fce0ec"/>
+            <stop offset="100%" stop-color="#d86890"/>
+          </linearGradient>
+          <linearGradient id="wG4" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fbc8dc"/>
+            <stop offset="100%" stop-color="#c85880"/>
+          </linearGradient>
+          <!-- Leaf gradient -->
+          <linearGradient id="lgG" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#6abf78"/>
+            <stop offset="100%" stop-color="#2d6040"/>
+          </linearGradient>
+          <linearGradient id="lgG2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#78cc88"/>
+            <stop offset="100%" stop-color="#345848"/>
+          </linearGradient>
+          <!-- Bell flower gradient -->
+          <radialGradient id="bG" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#fce0ec"/>
+            <stop offset="60%" stop-color="#f0a0c4"/>
+            <stop offset="100%" stop-color="#d878a8"/>
+          </radialGradient>
+          <radialGradient id="bG2" cx="40%" cy="25%" r="65%">
+            <stop offset="0%" stop-color="#fdeef6"/>
+            <stop offset="100%" stop-color="#e898c0"/>
+          </radialGradient>
+          <!-- Bow gradients -->
+          <radialGradient id="bowG" cx="50%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#f080a8"/>
+            <stop offset="100%" stop-color="#b03068"/>
+          </radialGradient>
+          <radialGradient id="bowG2" cx="50%" cy="20%" r="75%">
+            <stop offset="0%" stop-color="#f898c0"/>
+            <stop offset="100%" stop-color="#c04878"/>
+          </radialGradient>
+          <!-- Shadow -->
+          <radialGradient id="shadowG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#c05880" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#c05880" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- ═══ BACK LARGE LEAVES — fanned out like reference ═══ -->
+        <path d="M 150 310 Q 50 200 55 50" stroke="url(#lgG)" stroke-width="26" fill="none" stroke-linecap="round" opacity="0.9"/>
+        <path d="M 150 310 Q 85 195 88 45" stroke="url(#lgG)" stroke-width="26" fill="none" stroke-linecap="round" opacity="0.92"/>
+        <path d="M 150 310 Q 118 185 122 40" stroke="url(#lgG2)" stroke-width="26" fill="none" stroke-linecap="round" opacity="0.93"/>
+        <path d="M 150 310 Q 150 175 150 38" stroke="url(#lgG)" stroke-width="28" fill="none" stroke-linecap="round" opacity="0.90"/>
+        <path d="M 150 310 Q 182 185 178 40" stroke="url(#lgG2)" stroke-width="26" fill="none" stroke-linecap="round" opacity="0.93"/>
+        <path d="M 150 310 Q 215 195 212 45" stroke="url(#lgG)" stroke-width="26" fill="none" stroke-linecap="round" opacity="0.92"/>
+        <path d="M 150 310 Q 250 200 245 50" stroke="url(#lgG)" stroke-width="26" fill="none" stroke-linecap="round" opacity="0.9"/>
+
+        <!-- Wrap back panels -->
+        <path d="M 150 310 Q 52 240 42 175 Q 60 150 90 165 Q 112 225 130 300 Z" fill="url(#wG2)" opacity="0.85"/>
+        <path d="M 150 310 Q 248 240 258 175 Q 240 150 210 165 Q 188 225 170 300 Z" fill="url(#wG3)" opacity="0.85"/>
+        <path d="M 80 180 Q 100 155 130 150 Q 130 230 132 310 L 80 310 Z" fill="url(#wG1)" opacity="0.9"/>
+        <path d="M 96 168 Q 122 145 150 142 Q 178 145 204 168 Q 208 232 205 310 L 95 310 Q 92 232 96 168 Z" fill="url(#wG4)"/>
+        <path d="M 124 168 Q 136 154 150 151 Q 164 154 176 168 Q 164 180 150 183 Q 136 180 124 168 Z" fill="white" opacity="0.28"/>
+        <path d="M 220 180 Q 200 155 170 150 Q 170 230 168 310 L 220 310 Z" fill="url(#wG2)" opacity="0.9"/>
+        <line x1="124" y1="168" x2="126" y2="310" stroke="#d05888" stroke-width="1.5" opacity="0.3"/>
+        <line x1="176" y1="168" x2="174" y2="310" stroke="#d05888" stroke-width="1.5" opacity="0.3"/>
+
+        <!-- Lily — Back Row -->
+        <g opacity="0.6">
+          <g transform="translate(104,62)">
+            <path d="M0,0 Q-7,14 -10,26" stroke="#3d8050" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="-10" cy="33" rx="7" ry="9.5" fill="url(#bG)" transform="rotate(-15,-10,33)"/>
+            <path d="M0,0 Q0,15 1,28" stroke="#3d8050" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="1" cy="35" rx="7.5" ry="10" fill="url(#bG)"/>
+            <path d="M0,0 Q8,12 13,24" stroke="#3d8050" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="13" cy="31" rx="7" ry="9" fill="url(#bG)" transform="rotate(14,13,31)"/>
+          </g>
+          <g transform="translate(148,52)">
+            <path d="M0,0 Q-9,15 -13,30" stroke="#3d8050" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="-13" cy="37" rx="7.5" ry="10" fill="url(#bG)" transform="rotate(-16,-13,37)"/>
+            <path d="M0,0 Q0,16 0,32" stroke="#3d8050" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="0" cy="39" rx="8" ry="11" fill="url(#bG)"/>
+            <path d="M0,0 Q9,13 13,26" stroke="#3d8050" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="13" cy="33" rx="7.5" ry="10" fill="url(#bG)" transform="rotate(13,13,33)"/>
+          </g>
+          <g transform="translate(192,60)">
+            <path d="M0,0 Q-8,13 -11,25" stroke="#3d8050" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="-11" cy="32" rx="7" ry="9.5" fill="url(#bG)" transform="rotate(-12,-11,32)"/>
+            <path d="M0,0 Q1,14 2,28" stroke="#3d8050" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="2" cy="35" rx="7.5" ry="10" fill="url(#bG)"/>
+            <path d="M0,0 Q7,11 10,22" stroke="#3d8050" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="10" cy="29" rx="6.5" ry="9" fill="url(#bG)" transform="rotate(12,10,29)"/>
+          </g>
+        </g>
+
+        <!-- Lily — Middle Row -->
+        <g opacity="0.82">
+          <g transform="translate(90,82)">
+            <path d="M0,0 Q-9,16 -13,32" stroke="#2e7048" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+            <ellipse cx="-13" cy="40" rx="9" ry="12" fill="url(#bG)" transform="rotate(-17,-13,40)"/>
+            <ellipse cx="-13" cy="37" rx="5.5" ry="3.2" fill="#fdeef6" opacity="0.7" transform="rotate(-17,-13,40)"/>
+            <path d="M0,0 Q0,18 1,36" stroke="#2e7048" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+            <ellipse cx="1" cy="44" rx="9.5" ry="12.5" fill="url(#bG)"/>
+            <ellipse cx="1" cy="41" rx="6" ry="3.5" fill="#fdeef6" opacity="0.7"/>
+            <path d="M0,0 Q11,14 17,28" stroke="#2e7048" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+            <ellipse cx="17" cy="36" rx="9" ry="12" fill="url(#bG)" transform="rotate(16,17,36)"/>
+          </g>
+          <g transform="translate(133,70)">
+            <path d="M0,0 Q-11,18 -15,36" stroke="#2e7048" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+            <ellipse cx="-15" cy="44" rx="9.5" ry="13" fill="url(#bG)" transform="rotate(-17,-15,44)"/>
+            <ellipse cx="-15" cy="40" rx="6" ry="3.5" fill="#fdeef6" opacity="0.72" transform="rotate(-17,-15,44)"/>
+            <path d="M0,0 Q0,20 0,38" stroke="#2e7048" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+            <ellipse cx="0" cy="46" rx="10" ry="13.5" fill="url(#bG)"/>
+            <ellipse cx="0" cy="42" rx="6.5" ry="3.8" fill="#fdeef6" opacity="0.75"/>
+            <path d="M0,0 Q11,16 15,32" stroke="#2e7048" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+            <ellipse cx="15" cy="40" rx="9.5" ry="13" fill="url(#bG)" transform="rotate(15,15,40)"/>
+          </g>
+          <g transform="translate(176,78)">
+            <path d="M0,0 Q-9,16 -12,30" stroke="#2e7048" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+            <ellipse cx="-12" cy="38" rx="9" ry="12" fill="url(#bG)" transform="rotate(-14,-12,38)"/>
+            <path d="M0,0 Q1,17 3,34" stroke="#2e7048" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+            <ellipse cx="3" cy="42" rx="9.5" ry="12.5" fill="url(#bG)" transform="rotate(6,3,42)"/>
+            <path d="M0,0 Q11,13 15,26" stroke="#2e7048" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+            <ellipse cx="15" cy="34" rx="9" ry="12" fill="url(#bG)" transform="rotate(14,15,34)"/>
+          </g>
+        </g>
+
+        <!-- Lily — Front Row -->
+        <g>
+          <g transform="translate(80,105)">
+            <path d="M0,0 Q-11,20 -15,38" stroke="#216040" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="-15" cy="47" rx="11" ry="15" fill="url(#bG2)" transform="rotate(-18,-15,47)"/>
+            <ellipse cx="-15" cy="43" rx="7" ry="4.2" fill="white" opacity="0.35" transform="rotate(-18,-15,47)"/>
+            <path d="M0,0 Q1,22 2,42" stroke="#216040" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="2" cy="51" rx="12" ry="15.5" fill="url(#bG)"/>
+            <ellipse cx="2" cy="47" rx="7.5" ry="4.5" fill="white" opacity="0.38"/>
+            <path d="M0,0 Q13,18 20,35" stroke="#216040" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="20" cy="44" rx="11" ry="14.5" fill="url(#bG2)" transform="rotate(18,20,44)"/>
+            <ellipse cx="20" cy="40" rx="7" ry="4" fill="white" opacity="0.35" transform="rotate(18,20,44)"/>
+          </g>
+          <g transform="translate(128,90)">
+            <path d="M0,0 Q-13,22 -17,42" stroke="#216040" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="-17" cy="51" rx="12" ry="16" fill="url(#bG)" transform="rotate(-18,-17,51)"/>
+            <ellipse cx="-17" cy="47" rx="7.5" ry="4.5" fill="white" opacity="0.4" transform="rotate(-18,-17,51)"/>
+            <path d="M0,0 Q0,24 0,46" stroke="#216040" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="0" cy="56" rx="13" ry="17" fill="url(#bG2)"/>
+            <ellipse cx="0" cy="52" rx="8" ry="5" fill="white" opacity="0.42"/>
+            <path d="M0,0 Q13,20 18,40" stroke="#216040" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="18" cy="49" rx="12" ry="16" fill="url(#bG)" transform="rotate(18,18,49)"/>
+            <ellipse cx="18" cy="45" rx="7.5" ry="4.5" fill="white" opacity="0.38" transform="rotate(18,18,49)"/>
+          </g>
+          <g transform="translate(178,102)">
+            <path d="M0,0 Q-10,20 -14,38" stroke="#216040" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="-14" cy="47" rx="11" ry="14.5" fill="url(#bG2)" transform="rotate(-16,-14,47)"/>
+            <ellipse cx="-14" cy="43" rx="7" ry="4" fill="white" opacity="0.35" transform="rotate(-16,-14,47)"/>
+            <path d="M0,0 Q2,21 4,40" stroke="#216040" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="4" cy="49" rx="11.5" ry="15" fill="url(#bG)" transform="rotate(7,4,49)"/>
+            <ellipse cx="4" cy="45" rx="7" ry="4.2" fill="white" opacity="0.38" transform="rotate(7,4,49)"/>
+            <path d="M0,0 Q12,17 17,33" stroke="#216040" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="17" cy="41" rx="11" ry="14.5" fill="url(#bG2)" transform="rotate(15,17,41)"/>
+          </g>
+        </g>
+
+        <!-- Wrap bottom cone -->
+        <path d="M 92 305 L 116 352 L 150 368 L 184 352 L 208 305 Z" fill="url(#wG4)"/>
+        <path d="M 116 305 Q 133 298 150 296 Q 167 298 184 305 Q 167 312 150 314 Q 133 312 116 305 Z" fill="white" opacity="0.2"/>
+        <line x1="116" y1="305" x2="120" y2="352" stroke="#c85888" stroke-width="1.3" opacity="0.35"/>
+        <line x1="184" y1="305" x2="180" y2="352" stroke="#c85888" stroke-width="1.3" opacity="0.35"/>
+
+        <!-- Bow -->
+        <path d="M 150 356 Q 112 322 90 334 Q 80 350 102 362 Q 122 372 150 356 Z" fill="url(#bowG)"/>
+        <path d="M 150 356 Q 112 322 90 334 Q 80 350 102 362 Q 122 372 150 356 Z" fill="white" opacity="0.15"/>
+        <path d="M 150 356 Q 116 326 98 332 Q 93 340 108 348" stroke="#c05888" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <path d="M 150 356 Q 188 322 210 334 Q 220 350 198 362 Q 178 372 150 356 Z" fill="url(#bowG)"/>
+        <path d="M 150 356 Q 188 322 210 334 Q 220 350 198 362 Q 178 372 150 356 Z" fill="white" opacity="0.13"/>
+        <path d="M 150 356 Q 184 326 202 332 Q 207 340 192 348" stroke="#c05888" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <path d="M 138 364 Q 118 378 110 395 Q 116 400 126 384 Q 134 372 146 364 Z" fill="url(#bowG2)"/>
+        <path d="M 162 364 Q 182 378 190 395 Q 184 400 174 384 Q 166 372 154 364 Z" fill="url(#bowG2)"/>
+        <ellipse cx="150" cy="356" rx="12" ry="9" fill="url(#bowG)"/>
+        <ellipse cx="150" cy="353" rx="7" ry="4.5" fill="white" opacity="0.32"/>
+
+        <!-- Stems -->
+        <line x1="140" y1="363" x2="130" y2="400" stroke="#2e6040" stroke-width="2.2" stroke-linecap="round" opacity="0.6"/>
+        <line x1="147" y1="366" x2="145" y2="404" stroke="#2e6040" stroke-width="2.2" stroke-linecap="round" opacity="0.6"/>
+        <line x1="153" y1="366" x2="155" y2="404" stroke="#2e6040" stroke-width="2.2" stroke-linecap="round" opacity="0.6"/>
+        <line x1="160" y1="363" x2="170" y2="400" stroke="#2e6040" stroke-width="2.2" stroke-linecap="round" opacity="0.6"/>
+
+        <!-- Shadow -->
+        <ellipse cx="150" cy="412" rx="52" ry="6" fill="url(#shadowG)"/>
+      </svg>
+    </div>
+
+    <div class="bouquet-msg">
+      <h3>This bouquet is for you 🌷</h3>
+      <p>If I could hand you something real right now, it would be this — a bouquet of pink lily of the valley, wrapped in soft blush paper and tied with a ribbon bow, just like the warmth you wrap around my heart. These flowers don't fade. They're as endless as what I feel for you.</p>
+      <br>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.08rem;color:var(--mauve)">"You are my favorite kind of beautiful." 🌸</p>
+    </div>
+  </div>
+</div>
+
+<!-- MONTH TALKS -->
+<div class="page" id="page-talks">
+  <div class="section-wrap" style="max-width:960px">
+    <div class="section-title">Month <em>Talks</em></div>
+    <div class="section-sub">Our heart-to-heart space</div>
+    <div class="month-talks-layout">
+      <div class="talks-panel">
+        <div class="talks-panel-title">My Questions to You 💭</div>
+        <div id="questions-list"></div>
+        <button class="talks-save-btn" onclick="saveAnswers()">Save Answers 🌸</button>
+        <div class="save-toast" id="save-toast-left">Saved with love ✨</div>
+      </div>
+      <div class="talks-panel">
+        <div class="talks-panel-title">Your Questions to Me 💬</div>
+        <div class="add-question-form">
+          <input class="add-q-input" type="text" id="new-question-input" placeholder="Add your question..." maxlength="200"/>
+          <button class="add-q-btn" onclick="addCustomQuestion()">+ Add</button>
+        </div>
+        <div id="custom-questions-list"></div>
+        <button class="talks-save-btn" onclick="saveCustomAnswers()">Save My Answers 🌷</button>
+        <div class="save-toast" id="save-toast-right">Your answers saved ✨</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MONTH TALK ANSWERS -->
+<div class="page" id="page-answers">
+  <div class="section-wrap" style="max-width:900px">
+    <div class="section-title">Talk <em>Answers</em></div>
+    <div class="section-sub">Our heart-to-heart, question by question 💕</div>
+    <div id="answers-chat-list" style="display:flex;flex-direction:column;gap:1.5rem;margin-top:1rem"></div>
+  </div>
+</div>
+
+<!-- MUSIC: YouTube iframe -->
+<div id="yt-player-wrap" style="position:fixed;bottom:0;right:0;width:1px;height:1px;overflow:hidden;opacity:0.001;pointer-events:none;z-index:1">
+  <iframe
+    id="yt-iframe"
+    width="320" height="180"
+    src="https://www.youtube.com/embed/rEpHKhvVfPI?enablejsapi=1&autoplay=0&controls=0&loop=1&playlist=rEpHKhvVfPI&rel=0&modestbranding=1&playsinline=1"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
+  </iframe>
+</div>
+<script>
+// ── CONFIG ──────────────────────────────────────
+// 👇 PASTE YOUR SUPABASE DETAILS HERE
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
+let currentUser = '';
+
+// ── ENTRY ────────────────────────────────────────
+function enterSite() {
+  try {
+    const inp = document.getElementById('name-input');
+    const name = inp ? inp.value.trim() : '';
+    if (!name) {
+      if (inp) {
+        inp.style.borderColor = 'var(--rose-deep)';
+        inp.placeholder = 'Please enter your name...';
+        inp.focus();
+      }
+      return;
+    }
+    currentUser = name;
+    try { localStorage.setItem('lovesite_name', name); } catch(e) {}
+    const heroName = document.getElementById('hero-name');
+    if (heroName) heroName.textContent = name;
+    const entryScreen = document.getElementById('entry-screen');
+    if (entryScreen) entryScreen.classList.add('hidden');
+    const mainNav = document.getElementById('main-nav');
+    if (mainNav) mainNav.style.display = 'flex';
+    const musicWidget = document.getElementById('music-widget');
+    if (musicWidget) musicWidget.classList.add('show');
+    spawnFloaters();
+  } catch(err) { console.error('enterSite error:', err); }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  // Restore saved name
+  try {
+    const saved = localStorage.getItem('lovesite_name');
+    if (saved) {
+      const inp = document.getElementById('name-input');
+      if (inp) inp.value = saved;
+    }
+  } catch(e) {}
+
+  // Wire up Enter key on name input
+  const nameInp = document.getElementById('name-input');
+  if (nameInp) nameInp.addEventListener('keydown', e => { if (e.key === 'Enter') enterSite(); });
+
+  buildReasons();
+  buildQuestions();
+  loadCustomQuestions();
+  loadGallery();
+  spawnEntryFloaters();
+
+  // Load Google Fonts dynamically so local file still works if offline
+  // (fonts fall back to serif/sans-serif gracefully)
+
+  // Load YouTube API dynamically — won't block page if it fails
+  try {
+    const ytScript = document.createElement('script');
+    ytScript.src = 'https://www.youtube.com/iframe_api';
+    ytScript.onerror = () => {
+      const st = document.getElementById('music-status');
+      if (st) st.textContent = '🎵 Open on Vercel for music';
+    };
+    document.head.appendChild(ytScript);
+  } catch(e) {}
+});
+
+// ── NAV ──────────────────────────────────────────
+function goto(page, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  if (page === 'answers') setTimeout(buildAnswers, 50);
+}
+
+// ── FLOATERS ─────────────────────────────────────
+const EMOJIS = ['💗','🌸','✨','💕','🌷','💖','🫧','🌺'];
+function spawnFloaters() {
+  const cont = document.getElementById('floaters'); cont.innerHTML = '';
+  for (let i=0;i<22;i++) {
+    const el=document.createElement('div'); el.className='floater';
+    el.textContent=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+    el.style.cssText=`left:${Math.random()*100}%;top:${100+Math.random()*20}%;font-size:${10+Math.random()*14}px;animation-duration:${8+Math.random()*10}s;animation-delay:${Math.random()*8}s;`;
+    cont.appendChild(el);
+  }
+}
+function spawnEntryFloaters() {
+  const cont=document.getElementById('entry-floaters');
+  for (let i=0;i<14;i++) {
+    const el=document.createElement('div'); el.className='floater';
+    el.textContent=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+    el.style.cssText=`left:${Math.random()*100}%;top:${90+Math.random()*20}%;font-size:${10+Math.random()*12}px;animation-duration:${7+Math.random()*8}s;animation-delay:${Math.random()*5}s;`;
+    cont.appendChild(el);
+  }
+}
+
+// ── YOUTUBE MUSIC PLAYER (postMessage API — works with iframe src embed) ─────────────────────────
+let musicPlaying = false;
+let progressInterval = null;
+let playerReady = false;
+let ytIframe = null;
+
+function ytCmd(func, args) {
+  if (!ytIframe) ytIframe = document.getElementById('yt-iframe');
+  if (!ytIframe) return;
+  ytIframe.contentWindow.postMessage(JSON.stringify({
+    event: 'command', func: func, args: args || []
+  }), '*');
+}
+
+// Listen for YouTube player state messages
+window.addEventListener('message', function(e) {
+  try {
+    const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+    if (data.event === 'onReady') {
+      playerReady = true;
+      ytCmd('unMute');
+      ytCmd('setVolume', [80]);
+      const st = document.getElementById('music-status');
+      if (st) st.textContent = 'Ready — press ▶ to play 🎵';
+    }
+    if (data.event === 'onStateChange') {
+      // 1 = playing, 2 = paused, 0 = ended
+      if (data.info === 1) {
+        musicPlaying = true;
+        document.getElementById('music-toggle').textContent = '⏸';
+        document.getElementById('music-wave').classList.remove('paused');
+        startProgress();
+        const st = document.getElementById('music-status');
+        if (st) st.textContent = '';
+      } else if (data.info === 2 || data.info === 0) {
+        musicPlaying = false;
+        document.getElementById('music-toggle').textContent = '▶';
+        document.getElementById('music-wave').classList.add('paused');
+        stopProgress();
+        if (data.info === 0) ytCmd('playVideo'); // loop on end
+      }
+    }
+  } catch(err) {}
+});
+
+// Tell the iframe to send us events once it's loaded
+const ytIframeEl = document.getElementById('yt-iframe');
+if (ytIframeEl) ytIframeEl.addEventListener('load', function() {
+  // Enable JS API via postMessage
+  this.contentWindow.postMessage(JSON.stringify({
+    event: 'listening'
+  }), '*');
+  // Small delay then send ready listener registration
+  setTimeout(() => {
+    ytCmd('addEventListener', ['onReady']);
+    ytCmd('addEventListener', ['onStateChange']);
+    playerReady = true;
+    const st = document.getElementById('music-status');
+    if (st) st.textContent = 'Ready — press ▶ to play 🎵';
+  }, 1500);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('music-toggle');
+  if (toggleBtn) toggleBtn.addEventListener('click', function() {
+    const st = document.getElementById('music-status');
+    if (musicPlaying) {
+      ytCmd('pauseVideo');
+    } else {
+      ytCmd('unMute');
+      ytCmd('setVolume', [80]);
+      ytCmd('playVideo');
+      if (st) st.textContent = '';
+      setTimeout(() => {
+        if (!musicPlaying) {
+          if (st) st.textContent = '⚠ Open on Vercel for music 🎵';
+        }
+      }, 2500);
+    }
+  });
+
+  const progressBar = document.getElementById('music-progress');
+  if (progressBar) progressBar.addEventListener('click', function(e) {
+    const rect = this.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    const songDuration = 147;
+    ytCmd('seekTo', [Math.floor(pct * songDuration), true]);
+  });
+
+  const newQInput = document.getElementById('new-question-input');
+  if (newQInput) newQInput.addEventListener('keydown', e => { if(e.key==='Enter') addCustomQuestion(); });
+
+  const galleryUrlInput = document.getElementById('gallery-url-input');
+  if (galleryUrlInput) galleryUrlInput.addEventListener('keydown', e => { if (e.key === 'Enter') addGalleryPhoto(); });
+});
+
+function startProgress() {
+  clearInterval(progressInterval);
+  let elapsed = 0;
+  const songDuration = 147; // 2:27 in seconds
+  progressInterval = setInterval(() => {
+    elapsed += 0.5;
+    if (elapsed > songDuration) elapsed = 0;
+    const pct = (elapsed / songDuration) * 100;
+    document.getElementById('music-bar-fill').style.width = pct + '%';
+    const m = Math.floor(elapsed / 60);
+    const s = Math.floor(elapsed % 60).toString().padStart(2, '0');
+    document.getElementById('music-time').textContent = m + ':' + s;
+  }, 500);
+}
+function stopProgress() { clearInterval(progressInterval); }
+
+// (progress bar seek is wired in DOMContentLoaded above)
+
+// ── REASONS ──────────────────────────────────────
+const reasons=["Your smile","Your eyes","Your hair","Your nose","Your kiss","Your name","Your nickname","Your outfits","Your caring","Your kindness","Your voice","Your height","Your scent","Your jokes","Your stories","Your forgiveness","Your patience","Your habits","Your talents","Your intelligence","Your strength","Your passion","Your clingy side","Your goofy side","Your style","Your sweetness","Your eyelashes","Your honesty","Your flaws","Your genuineness","Your baby side","Your uniqueness","Your hopes","Your goals","Your perspective","Your help","Your playfulness","Your music taste","Your favorite movie","Your favorite flower","Your favorite food","Your favorite drink","Your favorite color","The way you talk to me","The way you treat me","The way you make me feel wanted","The way you hug me","The way you kiss me","The way you care for me","The way you root for me","The way you make me laugh","The way you compliment me","The way we spend time together","The way you handle things","The way you surpass your problems","How excited you get to see me","How you miss me","How you feed me","The strength you give me","The advice you give me","The way you understand me","Your patience with me","The way we gossip together","The way you scold me","The way you make me blush","Your discipline","Being a sleepyhead","The way you text me","How confident you are","Your determination","The way you listen to me","The way you teach me","The way you keep it real","The way you hold me","The way you care for our relationship","The way you treat your family","The way you give me reasons to live","The way you give me hope","The way you believe in me","The way you boost my confidence","The way you comfort me","The way you talk about our future","The way you make me feel so lucky","The way you're comfortable around me","The way you respect my family","The warmth you bring","The light you are to me","Your contagious laughter","The courage you show","The way you love with your whole heart","The way you never give up on us","Your beautiful soul","Your resilience","The way you inspire me","The way you protect your peace","The way you make ordinary days special","Your unwavering loyalty","The way you forgive so gracefully","Your beautiful heart","You — the way you exist"];
+
+function buildReasons(){
+  document.getElementById('reasonsGrid').innerHTML=reasons.map((r,i)=>
+    `<div class="reason-card" data-text="${r.toLowerCase()}" style="animation:fadeSlideUp 0.5s ${0.02*i}s both;opacity:0"><span class="reason-num">${i+1}</span><span class="reason-text">${r}</span></div>`
+  ).join('');
+}
+function filterReasons(){
+  const q=document.getElementById('reasonSearch').value.toLowerCase();
+  document.querySelectorAll('.reason-card').forEach(c=>{c.style.display=c.dataset.text.includes(q)?'':'none';});
+}
+
+// ── MONTH TALKS ───────────────────────────────────
+const MY_QUESTIONS=["What do you feel right now?","How do you describe your day in one word?","What do you feel about us in these past weeks and days?","How do you describe us in one word this month?","How do you see me this month?","How do you see us this month?","What am I to you?","Do you feel used by me?","Do you feel loved by me?","Do you feel that I'm loving you in the way you truly need?","How have you been feeling about us lately?","What's been hurting you the most this month?","Is there something I did that I didn't realize affected you deeply?","What do you think I should understand better about you?","Are there things I keep doing that frustrate you?","When we argue, what do I do that makes it worse?","What makes you feel most loved by me?","5 reasons why you still choose me?","Do you feel appreciated and valued in our relationship?","Is there something you wish I did more often?","How can I support you better when you're upset?","What would a 'better version' of our relationship look like to you?","Do you still feel happy with me?","What can we start doing again that we stopped?","Where do you think things started to go wrong between us?","Was there a specific issue we never properly fixed?","What actions of mine made you doubt how much I love you?","How can I be a better partner for you moving forward?","If we could strengthen one part of our relationship right now, what would you choose, and how can we do it together?","What is your goal for us in the next month?"];
+
+function buildQuestions(){
+  const saved=JSON.parse(localStorage.getItem('talks_answers')||'{}');
+  document.getElementById('questions-list').innerHTML=MY_QUESTIONS.map((q,i)=>
+    `<div class="question-item" style="animation:fadeSlideUp 0.4s ${0.03*i}s both;opacity:0"><strong>Q${i+1}</strong>${q}<textarea class="q-answer" id="qa-${i}" placeholder="Her answer..." rows="1">${saved[i]||''}</textarea></div>`
+  ).join('');
+  document.querySelectorAll('.q-answer').forEach(ta=>{ta.addEventListener('input',()=>{ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';});});
+}
+
+function saveAnswers(){
+  const data={};
+  MY_QUESTIONS.forEach((_,i)=>{data[i]=document.getElementById('qa-'+i)?.value||'';});
+  localStorage.setItem('talks_answers',JSON.stringify(data));
+  saveToSupabase('answers',{user_name:currentUser,answers:data});
+  showToast('save-toast-left');
+}
+
+let customQuestions=[];
+function loadCustomQuestions(){customQuestions=JSON.parse(localStorage.getItem('custom_questions')||'[]');renderCustomQuestions();}
+function addCustomQuestion(){
+  const inp=document.getElementById('new-question-input');
+  const text=inp.value.trim(); if(!text) return;
+  customQuestions.push({id:Date.now(),text,answer:''});
+  inp.value='';
+  localStorage.setItem('custom_questions',JSON.stringify(customQuestions));
+  renderCustomQuestions();
+}
+// (listeners wired in DOMContentLoaded above)
+
+function deleteCustomQuestion(id){
+  customQuestions=customQuestions.filter(q=>q.id!==id);
+  localStorage.setItem('custom_questions',JSON.stringify(customQuestions));
+  renderCustomQuestions();
+}
+function renderCustomQuestions(){
+  const list=document.getElementById('custom-questions-list');
+  if(!customQuestions.length){list.innerHTML='<p style="font-size:0.8rem;color:var(--muted);text-align:center;padding:1rem 0">Add your first question above 💬</p>';return;}
+  list.innerHTML=customQuestions.map((q,i)=>
+    `<div class="custom-question" id="cq-${q.id}"><div class="custom-q-header"><span class="custom-q-text"><strong style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--rose-deep);display:block;margin-bottom:.2rem">Q${i+1}</strong>${q.text}</span><button class="del-q-btn" onclick="deleteCustomQuestion(${q.id})">✕</button></div><textarea class="custom-q-answer" placeholder="My answer..." rows="1" onchange="updateCustomAnswer(${q.id},this.value)">${q.answer||''}</textarea></div>`
+  ).join('');
+  document.querySelectorAll('.custom-q-answer').forEach(ta=>{ta.addEventListener('input',()=>{ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';});});
+}
+function updateCustomAnswer(id,val){const q=customQuestions.find(q=>q.id===id);if(q)q.answer=val;}
+function saveCustomAnswers(){
+  localStorage.setItem('custom_questions',JSON.stringify(customQuestions));
+  saveToSupabase('custom_questions',{user_name:currentUser,questions:customQuestions});
+  showToast('save-toast-right');
+}
+function showToast(id){const el=document.getElementById(id);el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2500);}
+
+// ── SUPABASE ─────────────────────────────────────
+async function saveToSupabase(table,data){
+  if(!SUPABASE_URL||SUPABASE_URL==='YOUR_SUPABASE_URL') return;
+  try{await fetch(`${SUPABASE_URL}/rest/v1/${table}`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Prefer':'return=minimal'},body:JSON.stringify(data)});}
+  catch(e){console.warn('Supabase error',e);}
+}
+
+// ── ANSWERS PAGE ─────────────────────────────────
+function buildAnswers() {
+  const saved = JSON.parse(localStorage.getItem('talks_answers') || '{}');
+  const custom = JSON.parse(localStorage.getItem('custom_questions') || '[]');
+  const container = document.getElementById('answers-chat-list');
+  if (!container) return;
+  let html = '';
+  let hasAny = false;
+
+  const stdAnswered = MY_QUESTIONS.map((q, i) => ({ q, a: saved[i] || '' })).filter(x => x.a.trim());
+  if (stdAnswered.length > 0) {
+    html += `<div class="answer-divider"><span>💭 My Questions — Her Answers</span></div>`;
+    stdAnswered.forEach(({ q, a }, idx) => {
+      if (idx % 2 === 0) {
+        html += `<div class="answer-bubble-wrap"><div class="answer-row left"><div class="answer-avatar">🌸</div><div><div class="answer-bubble"><div class="answer-question-label">Q: ${q}</div>${a}</div><div class="answer-bubble-name">Her ✦</div></div></div></div>`;
+      } else {
+        html += `<div class="answer-bubble-wrap"><div class="answer-row right"><div><div class="answer-bubble"><div class="answer-question-label">Q: ${q}</div>${a}</div><div class="answer-bubble-name">Her ✦</div></div><div class="answer-avatar">💗</div></div></div>`;
+      }
+      hasAny = true;
+    });
+  }
+
+  const customAnswered = custom.filter(x => x.answer && x.answer.trim());
+  if (customAnswered.length > 0) {
+    html += `<div class="answer-divider"><span>💬 Your Questions — My Answers</span></div>`;
+    customAnswered.forEach(({ text, answer }, idx) => {
+      if (idx % 2 === 0) {
+        html += `<div class="answer-bubble-wrap"><div class="answer-row right"><div><div class="answer-bubble"><div class="answer-question-label">Q: ${text}</div>${answer}</div><div class="answer-bubble-name">Me ✦</div></div><div class="answer-avatar">💖</div></div></div>`;
+      } else {
+        html += `<div class="answer-bubble-wrap"><div class="answer-row left"><div class="answer-avatar">🌷</div><div><div class="answer-bubble"><div class="answer-question-label">Q: ${text}</div>${answer}</div><div class="answer-bubble-name">Me ✦</div></div></div></div>`;
+      }
+      hasAny = true;
+    });
+  }
+
+  if (!hasAny) {
+    html = '<div class="answer-empty">No answers saved yet 🌸<br>Head to Month Talks to fill in your answers first.</div>';
+  }
+  container.innerHTML = html;
+// ── GALLERY ───────────────────────────────────────
+let galleryPhotos = [];
+let lightboxIndex = 0;
+
+function loadGallery() {
+  galleryPhotos = JSON.parse(localStorage.getItem('gallery_photos') || '[]');
+  renderGallery();
+}
+
+function addGalleryPhoto() {
+  const urlInp = document.getElementById('gallery-url-input');
+  const capInp = document.getElementById('gallery-caption-input');
+  const url = urlInp.value.trim();
+  if (!url) { urlInp.style.borderColor = 'var(--rose-deep)'; return; }
+  urlInp.style.borderColor = '';
+  const photo = { id: Date.now(), url, caption: capInp.value.trim() };
+  galleryPhotos.push(photo);
+  urlInp.value = ''; capInp.value = '';
+  saveGallery();
+  renderGallery();
+}
+
+function deleteGalleryPhoto(id, e) {
+  e.stopPropagation();
+  if (!confirm('Remove this photo?')) return;
+  galleryPhotos = galleryPhotos.filter(p => p.id !== id);
+  saveGallery();
+  renderGallery();
+}
+
+function saveGallery() {
+  localStorage.setItem('gallery_photos', JSON.stringify(galleryPhotos));
+  saveToSupabase('gallery', { user_name: currentUser, photos: galleryPhotos });
+}
+
+function renderGallery() {
+  const grid = document.getElementById('gallery-grid');
+  const empty = document.getElementById('gallery-empty');
+  if (!galleryPhotos.length) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.innerHTML = galleryPhotos.map((p, i) => `
+    <div class="gallery-card" onclick="openLightbox(${i})" style="animation:fadeSlideUp 0.4s ${i*0.05}s both;opacity:0">
+      <img src="${p.url}" alt="${p.caption || 'Memory'}" onerror="this.parentElement.innerHTML='<div style=\'display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:0.75rem;padding:1rem;text-align:center\'>⚠️<br>Image not found.<br>Check the URL.</div>'" />
+      ${p.caption ? `<div class="gallery-card-caption">${p.caption}</div>` : ''}
+      <button class="gallery-card-del" onclick="deleteGalleryPhoto(${p.id}, event)" title="Remove">✕</button>
+    </div>`
+  ).join('');
+}
+
+// (gallery url input Enter key wired in DOMContentLoaded)
+
+// Lightbox
+function openLightbox(index) {
+  lightboxIndex = index;
+  showLightboxPhoto();
+  document.getElementById('gallery-lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('gallery-lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function showLightboxPhoto() {
+  const p = galleryPhotos[lightboxIndex];
+  if (!p) return;
+  document.getElementById('lightbox-img').src = p.url;
+  document.getElementById('lightbox-img').alt = p.caption || '';
+  document.getElementById('lightbox-caption').textContent = p.caption || '';
+}
+function lightboxNext() { lightboxIndex = (lightboxIndex + 1) % galleryPhotos.length; showLightboxPhoto(); }
+function lightboxPrev() { lightboxIndex = (lightboxIndex - 1 + galleryPhotos.length) % galleryPhotos.length; showLightboxPhoto(); }
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('gallery-lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') lightboxNext();
+  if (e.key === 'ArrowLeft') lightboxPrev();
+  if (e.key === 'Escape') closeLightbox();
+});
+
+</script>
+</body>
+</html>
