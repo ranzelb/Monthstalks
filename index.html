@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Love Story 🌸</title>
+<title>Our Month Talks 🌸</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -17,6 +17,7 @@
   --petal:       #d4a0b4;
   --text:        #2e0f1e;
   --muted:       #6a3048;
+  --gold:        #b8924a;
   --shadow:      rgba(110,31,60,0.18);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -43,84 +44,51 @@ body{font-family:'Jost',sans-serif;background:var(--blush);color:var(--text);min
 .entry-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(143,61,85,0.4)}
 
 /* ═══════════════════════════════════════
-   FLOATING DRAGGABLE MUSIC BUTTON
+   MUSIC WIDGET — fully reworked
 ═══════════════════════════════════════ */
-#music-fab{
-  position:fixed;bottom:24px;right:24px;z-index:600;
-  display:none;flex-direction:column;align-items:flex-end;gap:10px;
-  touch-action:none;user-select:none;
-}
-#music-fab.show{display:flex}
-
-#music-fab-btn{
-  width:56px;height:56px;border-radius:50%;
-  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
-  border:none;cursor:grab;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(110,31,60,0.38);
-  transition:box-shadow 0.2s,transform 0.15s;position:relative;flex-shrink:0;
-}
-#music-fab-btn:active{cursor:grabbing;transform:scale(0.95)}
-#music-fab-btn.playing{box-shadow:0 4px 24px rgba(160,48,96,0.6),0 0 0 6px rgba(160,48,96,0.18)}
-
-.fab-wave{display:flex;gap:2.5px;align-items:flex-end;height:18px}
-.fab-bar{width:3px;background:white;border-radius:1px;animation:fabWave 0.7s ease-in-out infinite alternate}
-.fab-bar:nth-child(1){height:5px;animation-delay:0s}
-.fab-bar:nth-child(2){height:12px;animation-delay:0.12s}
-.fab-bar:nth-child(3){height:8px;animation-delay:0.24s}
-.fab-bar:nth-child(4){height:14px;animation-delay:0.08s}
-.fab-bar:nth-child(5){height:6px;animation-delay:0.2s}
-@keyframes fabWave{from{transform:scaleY(0.3)}to{transform:scaleY(1)}}
-.fab-wave.paused .fab-bar{animation-play-state:paused}
-.fab-pause-icon{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:20px;color:white}
-#music-fab-btn.playing .fab-pause-icon{display:flex}
-#music-fab-btn.playing .fab-wave{display:none}
-
-/* Expanded panel */
-#music-panel{
+#music-widget{
+  position:fixed;bottom:1.25rem;right:1.25rem;z-index:500;
   background:white;border:1px solid var(--petal);border-radius:18px;
-  padding:1rem 1.1rem;width:268px;
-  box-shadow:0 6px 32px var(--shadow);
-  display:none;flex-direction:column;gap:0.55rem;
-  transform-origin:bottom right;
-  animation:panelReveal 0.22s cubic-bezier(0.34,1.4,0.64,1);
+  padding:1rem 1.1rem;width:280px;
+  box-shadow:0 4px 28px var(--shadow);
+  opacity:0;pointer-events:none;transition:opacity 0.5s;
 }
-#music-panel.open{display:flex}
-@keyframes panelReveal{from{opacity:0;transform:scale(0.88) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+#music-widget.show{opacity:1;pointer-events:all}
+.mw-header{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.65rem}
+.mw-wave{display:flex;gap:2px;align-items:flex-end;height:16px;flex-shrink:0}
+.mw-bar{width:2.5px;background:var(--rose-soft);border-radius:1px;animation:waveAnim 0.8s ease-in-out infinite alternate}
+.mw-bar:nth-child(1){height:4px;animation-delay:0s}
+.mw-bar:nth-child(2){height:11px;animation-delay:0.15s}
+.mw-bar:nth-child(3){height:7px;animation-delay:0.3s}
+.mw-bar:nth-child(4){height:13px;animation-delay:0.1s}
+.mw-bar:nth-child(5){height:5px;animation-delay:0.25s}
+@keyframes waveAnim{from{transform:scaleY(0.35)}to{transform:scaleY(1)}}
+.mw-wave.paused .mw-bar{animation-play-state:paused}
+.mw-info{flex:1;min-width:0}
+.mw-title{font-size:11.5px;font-weight:500;color:var(--rose-deep);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mw-artist{font-size:10px;color:var(--muted)}
+.mw-yt-link{color:var(--rose-deep);font-size:13px;text-decoration:none;opacity:0.6;flex-shrink:0;line-height:1}
+.mw-yt-link:hover{opacity:1}
 
-.mp-header{display:flex;align-items:center;gap:0.5rem}
-.mp-mini-wave{display:flex;gap:2px;align-items:flex-end;height:14px;flex-shrink:0}
-.mp-mini-bar{width:2.5px;background:var(--rose-soft);border-radius:1px;animation:fabWave 0.8s ease-in-out infinite alternate}
-.mp-mini-bar:nth-child(1){height:4px;animation-delay:0s}.mp-mini-bar:nth-child(2){height:10px;animation-delay:0.15s}.mp-mini-bar:nth-child(3){height:6px;animation-delay:0.3s}.mp-mini-bar:nth-child(4){height:12px;animation-delay:0.1s}.mp-mini-bar:nth-child(5){height:4px;animation-delay:0.25s}
-.mp-mini-wave.paused .mp-mini-bar{animation-play-state:paused}
-.mp-info{flex:1;min-width:0}
-.mp-title{font-size:11px;font-weight:500;color:var(--rose-deep);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mp-artist{font-size:9.5px;color:var(--muted)}
-.mp-yt{color:var(--rose-deep);font-size:12px;text-decoration:none;opacity:0.6;flex-shrink:0}
-.mp-yt:hover{opacity:1}
-.mp-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;flex-shrink:0;line-height:1;padding:0}
-.mp-close:hover{color:var(--rose-deep)}
+/* Progress / seek slider */
+.mw-seek-wrap{position:relative;height:20px;display:flex;align-items:center;cursor:pointer;margin-bottom:0.55rem}
+.mw-seek-track{position:absolute;left:0;right:0;height:4px;background:var(--blush-dark);border-radius:2px;overflow:hidden}
+.mw-seek-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--rose),var(--rose-deep));border-radius:2px;transition:width 0.3s linear}
+.mw-seek-thumb{position:absolute;top:50%;width:13px;height:13px;background:var(--rose-deep);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 1px 6px var(--shadow);transition:left 0.3s linear;pointer-events:none}
+input[type=range].mw-range{position:absolute;left:0;right:0;width:100%;opacity:0;cursor:pointer;height:20px;margin:0}
 
-.mp-seek-wrap{position:relative;height:18px;display:flex;align-items:center;cursor:pointer}
-.mp-seek-track{position:absolute;left:0;right:0;height:3.5px;background:var(--blush-dark);border-radius:2px;overflow:hidden}
-.mp-seek-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--rose),var(--rose-deep));border-radius:2px;transition:width 0.3s linear}
-.mp-seek-thumb{position:absolute;top:50%;width:12px;height:12px;background:var(--rose-deep);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 1px 5px var(--shadow);transition:left 0.3s linear;pointer-events:none}
-input[type=range].mp-range{position:absolute;left:0;right:0;width:100%;opacity:0;cursor:pointer;height:18px;margin:0}
-
-.mp-controls{display:flex;align-items:center;gap:6px}
-.mp-btn{background:none;border:none;cursor:pointer;color:var(--rose-deep);font-size:1rem;line-height:1;padding:4px;border-radius:50%;transition:background 0.15s,transform 0.15s;display:flex;align-items:center;justify-content:center}
-.mp-btn:hover{background:var(--blush);transform:scale(1.15)}
-.mp-btn.pp{background:linear-gradient(135deg,var(--rose),var(--rose-deep));color:white;width:32px;height:32px;font-size:0.85rem;box-shadow:0 2px 8px var(--shadow)}
-.mp-btn.pp:hover{transform:scale(1.08)}
-.mp-time{font-size:9.5px;color:var(--muted);white-space:nowrap;margin-left:auto}
-
-.mp-vol-wrap{display:flex;align-items:center;gap:4px}
-.mp-vol-icon{font-size:10px;color:var(--muted)}
-input[type=range].mp-vol{flex:1;height:3px;-webkit-appearance:none;appearance:none;background:var(--blush-dark);border-radius:2px;outline:none;cursor:pointer}
-input[type=range].mp-vol::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:var(--rose-deep);cursor:pointer}
-
-.mp-status{font-size:9px;color:var(--muted);text-align:center;min-height:12px}
-.mp-drag-hint{font-size:8px;color:var(--rose-light);text-align:center;letter-spacing:0.06em}
+/* Controls row */
+.mw-controls{display:flex;align-items:center;gap:0.5rem}
+.mw-btn{background:none;border:none;cursor:pointer;color:var(--rose-deep);font-size:1rem;line-height:1;padding:4px;border-radius:50%;transition:background 0.15s,transform 0.15s;display:flex;align-items:center;justify-content:center}
+.mw-btn:hover{background:var(--blush);transform:scale(1.15)}
+.mw-btn.play-pause{background:linear-gradient(135deg,var(--rose),var(--rose-deep));color:white;width:34px;height:34px;font-size:0.9rem;box-shadow:0 2px 10px var(--shadow)}
+.mw-btn.play-pause:hover{transform:scale(1.08)}
+.mw-time{font-size:10px;color:var(--muted);white-space:nowrap;margin-left:auto}
+.mw-vol-wrap{display:flex;align-items:center;gap:4px;margin-top:0.45rem}
+.mw-vol-icon{font-size:11px;color:var(--muted)}
+input[type=range].mw-vol{flex:1;height:3px;-webkit-appearance:none;appearance:none;background:var(--blush-dark);border-radius:2px;outline:none;cursor:pointer}
+input[type=range].mw-vol::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:var(--rose-deep);cursor:pointer}
+.mw-status{font-size:9.5px;color:var(--muted);text-align:center;min-height:13px;margin-top:3px}
 
 /* NAV */
 nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--petal);padding:0 1rem;display:flex;align-items:center;justify-content:center;flex-wrap:wrap}
@@ -151,7 +119,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
 .section-title em{font-style:italic;color:var(--rose-deep)}
 .section-sub{text-align:center;font-size:0.75rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:2.5rem}
 
-/* GALLERY */
+/* ═══════════════════════════════════════
+   GALLERY — upload from device
+═══════════════════════════════════════ */
 .gallery-add-form{background:white;border:1px solid var(--petal);border-radius:16px;padding:1.5rem;margin-bottom:1.75rem}
 .gallery-upload-zone{border:2px dashed var(--petal);border-radius:12px;padding:2rem;text-align:center;cursor:pointer;transition:border-color 0.25s,background 0.25s;position:relative;margin-bottom:0.75rem}
 .gallery-upload-zone:hover,.gallery-upload-zone.drag-over{border-color:var(--rose);background:var(--blush)}
@@ -167,8 +137,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
 .gallery-preview-wrap{margin-bottom:0.75rem;display:none}
 .gallery-preview-wrap.show{display:block}
 .gallery-preview-thumb{width:100%;max-height:180px;object-fit:contain;border-radius:10px;border:1px solid var(--petal)}
-.gallery-upload-progress{display:none;margin-bottom:0.75rem;padding:0.6rem 1rem;background:var(--blush);border-radius:10px;font-size:0.8rem;color:var(--muted);text-align:center}
-.gallery-upload-progress.show{display:block}
 .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.85rem}
 .gallery-card{background:white;border:1px solid var(--petal);border-radius:14px;overflow:hidden;aspect-ratio:1;position:relative;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s}
 .gallery-card:hover{transform:scale(1.03);box-shadow:0 12px 32px var(--shadow)}
@@ -181,7 +149,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
 .gallery-card-del:hover{background:var(--rose-deep)}
 .gallery-empty{text-align:center;padding:4rem 2rem;color:var(--muted)}
 .gallery-empty span{font-size:3rem;display:block;margin-bottom:1rem}
-.gallery-loading{text-align:center;padding:2rem;color:var(--muted);font-size:0.9rem}
 /* LIGHTBOX */
 #gallery-lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(30,8,18,0.92);align-items:center;justify-content:center}
 #gallery-lightbox.open{display:flex;animation:pageFadeIn 0.3s ease}
@@ -209,7 +176,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
 .reason-num{font-size:10px;font-weight:500;color:var(--rose-deep);min-width:28px;background:var(--rose-light);border-radius:6px;padding:0.15rem 0.4rem;text-align:center;margin-top:0.15rem;flex-shrink:0}
 .reason-text{font-size:0.86rem;color:var(--text);line-height:1.55}
 
-/* BOUQUET */
+/* ═══════════════════════════════════════
+   BOUQUET
+═══════════════════════════════════════ */
 .bouquet-page{min-height:calc(100vh - 49px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;position:relative;overflow:hidden;text-align:center}
 .bouquet-label{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;animation:fadeSlideUp 1s 0.2s both;opacity:0}
 .bouquet-title-h{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--text);margin-bottom:2rem;animation:fadeSlideUp 1s 0.4s both;opacity:0}
@@ -255,12 +224,12 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
 .answer-row.left{justify-content:flex-start}
 .answer-row.right{justify-content:flex-end}
 .answer-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--rose-deep));display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;box-shadow:0 2px 8px var(--shadow)}
-.answer-bubble{max-width:68%;padding:0.9rem 1.2rem;border-radius:18px;font-size:0.87rem;line-height:1.7;color:var(--text)}
+.answer-bubble{max-width:68%;padding:0.9rem 1.2rem;border-radius:18px;font-size:0.87rem;line-height:1.7;color:var(--text);position:relative}
 .answer-row.left .answer-bubble{background:white;border:1px solid var(--petal);border-top-left-radius:4px}
 .answer-row.right .answer-bubble{background:linear-gradient(135deg,var(--rose-deep),var(--rose));color:white;border-top-right-radius:4px}
 .answer-row.right .answer-bubble .answer-question-label{color:rgba(255,255,255,0.7)}
 .answer-bubble-name{font-size:10px;color:var(--muted);margin-top:0.3rem;padding:0 0.2rem}
-.answer-row.right .answer-bubble-name{text-align:right}
+.answer-row.right .answer-bubble-name{text-align:right;color:var(--muted)}
 .answer-divider{text-align:center;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0.5rem 0;position:relative}
 .answer-divider::before{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:var(--petal);z-index:0}
 .answer-divider span{background:var(--blush);padding:0 1rem;position:relative;z-index:1}
@@ -274,51 +243,49 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
 
 <div class="floaters" id="floaters"></div>
 
-<!-- ═══════ FLOATING DRAGGABLE MUSIC FAB ═══════ -->
-<div id="music-fab">
-  <div id="music-panel">
-    <div class="mp-header">
-      <div class="mp-mini-wave paused" id="mp-mini-wave">
-        <div class="mp-mini-bar"></div><div class="mp-mini-bar"></div>
-        <div class="mp-mini-bar"></div><div class="mp-mini-bar"></div>
-        <div class="mp-mini-bar"></div>
-      </div>
-      <div class="mp-info">
-        <div class="mp-title">Kahit 1 Month Pa Lang</div>
-        <div class="mp-artist">Hattus &amp; Eunice Rain · Our Song 🎵</div>
-      </div>
-      <a href="https://youtu.be/rEpHKhvVfPI" target="_blank" class="mp-yt" title="Open in YouTube">↗</a>
-      <button class="mp-close" id="mp-close-btn">✕</button>
+<!-- ═══════════════════════════════════════
+     MUSIC WIDGET — reworked controls
+═══════════════════════════════════════ -->
+<div id="music-widget">
+  <div class="mw-header">
+    <div class="mw-wave paused" id="mw-wave">
+      <div class="mw-bar"></div><div class="mw-bar"></div>
+      <div class="mw-bar"></div><div class="mw-bar"></div>
+      <div class="mw-bar"></div>
     </div>
-    <div class="mp-seek-wrap">
-      <div class="mp-seek-track"><div class="mp-seek-fill" id="mp-fill"></div></div>
-      <div class="mp-seek-thumb" id="mp-thumb"></div>
-      <input type="range" class="mp-range" id="mp-range" min="0" max="147" step="1" value="0">
+    <div class="mw-info">
+      <div class="mw-title">Kahit 1 Month Pa Lang</div>
+      <div class="mw-artist">Hattus &amp; Eunice Rain</div>
+      <div class="mw-artist"> Your Fav Song for Us</div>
     </div>
-    <div class="mp-controls">
-      <button class="mp-btn" id="mp-stop" title="Stop">⏹</button>
-      <button class="mp-btn pp" id="mp-playpause" title="Play / Pause">▶</button>
-      <span class="mp-time" id="mp-time">0:00 / 2:27</span>
-    </div>
-    <div class="mp-vol-wrap">
-      <span class="mp-vol-icon">🔈</span>
-      <input type="range" class="mp-vol" id="mp-vol" min="0" max="100" value="80">
-      <span class="mp-vol-icon">🔊</span>
-    </div>
-    <div class="mp-status" id="mp-status">Press ▶ to play 🎵</div>
-    <div class="mp-drag-hint">⠿ drag the pink button to move anywhere</div>
+    <a href="https://youtu.be/rEpHKhvVfPI" target="_blank" class="mw-yt-link" title="Open in YouTube">↗</a>
   </div>
-  <button id="music-fab-btn" title="Music player">
-    <div class="fab-wave paused" id="fab-wave">
-      <div class="fab-bar"></div><div class="fab-bar"></div>
-      <div class="fab-bar"></div><div class="fab-bar"></div>
-      <div class="fab-bar"></div>
-    </div>
-    <div class="fab-pause-icon">⏸</div>
-  </button>
+
+  <!-- Seek slider -->
+  <div class="mw-seek-wrap">
+    <div class="mw-seek-track"><div class="mw-seek-fill" id="mw-fill"></div></div>
+    <div class="mw-seek-thumb" id="mw-thumb"></div>
+    <input type="range" class="mw-range" id="mw-range" min="0" max="147" step="1" value="0">
+  </div>
+
+  <!-- Controls -->
+  <div class="mw-controls">
+    <button class="mw-btn" id="mw-stop" title="Stop">⏹</button>
+    <button class="mw-btn play-pause" id="mw-playpause" title="Play / Pause">▶</button>
+    <span class="mw-time" id="mw-time">0:00 / 2:27</span>
+  </div>
+
+  <!-- Volume -->
+  <div class="mw-vol-wrap">
+    <span class="mw-vol-icon">🔈</span>
+    <input type="range" class="mw-vol" id="mw-vol" min="0" max="100" value="80">
+    <span class="mw-vol-icon">🔊</span>
+  </div>
+
+  <div class="mw-status" id="mw-status">Press ▶ to play 🎵</div>
 </div>
 
-<!-- ENTRY -->
+<!-- ENTRY SCREEN -->
 <div id="entry-screen">
   <div class="floaters" id="entry-floaters"></div>
   <div class="entry-card">
@@ -336,7 +303,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
   <button class="nav-btn" onclick="goto('gallery',this)">Gallery</button>
   <button class="nav-btn" onclick="goto('message',this)">Message</button>
   <button class="nav-btn" onclick="goto('reasons',this)">100 Reasons</button>
-  <button class="nav-btn" onclick="goto('bouquet',this)">Flowers for you 🌷</button>
+  <button class="nav-btn" onclick="goto('bouquet',this)">Flowers for you🌷</button>
   <button class="nav-btn" onclick="goto('talks',this)">Month Talks</button>
   <button class="nav-btn" onclick="goto('answers',this)">Talk Answers 💬</button>
 </nav>
@@ -359,28 +326,32 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
 <div class="page" id="page-gallery">
   <div class="section-wrap" style="max-width:900px">
     <div class="section-title">Our <em>Gallery</em></div>
-    <div class="section-sub">Moments of us in time · Syncs across all devices ✨</div>
+    <div class="section-sub">Moments of us in time</div>
+
     <div class="gallery-add-form">
+      <!-- Upload zone -->
       <div class="gallery-upload-zone" id="gallery-drop-zone">
         <input type="file" id="gallery-file-input" accept="image/*" multiple>
         <span class="gallery-upload-icon">📷</span>
         <p class="gallery-upload-text">
           <strong>Tap to choose photos</strong> from your device<br>
-          or drag &amp; drop — works on any device 📱💻<br>
+          or drag &amp; drop them here<br>
           <span style="font-size:0.75rem;opacity:0.7">Supports JPG, PNG, GIF, WEBP</span>
         </p>
       </div>
+      <!-- Preview of selected file -->
       <div class="gallery-preview-wrap" id="gallery-preview-wrap">
         <img class="gallery-preview-thumb" id="gallery-preview-thumb" src="" alt="Preview">
       </div>
-      <div class="gallery-upload-progress" id="gallery-upload-progress">Uploading… please wait 🌸</div>
-      <input type="text" id="gallery-caption-input" class="gallery-caption-input" placeholder="Caption (optional)" maxlength="60"/>
+      <input type="text" id="gallery-caption-input" class="gallery-caption-input" placeholder="Caption (optional)" maxlength="60" />
       <button class="gallery-submit-btn" id="gallery-submit-btn" onclick="addGalleryPhoto()" disabled>+ Add Photo</button>
     </div>
+
+    <!-- Lightbox -->
     <div id="gallery-lightbox" onclick="closeLightbox()">
       <div class="lightbox-inner" onclick="event.stopPropagation()">
         <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-        <img id="lightbox-img" src="" alt=""/>
+        <img id="lightbox-img" src="" alt="" />
         <div id="lightbox-caption"></div>
         <div class="lightbox-nav">
           <button onclick="lightboxPrev()">‹</button>
@@ -388,10 +359,11 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
         </div>
       </div>
     </div>
-    <div class="gallery-loading" id="gallery-loading">Loading photos from cloud… 🌸</div>
+
     <div class="gallery-grid" id="gallery-grid"></div>
-    <div class="gallery-empty" id="gallery-empty" style="display:none">
-      <span>📷</span><p>No photos yet — add your first memory above!</p>
+    <div class="gallery-empty" id="gallery-empty">
+      <span>📷</span>
+      <p>No photos yet — tap the area above to pick your first memory!</p>
     </div>
   </div>
 </div>
@@ -405,7 +377,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
       <p>My dear kate,</p>
       <p>Hello, babu i just wanna say that thank you for everything you've done to me, thank you for still choosing me and make me feel loved as always.</p>
       <p>I just want to apologize for everything i've done to you, for hurting you, lying to you, and for being inconsistent to you. I'm really sorry, i promise i will make up all those things to you in right way.</p>
-      <p>This little website is my way of telling you — in a place that won't fade — how much every moment with you means to me. You are my everything.</p>
+      <p>This little website is my way of telling you  in a place that won't fade  how much every moment with you means to me. You are my everything.</p>
       <p>Always remember that i'm always here for you no matter what, you and me together and forever my love.</p>
       <p>I LOVE YOU ALWAYS WILL AND ALWAYS HAVE.</p>
       <div class="letter-sign">Forever yours, your labubu 🌸</div>
@@ -423,58 +395,424 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
   </div>
 </div>
 
-<!-- BOUQUET -->
+<!-- BOUQUET — 30 realistic pink flowers -->
 <div class="page" id="page-bouquet">
   <div class="bouquet-page">
     <p class="bouquet-label">A gift from my heart ✦</p>
     <h2 class="bouquet-title-h">A <em>Bouquet</em> For You</h2>
-    <div class="bouquet-container">
+
+    <div class="bouquet-container" id="bouquet-container">
+      <!-- Sparkles -->
       <div class="sparkle-dot" style="width:7px;height:7px;background:#f9e08a;top:-10px;left:70px;animation-duration:2.2s;animation-delay:0s"></div>
       <div class="sparkle-dot" style="width:5px;height:5px;background:#f4c0d0;top:15px;right:50px;animation-duration:1.8s;animation-delay:0.6s"></div>
       <div class="sparkle-dot" style="width:6px;height:6px;background:#f9e08a;top:-4px;right:22px;animation-duration:2.6s;animation-delay:1.1s"></div>
       <div class="sparkle-dot" style="width:5px;height:5px;background:#f4c0d0;bottom:100px;left:-14px;animation-duration:2s;animation-delay:0.3s"></div>
       <div class="sparkle-dot" style="width:4px;height:4px;background:#f9e08a;bottom:120px;right:-10px;animation-duration:1.6s;animation-delay:0.9s"></div>
+
       <svg width="340" height="460" viewBox="0 0 340 460" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="wrapMain" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fce8f2"/><stop offset="50%" stop-color="#f5b8d4"/><stop offset="100%" stop-color="#e07898"/></linearGradient>
-          <linearGradient id="wrapLeft" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#fdd4e8"/><stop offset="100%" stop-color="#d8608c"/></linearGradient>
-          <linearGradient id="wrapRight" x1="100%" y1="0%" x2="0%" y2="0%"><stop offset="0%" stop-color="#fdd4e8"/><stop offset="100%" stop-color="#c85080"/></linearGradient>
-          <linearGradient id="bowGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8709a"/><stop offset="100%" stop-color="#b02860"/></linearGradient>
-          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8ad498"/><stop offset="100%" stop-color="#2e7040"/></linearGradient>
-          <radialGradient id="p1" cx="35%" cy="25%" r="70%"><stop offset="0%" stop-color="#fde8f4"/><stop offset="55%" stop-color="#f298c0"/><stop offset="100%" stop-color="#c84880"/></radialGradient>
-          <radialGradient id="p2" cx="35%" cy="25%" r="70%"><stop offset="0%" stop-color="#fff0f8"/><stop offset="55%" stop-color="#f8b8d8"/><stop offset="100%" stop-color="#e06898"/></radialGradient>
-          <radialGradient id="p3" cx="35%" cy="25%" r="70%"><stop offset="0%" stop-color="#fde4f0"/><stop offset="55%" stop-color="#ef90b8"/><stop offset="100%" stop-color="#c84878"/></radialGradient>
-          <radialGradient id="p4" cx="35%" cy="25%" r="70%"><stop offset="0%" stop-color="#fff2fa"/><stop offset="55%" stop-color="#fcc8e0"/><stop offset="100%" stop-color="#e888b0"/></radialGradient>
-          <radialGradient id="ctr" cx="40%" cy="30%" r="60%"><stop offset="0%" stop-color="#fff7c0"/><stop offset="100%" stop-color="#e8c040"/></radialGradient>
+          <!-- Wrap paper gradients -->
+          <linearGradient id="wrapMain" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fce8f2"/>
+            <stop offset="50%" stop-color="#f5b8d4"/>
+            <stop offset="100%" stop-color="#e07898"/>
+          </linearGradient>
+          <linearGradient id="wrapLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#fdd4e8"/>
+            <stop offset="100%" stop-color="#d8608c"/>
+          </linearGradient>
+          <linearGradient id="wrapRight" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#fdd4e8"/>
+            <stop offset="100%" stop-color="#c85080"/>
+          </linearGradient>
+          <linearGradient id="bowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#e8709a"/>
+            <stop offset="100%" stop-color="#b02860"/>
+          </linearGradient>
+          <!-- Stem green -->
+          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#8ad498"/>
+            <stop offset="100%" stop-color="#2e7040"/>
+          </linearGradient>
+          <!-- Flower petal colors — 4 variants -->
+          <radialGradient id="p1" cx="35%" cy="25%" r="70%">
+            <stop offset="0%" stop-color="#fde8f4"/>
+            <stop offset="55%" stop-color="#f298c0"/>
+            <stop offset="100%" stop-color="#c84880"/>
+          </radialGradient>
+          <radialGradient id="p2" cx="35%" cy="25%" r="70%">
+            <stop offset="0%" stop-color="#fff0f8"/>
+            <stop offset="55%" stop-color="#f8b8d8"/>
+            <stop offset="100%" stop-color="#e06898"/>
+          </radialGradient>
+          <radialGradient id="p3" cx="35%" cy="25%" r="70%">
+            <stop offset="0%" stop-color="#fde4f0"/>
+            <stop offset="55%" stop-color="#ef90b8"/>
+            <stop offset="100%" stop-color="#c84878"/>
+          </radialGradient>
+          <radialGradient id="p4" cx="35%" cy="25%" r="70%">
+            <stop offset="0%" stop-color="#fff2fa"/>
+            <stop offset="55%" stop-color="#fcc8e0"/>
+            <stop offset="100%" stop-color="#e888b0"/>
+          </radialGradient>
+          <!-- Center yellow -->
+          <radialGradient id="ctr" cx="40%" cy="30%" r="60%">
+            <stop offset="0%" stop-color="#fff7c0"/>
+            <stop offset="100%" stop-color="#e8c040"/>
+          </radialGradient>
+          <filter id="softBlur"><feGaussianBlur stdDeviation="1"/></filter>
         </defs>
-        <g opacity="0.9"><ellipse cx="90" cy="185" rx="12" ry="72" fill="url(#leafGrad)" transform="rotate(-32,170,330)"/><ellipse cx="116" cy="170" rx="11" ry="68" fill="url(#leafGrad)" transform="rotate(-18,170,330)"/><ellipse cx="144" cy="164" rx="11" ry="66" fill="url(#leafGrad)" transform="rotate(-5,170,330)"/><ellipse cx="170" cy="162" rx="12" ry="68" fill="url(#leafGrad)"/><ellipse cx="196" cy="164" rx="11" ry="66" fill="url(#leafGrad)" transform="rotate(5,170,330)"/><ellipse cx="224" cy="170" rx="11" ry="68" fill="url(#leafGrad)" transform="rotate(18,170,330)"/><ellipse cx="250" cy="185" rx="12" ry="72" fill="url(#leafGrad)" transform="rotate(32,170,330)"/></g>
+
+        <!-- ── BIG LEAVES (behind everything) ── -->
+        <g opacity="0.9">
+          <ellipse cx="90" cy="185" rx="12" ry="72" fill="url(#leafGrad)" transform="rotate(-32,170,330)"/>
+          <ellipse cx="116" cy="170" rx="11" ry="68" fill="url(#leafGrad)" transform="rotate(-18,170,330)"/>
+          <ellipse cx="144" cy="164" rx="11" ry="66" fill="url(#leafGrad)" transform="rotate(-5,170,330)"/>
+          <ellipse cx="170" cy="162" rx="12" ry="68" fill="url(#leafGrad)"/>
+          <ellipse cx="196" cy="164" rx="11" ry="66" fill="url(#leafGrad)" transform="rotate(5,170,330)"/>
+          <ellipse cx="224" cy="170" rx="11" ry="68" fill="url(#leafGrad)" transform="rotate(18,170,330)"/>
+          <ellipse cx="250" cy="185" rx="12" ry="72" fill="url(#leafGrad)" transform="rotate(32,170,330)"/>
+        </g>
+
+        <!-- ── WRAP PAPER ── -->
+        <!-- Main cone body -->
         <path d="M 108 310 Q 108 250 112 200 Q 140 175 170 172 Q 200 175 228 200 Q 232 250 232 310 Z" fill="url(#wrapMain)"/>
+        <!-- Left face -->
         <path d="M 62 210 Q 85 175 112 185 Q 112 260 108 310 L 62 310 Z" fill="url(#wrapLeft)" opacity="0.9"/>
+        <!-- Right face -->
         <path d="M 278 210 Q 255 175 228 185 Q 228 260 232 310 L 278 310 Z" fill="url(#wrapRight)" opacity="0.9"/>
+        <!-- Bottom cone -->
         <path d="M 62 310 L 100 358 L 170 374 L 240 358 L 278 310 Z" fill="url(#wrapMain)"/>
+        <!-- Wrap sheen -->
         <path d="M 128 195 Q 148 180 170 177 Q 192 180 212 195 Q 192 208 170 211 Q 148 208 128 195 Z" fill="white" opacity="0.22"/>
+        <!-- Wrap lines -->
         <line x1="128" y1="195" x2="120" y2="358" stroke="#c05880" stroke-width="1" opacity="0.22"/>
         <line x1="212" y1="195" x2="220" y2="358" stroke="#c05880" stroke-width="1" opacity="0.22"/>
-        <g opacity="0.72"><g transform="translate(122,68) scale(0.78)"><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(0)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(72)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(144)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(216)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(288)"/><circle cx="0" cy="0" r="7" fill="url(#ctr)"/><circle cx="-1" cy="-1.5" r="3" fill="#fff7c0" opacity="0.6"/></g><g transform="translate(145,54) scale(0.78)"><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p1)" transform="rotate(20)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p1)" transform="rotate(92)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p1)" transform="rotate(164)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p1)" transform="rotate(236)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p1)" transform="rotate(308)"/><circle cx="0" cy="0" r="7" fill="url(#ctr)"/><circle cx="-1" cy="-1.5" r="3" fill="#fff7c0" opacity="0.6"/></g><g transform="translate(170,47) scale(0.78)"><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p2)" transform="rotate(10)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p2)" transform="rotate(82)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p2)" transform="rotate(154)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p2)" transform="rotate(226)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p2)" transform="rotate(298)"/><circle cx="0" cy="0" r="7" fill="url(#ctr)"/><circle cx="-1" cy="-1.5" r="3" fill="#fff7c0" opacity="0.6"/></g><g transform="translate(195,54) scale(0.78)"><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p4)" transform="rotate(5)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p4)" transform="rotate(77)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p4)" transform="rotate(149)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p4)" transform="rotate(221)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p4)" transform="rotate(293)"/><circle cx="0" cy="0" r="7" fill="url(#ctr)"/><circle cx="-1" cy="-1.5" r="3" fill="#fff7c0" opacity="0.6"/></g><g transform="translate(218,68) scale(0.78)"><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(15)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(87)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(159)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(231)"/><ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(303)"/><circle cx="0" cy="0" r="7" fill="url(#ctr)"/><circle cx="-1" cy="-1.5" r="3" fill="#fff7c0" opacity="0.6"/></g></g>
-        <g opacity="0.82"><g transform="translate(100,96) scale(0.88)"><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(0)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(72)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(144)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(216)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(288)"/><circle cx="0" cy="0" r="8" fill="url(#ctr)"/><circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(124,80) scale(0.88)"><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(25)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(97)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(169)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(241)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(313)"/><circle cx="0" cy="0" r="8" fill="url(#ctr)"/><circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(148,70) scale(0.88)"><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(10)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(82)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(154)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(226)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(298)"/><circle cx="0" cy="0" r="8" fill="url(#ctr)"/><circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(170,65) scale(0.88)"><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p3)" transform="rotate(0)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p3)" transform="rotate(72)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p3)" transform="rotate(144)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p3)" transform="rotate(216)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p3)" transform="rotate(288)"/><circle cx="0" cy="0" r="8" fill="url(#ctr)"/><circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(194,70) scale(0.88)"><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(18)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(90)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(162)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(234)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(306)"/><circle cx="0" cy="0" r="8" fill="url(#ctr)"/><circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(218,80) scale(0.88)"><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(5)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(77)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(149)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(221)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(293)"/><circle cx="0" cy="0" r="8" fill="url(#ctr)"/><circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(242,96) scale(0.88)"><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(30)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(102)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(174)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(246)"/><ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(318)"/><circle cx="0" cy="0" r="8" fill="url(#ctr)"/><circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/></g></g>
-        <g opacity="0.92"><g transform="translate(86,128)"><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(0)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(72)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(144)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(216)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(288)"/><circle cx="0" cy="0" r="9" fill="url(#ctr)"/><circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(108,112)"><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(15)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(87)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(159)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(231)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(303)"/><circle cx="0" cy="0" r="9" fill="url(#ctr)"/><circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(132,100)"><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(8)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(80)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(152)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(224)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(296)"/><circle cx="0" cy="0" r="9" fill="url(#ctr)"/><circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(156,93)"><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(0)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(72)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(144)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(216)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(288)"/><circle cx="0" cy="0" r="9" fill="url(#ctr)"/><circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(184,93)"><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(20)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(92)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(164)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(236)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(308)"/><circle cx="0" cy="0" r="9" fill="url(#ctr)"/><circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(208,100)"><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(35)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(107)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(179)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(251)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(323)"/><circle cx="0" cy="0" r="9" fill="url(#ctr)"/><circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(232,112)"><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(12)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(84)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(156)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(228)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(300)"/><circle cx="0" cy="0" r="9" fill="url(#ctr)"/><circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/></g><g transform="translate(256,128)"><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(5)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(77)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(149)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(221)"/><ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(293)"/><circle cx="0" cy="0" r="9" fill="url(#ctr)"/><circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/></g></g>
-        <g><g transform="translate(80,164) scale(1.12)"><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(0)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(72)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(144)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(216)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(288)"/><circle cx="0" cy="0" r="10" fill="url(#ctr)"/><circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/></g><g transform="translate(103,148) scale(1.12)"><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(18)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(90)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(162)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(234)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(306)"/><circle cx="0" cy="0" r="10" fill="url(#ctr)"/><circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/></g><g transform="translate(126,136) scale(1.12)"><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(8)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(80)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(152)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(224)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(296)"/><circle cx="0" cy="0" r="10" fill="url(#ctr)"/><circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/></g><g transform="translate(148,128) scale(1.12)"><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(0)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(72)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(144)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(216)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(288)"/><circle cx="0" cy="0" r="10" fill="url(#ctr)"/><circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/></g><g transform="translate(170,124) scale(1.12)"><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(25)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(97)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(169)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(241)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(313)"/><circle cx="0" cy="0" r="10" fill="url(#ctr)"/><circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/></g><g transform="translate(193,128) scale(1.12)"><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(10)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(82)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(154)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(226)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(298)"/><circle cx="0" cy="0" r="10" fill="url(#ctr)"/><circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/></g><g transform="translate(216,136) scale(1.12)"><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(30)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(102)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(174)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(246)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(318)"/><circle cx="0" cy="0" r="10" fill="url(#ctr)"/><circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/></g><g transform="translate(238,148) scale(1.12)"><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(15)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(87)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(159)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(231)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(303)"/><circle cx="0" cy="0" r="10" fill="url(#ctr)"/><circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/></g><g transform="translate(262,164) scale(1.12)"><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(5)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(77)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(149)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(221)"/><ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(293)"/><circle cx="0" cy="0" r="10" fill="url(#ctr)"/><circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/></g><g transform="translate(170,155) scale(1.18)"><ellipse cx="0" cy="-18" rx="12" ry="17" fill="url(#p1)" transform="rotate(0)"/><ellipse cx="0" cy="-18" rx="12" ry="17" fill="url(#p1)" transform="rotate(72)"/><ellipse cx="0" cy="-18" rx="12" ry="17" fill="url(#p1)" transform="rotate(144)"/><ellipse cx="0" cy="-18" rx="12" ry="17" fill="url(#p1)" transform="rotate(216)"/><ellipse cx="0" cy="-18" rx="12" ry="17" fill="url(#p1)" transform="rotate(288)"/><circle cx="0" cy="0" r="11" fill="url(#ctr)"/><circle cx="-2.5" cy="-3" r="5" fill="#fff7c0" opacity="0.75"/></g></g>
+
+        <!-- ── 30 REALISTIC PINK FLOWERS ──
+             Each flower = 5 rounded petals + yellow center
+             Arranged in 4 rows + scattered extras -->
+
+        <!-- Helper macro — flower at cx,cy with scale s and petal color pN -->
+        <!-- ROW 0 — back row, 5 small flowers -->
+        <g opacity="0.72" transform="translate(0,0)">
+          <!-- flower 1 -->
+          <g transform="translate(122,68) scale(0.78)">
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(72)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(144)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(216)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(288)"/>
+            <circle cx="0" cy="0" r="7" fill="url(#ctr)"/>
+            <circle cx="-1" cy="-1.5" r="3" fill="#fff7c0" opacity="0.6"/>
+          </g>
+          <!-- flower 2 -->
+          <g transform="translate(145,54) scale(0.78)">
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p1)" transform="rotate(20)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p1)" transform="rotate(92)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p1)" transform="rotate(164)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p1)" transform="rotate(236)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p1)" transform="rotate(308)"/>
+            <circle cx="0" cy="0" r="7" fill="url(#ctr)"/>
+            <circle cx="-1" cy="-1.5" r="3" fill="#fff7c0" opacity="0.6"/>
+          </g>
+          <!-- flower 3 -->
+          <g transform="translate(170,47) scale(0.78)">
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p2)" transform="rotate(10)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p2)" transform="rotate(82)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p2)" transform="rotate(154)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p2)" transform="rotate(226)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p2)" transform="rotate(298)"/>
+            <circle cx="0" cy="0" r="7" fill="url(#ctr)"/>
+            <circle cx="-1" cy="-1.5" r="3" fill="#fff7c0" opacity="0.6"/>
+          </g>
+          <!-- flower 4 -->
+          <g transform="translate(195,54) scale(0.78)">
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p4)" transform="rotate(5)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p4)" transform="rotate(77)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p4)" transform="rotate(149)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p4)" transform="rotate(221)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p4)" transform="rotate(293)"/>
+            <circle cx="0" cy="0" r="7" fill="url(#ctr)"/>
+            <circle cx="-1" cy="-1.5" r="3" fill="#fff7c0" opacity="0.6"/>
+          </g>
+          <!-- flower 5 -->
+          <g transform="translate(218,68) scale(0.78)">
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(15)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(87)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(159)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(231)"/>
+            <ellipse cx="0" cy="-14" rx="8" ry="13" fill="url(#p3)" transform="rotate(303)"/>
+            <circle cx="0" cy="0" r="7" fill="url(#ctr)"/>
+            <circle cx="-1" cy="-1.5" r="3" fill="#fff7c0" opacity="0.6"/>
+          </g>
+        </g>
+
+        <!-- ROW 1 — 7 flowers -->
+        <g opacity="0.82">
+          <g transform="translate(100,96) scale(0.88)">
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(72)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(144)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(216)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(288)"/>
+            <circle cx="0" cy="0" r="8" fill="url(#ctr)"/>
+            <circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(124,80) scale(0.88)">
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(25)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(97)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(169)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(241)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(313)"/>
+            <circle cx="0" cy="0" r="8" fill="url(#ctr)"/>
+            <circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(148,70) scale(0.88)">
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(10)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(82)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(154)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(226)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(298)"/>
+            <circle cx="0" cy="0" r="8" fill="url(#ctr)"/>
+            <circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(170,65) scale(0.88)">
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p3)" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p3)" transform="rotate(72)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p3)" transform="rotate(144)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p3)" transform="rotate(216)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p3)" transform="rotate(288)"/>
+            <circle cx="0" cy="0" r="8" fill="url(#ctr)"/>
+            <circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(194,70) scale(0.88)">
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(18)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(90)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(162)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(234)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p2)" transform="rotate(306)"/>
+            <circle cx="0" cy="0" r="8" fill="url(#ctr)"/>
+            <circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(218,80) scale(0.88)">
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(5)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(77)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(149)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(221)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p1)" transform="rotate(293)"/>
+            <circle cx="0" cy="0" r="8" fill="url(#ctr)"/>
+            <circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(242,96) scale(0.88)">
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(30)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(102)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(174)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(246)"/>
+            <ellipse cx="0" cy="-15" rx="9" ry="14" fill="url(#p4)" transform="rotate(318)"/>
+            <circle cx="0" cy="0" r="8" fill="url(#ctr)"/>
+            <circle cx="-1.5" cy="-2" r="3.5" fill="#fff7c0" opacity="0.65"/>
+          </g>
+        </g>
+
+        <!-- ROW 2 — 8 flowers, bigger -->
+        <g opacity="0.92">
+          <g transform="translate(86,128)">
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(72)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(144)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(216)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(288)"/>
+            <circle cx="0" cy="0" r="9" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(108,112)">
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(15)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(87)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(159)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(231)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(303)"/>
+            <circle cx="0" cy="0" r="9" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(132,100)">
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(8)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(80)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(152)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(224)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(296)"/>
+            <circle cx="0" cy="0" r="9" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(156,93)">
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(72)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(144)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(216)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(288)"/>
+            <circle cx="0" cy="0" r="9" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(184,93)">
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(20)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(92)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(164)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(236)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p1)" transform="rotate(308)"/>
+            <circle cx="0" cy="0" r="9" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(208,100)">
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(35)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(107)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(179)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(251)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p3)" transform="rotate(323)"/>
+            <circle cx="0" cy="0" r="9" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(232,112)">
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(12)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(84)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(156)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(228)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p2)" transform="rotate(300)"/>
+            <circle cx="0" cy="0" r="9" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/>
+          </g>
+          <g transform="translate(256,128)">
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(5)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(77)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(149)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(221)"/>
+            <ellipse cx="0" cy="-16" rx="10" ry="15" fill="url(#p4)" transform="rotate(293)"/>
+            <circle cx="0" cy="0" r="9" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-2.5" r="4" fill="#fff7c0" opacity="0.65"/>
+          </g>
+        </g>
+
+        <!-- ROW 3 — 10 front flowers (largest) -->
+        <g>
+          <g transform="translate(80,164) scale(1.12)">
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(72)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(144)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(216)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(288)"/>
+            <circle cx="0" cy="0" r="10" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/>
+          </g>
+          <g transform="translate(103,148) scale(1.12)">
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(18)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(90)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(162)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(234)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(306)"/>
+            <circle cx="0" cy="0" r="10" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/>
+          </g>
+          <g transform="translate(126,136) scale(1.12)">
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(8)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(80)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(152)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(224)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(296)"/>
+            <circle cx="0" cy="0" r="10" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/>
+          </g>
+          <g transform="translate(148,128) scale(1.12)">
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(72)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(144)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(216)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(288)"/>
+            <circle cx="0" cy="0" r="10" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/>
+          </g>
+          <g transform="translate(170,124) scale(1.12)">
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(25)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(97)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(169)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(241)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(313)"/>
+            <circle cx="0" cy="0" r="10" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/>
+          </g>
+          <g transform="translate(193,128) scale(1.12)">
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(10)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(82)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(154)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(226)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p1)" transform="rotate(298)"/>
+            <circle cx="0" cy="0" r="10" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/>
+          </g>
+          <g transform="translate(216,136) scale(1.12)">
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(30)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(102)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(174)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(246)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p4)" transform="rotate(318)"/>
+            <circle cx="0" cy="0" r="10" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/>
+          </g>
+          <g transform="translate(238,148) scale(1.12)">
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(15)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(87)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(159)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(231)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p3)" transform="rotate(303)"/>
+            <circle cx="0" cy="0" r="10" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/>
+          </g>
+          <g transform="translate(262,164) scale(1.12)">
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(5)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(77)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(149)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(221)"/>
+            <ellipse cx="0" cy="-17" rx="11" ry="16" fill="url(#p2)" transform="rotate(293)"/>
+            <circle cx="0" cy="0" r="10" fill="url(#ctr)"/>
+            <circle cx="-2" cy="-3" r="4.5" fill="#fff7c0" opacity="0.7"/>
+          </g>
+          <!-- 30th flower — center hero -->
+          <g transform="translate(170,155) scale(1.18)">
+            <ellipse cx="0" cy="-18" rx="12" ry="17" fill="url(#p1)" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-18" rx="12" ry="17" fill="url(#p1)" transform="rotate(72)"/>
+            <ellipse cx="0" cy="-18" rx="12" ry="17" fill="url(#p1)" transform="rotate(144)"/>
+            <ellipse cx="0" cy="-18" rx="12" ry="17" fill="url(#p1)" transform="rotate(216)"/>
+            <ellipse cx="0" cy="-18" rx="12" ry="17" fill="url(#p1)" transform="rotate(288)"/>
+            <circle cx="0" cy="0" r="11" fill="url(#ctr)"/>
+            <circle cx="-2.5" cy="-3" r="5" fill="#fff7c0" opacity="0.75"/>
+          </g>
+        </g>
+
+        <!-- ── BOW ── -->
         <path d="M 170 378 Q 124 342 98 354 Q 88 372 112 384 Q 136 394 170 378 Z" fill="url(#bowGrad)"/>
         <path d="M 170 378 Q 216 342 242 354 Q 252 372 228 384 Q 204 394 170 378 Z" fill="url(#bowGrad)"/>
+        <!-- Bow sheen -->
+        <path d="M 170 378 Q 124 342 98 354 Q 88 372 112 384 Q 136 394 170 378 Z" fill="white" opacity="0.12"/>
+        <path d="M 170 378 Q 216 342 242 354 Q 252 372 228 384 Q 204 394 170 378 Z" fill="white" opacity="0.1"/>
+        <!-- Ribbon tails -->
         <path d="M 158 386 Q 138 402 130 420 Q 136 424 146 408 Q 154 396 166 386 Z" fill="url(#bowGrad)"/>
         <path d="M 182 386 Q 202 402 210 420 Q 204 424 194 408 Q 186 396 174 386 Z" fill="url(#bowGrad)"/>
+        <!-- Bow knot -->
         <ellipse cx="170" cy="378" rx="14" ry="10" fill="url(#bowGrad)"/>
         <ellipse cx="170" cy="375" rx="8" ry="4.5" fill="white" opacity="0.28"/>
+
+        <!-- Stems -->
         <line x1="158" y1="388" x2="148" y2="428" stroke="#2e6040" stroke-width="2.2" stroke-linecap="round" opacity="0.65"/>
         <line x1="166" y1="392" x2="163" y2="432" stroke="#2e6040" stroke-width="2.2" stroke-linecap="round" opacity="0.65"/>
         <line x1="174" y1="392" x2="177" y2="432" stroke="#2e6040" stroke-width="2.2" stroke-linecap="round" opacity="0.65"/>
         <line x1="182" y1="388" x2="192" y2="428" stroke="#2e6040" stroke-width="2.2" stroke-linecap="round" opacity="0.65"/>
+
+        <!-- Ground shadow -->
         <ellipse cx="170" cy="442" rx="62" ry="7" fill="rgba(192,88,128,0.14)"/>
       </svg>
     </div>
+
     <div class="bouquet-msg">
       <h3>This Flowers is for you 🌸</h3>
-      <p>If I could hand you something real right now, it would be 30 of the most beautiful pink flowers — soft, full, and wrapped just for you. Each one is a symbol of us — every moment I cherish, a day I'm grateful that I have you by my side.</p>
+      <p>If I could hand you something real right now, it would be 30 of the most beautiful pink flowers — soft, full, and wrapped just for you. Each one is a symbol of us on how many times we get to see each other, a moment I cherish, a day I'm grateful that i have you by my side.</p>
       <br>
       <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.08rem;color:var(--mauve)">"You are my favorite kind of beautiful." 🌸</p>
     </div>
@@ -516,7 +854,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
   </div>
 </div>
 
-<!-- YouTube hidden -->
+<!-- YouTube (hidden, for audio only) -->
 <div style="position:fixed;bottom:0;right:0;width:1px;height:1px;overflow:hidden;opacity:0.001;pointer-events:none;z-index:1">
   <iframe id="yt-iframe" width="320" height="180"
     src="https://www.youtube.com/embed/rEpHKhvVfPI?enablejsapi=1&autoplay=0&controls=0&loop=1&playlist=rEpHKhvVfPI&rel=0&modestbranding=1&playsinline=1"
@@ -524,248 +862,585 @@ nav{position:sticky;top:0;z-index:100;background:rgba(250,240,243,0.93);backdrop
 </div>
 
 <script>
-// ══ CONFIG ══
-const SUPABASE_URL  = 'https://egwxnuhoyhbulckiqvwe.supabase.co';
-const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVnd3hudWhveWhidWxja2lxdndlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzNzA0MzksImV4cCI6MjA5MDk0NjQzOX0.tQtVjVga4ZxRmpKTh4zat6L2SAtFobc2egNjNv39ink';
-const STORAGE_BUCKET = 'gallery'; // Create this public bucket in Supabase Storage
+// ══════════════════════════════════════════════
+//  SUPABASE CONFIG
+// ══════════════════════════════════════════════
+const SUPABASE_URL = 'https://egwxnuhoyhbulckiqvwe.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVnd3hudWhveWhidWxja2lxdndlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzNzA0MzksImV4cCI6MjA5MDk0NjQzOX0.tQtVjVga4ZxRmpKTh4zat6L2SAtFobc2egNjNv39ink';
 
-// ══ STATE ══
-let currentUser='', galleryPhotos=[], lightboxIndex=0, customQuestions=[], selectedFile=null;
-let musicPlaying=false, musicReady=false, currentSec=0, progressInterval=null, ytIframe=null;
-const SONG_DUR=147;
-let panelOpen=false, isDragging=false, dragMoved=false;
-let dragStartX=0, dragStartY=0, fabLeft=null, fabBottom=null;
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+let currentUser = '';
+let galleryPhotos = [];   // { id, dataUrl, caption }
+let lightboxIndex = 0;
+let customQuestions = [];
+let selectedFileDataUrl = null;
 
-const EMOJIS=['💗','🌸','✨','💕','🌷','💖','🫧','🌺'];
-const MY_QUESTIONS=["What do you feel right now?","How do you describe your day in one word?","What do you feel about us in these past weeks and days?","How do you describe us in one word this month?","How do you see me this month?","How do you see us this month?","What am I to you?","Do you feel used by me?","Do you feel loved by me?","Do you feel that I'm loving you in the way you truly need?","How have you been feeling about us lately?","What's been hurting you the most this month?","Is there something I did that I didn't realize affected you deeply?","What do you think I should understand better about you?","Are there things I keep doing that frustrate you?","When we argue, what do I do that makes it worse?","What makes you feel most loved by me?","5 reasons why you still choose me?","Do you feel appreciated and valued in our relationship?","Is there something you wish I did more often?","How can I support you better when you're upset?","What would a 'better version' of our relationship look like to you?","Do you still feel happy with me?","What can we start doing again that we stopped?","Where do you think things started to go wrong between us?","Was there a specific issue we never properly fixed?","What actions of mine made you doubt how much I love you?","How can I be a better partner for you moving forward?","If we could strengthen one part of our relationship right now, what would you choose?","What is your goal for us in the next month?"];
-const reasons=["Your smile","Your eyes","Your hair","Your nose","Your kiss","Your name","Your nickname","Your outfits","Your caring","Your kindness","Your voice","Your height","Your scent","Your jokes","Your stories","Your forgiveness","Your patience","Your habits","Your talents","Your intelligence","Your strength","Your passion","Your clingy side","Your goofy side","Your style","Your sweetness","Your eyelashes","Your honesty","Your flaws","Your genuineness","Your baby side","Your uniqueness","Your hopes","Your goals","Your perspective","Your help","Your playfulness","Your music taste","Your favorite movie","Your favorite flower","Your favorite food","Your favorite drink","Your favorite color","The way you talk to me","The way you treat me","The way you make me feel wanted","The way you hug me","The way you kiss me","The way you care for me","The way you root for me","The way you make me laugh","The way you compliment me","The way we spend time together","The way you handle things","The way you surpass your problems","How excited you get to see me","How you miss me","How you feed me","The strength you give me","The advice you give me","The way you understand me","Your patience with me","The way we gossip together","The way you scold me","The way you make me blush","Your discipline","Being a sleepyhead","The way you text me","How confident you are","Your determination","The way you listen to me","The way you teach me","The way you keep it real","The way you hold me","The way you care for our relationship","The way you treat your family","The way you give me reasons to live","The way you give me hope","The way you believe in me","The way you boost my confidence","The way you comfort me","The way you talk about our future","The way you make me feel so lucky","The way you're comfortable around me","The way you respect my family","The warmth you bring","The light you are to me","Your contagious laughter","The courage you show","The way you love with your whole heart","The way you never give up on us","Your beautiful soul","Your resilience","The way you inspire me","The way you protect your peace","The way you make ordinary days special","Your unwavering loyalty","The way you forgive so gracefully","Your beautiful heart","You — the way you exist"];
+// ── MUSIC STATE ──
+let musicPlaying = false;
+let musicReady   = false;
+let currentSec   = 0;
+const SONG_DUR   = 147; // 2:27
+let progressInterval = null;
+let ytIframe = null;
 
-// ══ ENTRY ══
-function enterSite(){
-  const inp=document.getElementById('name-input'),name=inp?inp.value.trim():'';
-  if(!name){if(inp){inp.style.borderColor='var(--rose-deep)';inp.placeholder='Please enter your name...';inp.focus();}return;}
-  currentUser=name;try{localStorage.setItem('lovesite_name',name);}catch(e){}
-  const h=document.getElementById('hero-name');if(h)h.textContent=name;
+const EMOJIS = ['💗','🌸','✨','💕','🌷','💖','🫧','🌺'];
+
+const MY_QUESTIONS = [
+  "What do you feel right now?",
+  "How do you describe your day in one word?",
+  "What do you feel about us in these past weeks and days?",
+  "How do you describe us in one word this month?",
+  "How do you see me this month?",
+  "How do you see us this month?",
+  "What am I to you?",
+  "Do you feel used by me?",
+  "Do you feel loved by me?",
+  "Do you feel that I'm loving you in the way you truly need?",
+  "How have you been feeling about us lately?",
+  "What's been hurting you the most this month?",
+  "Is there something I did that I didn't realize affected you deeply?",
+  "What do you think I should understand better about you?",
+  "Are there things I keep doing that frustrate you?",
+  "When we argue, what do I do that makes it worse?",
+  "What makes you feel most loved by me?",
+  "5 reasons why you still choose me?",
+  "Do you feel appreciated and valued in our relationship?",
+  "Is there something you wish I did more often?",
+  "How can I support you better when you're upset?",
+  "What would a 'better version' of our relationship look like to you?",
+  "Do you still feel happy with me?",
+  "What can we start doing again that we stopped?",
+  "Where do you think things started to go wrong between us?",
+  "Was there a specific issue we never properly fixed?",
+  "What actions of mine made you doubt how much I love you?",
+  "How can I be a better partner for you moving forward?",
+  "If we could strengthen one part of our relationship right now, what would you choose?",
+  "What is your goal for us in the next month?"
+];
+
+const reasons = ["Your smile","Your eyes","Your hair","Your nose","Your kiss","Your name","Your nickname","Your outfits","Your caring","Your kindness","Your voice","Your height","Your scent","Your jokes","Your stories","Your forgiveness","Your patience","Your habits","Your talents","Your intelligence","Your strength","Your passion","Your clingy side","Your goofy side","Your style","Your sweetness","Your eyelashes","Your honesty","Your flaws","Your genuineness","Your baby side","Your uniqueness","Your hopes","Your goals","Your perspective","Your help","Your playfulness","Your music taste","Your favorite movie","Your favorite flower","Your favorite food","Your favorite drink","Your favorite color","The way you talk to me","The way you treat me","The way you make me feel wanted","The way you hug me","The way you kiss me","The way you care for me","The way you root for me","The way you make me laugh","The way you compliment me","The way we spend time together","The way you handle things","The way you surpass your problems","How excited you get to see me","How you miss me","How you feed me","The strength you give me","The advice you give me","The way you understand me","Your patience with me","The way we gossip together","The way you scold me","The way you make me blush","Your discipline","Being a sleepyhead","The way you text me","How confident you are","Your determination","The way you listen to me","The way you teach me","The way you keep it real","The way you hold me","The way you care for our relationship","The way you treat your family","The way you give me reasons to live","The way you give me hope","The way you believe in me","The way you boost my confidence","The way you comfort me","The way you talk about our future","The way you make me feel so lucky","The way you're comfortable around me","The way you respect my family","The warmth you bring","The light you are to me","Your contagious laughter","The courage you show","The way you love with your whole heart","The way you never give up on us","Your beautiful soul","Your resilience","The way you inspire me","The way you protect your peace","The way you make ordinary days special","Your unwavering loyalty","The way you forgive so gracefully","Your beautiful heart","You — the way you exist"];
+
+// ══════════════════════════════════════════════
+//  ENTRY
+// ══════════════════════════════════════════════
+function enterSite() {
+  const inp = document.getElementById('name-input');
+  const name = inp ? inp.value.trim() : '';
+  if (!name) {
+    if (inp) { inp.style.borderColor='var(--rose-deep)'; inp.placeholder='Please enter your name...'; inp.focus(); }
+    return;
+  }
+  currentUser = name;
+  try { localStorage.setItem('lovesite_name', name); } catch(e) {}
+  const h = document.getElementById('hero-name'); if (h) h.textContent = name;
   document.getElementById('entry-screen').classList.add('hidden');
-  document.getElementById('main-nav').style.display='flex';
-  document.getElementById('music-fab').classList.add('show');
+  document.getElementById('main-nav').style.display = 'flex';
+  document.getElementById('music-widget').classList.add('show');
   spawnFloaters();
 }
 
-// ══ NAV ══
-function goto(page,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  const pg=document.getElementById('page-'+page);if(pg)pg.classList.add('active');
-  if(btn)btn.classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-  if(page==='answers')setTimeout(buildAnswers,50);
+// ══════════════════════════════════════════════
+//  NAV
+// ══════════════════════════════════════════════
+function goto(page, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const pg = document.getElementById('page-' + page);
+  if (pg) pg.classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top:0, behavior:'smooth' });
+  if (page === 'answers') setTimeout(buildAnswers, 50);
 }
 
-// ══ FLOATERS ══
-function spawnFloaters(){const c=document.getElementById('floaters');if(!c)return;c.innerHTML='';for(let i=0;i<22;i++){const el=document.createElement('div');el.className='floater';el.textContent=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];el.style.cssText=`left:${Math.random()*100}%;top:${100+Math.random()*20}%;font-size:${10+Math.random()*14}px;animation-duration:${8+Math.random()*10}s;animation-delay:${Math.random()*8}s;`;c.appendChild(el);}}
-function spawnEntryFloaters(){const c=document.getElementById('entry-floaters');if(!c)return;for(let i=0;i<14;i++){const el=document.createElement('div');el.className='floater';el.textContent=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];el.style.cssText=`left:${Math.random()*100}%;top:${90+Math.random()*20}%;font-size:${10+Math.random()*12}px;animation-duration:${7+Math.random()*8}s;animation-delay:${Math.random()*5}s;`;c.appendChild(el);}}
-
-// ══ FAB DRAG ══
-function initFabDrag(){
-  const fab=document.getElementById('music-fab'),btn=document.getElementById('music-fab-btn');
-  function getPos(e){return e.touches?{x:e.touches[0].clientX,y:e.touches[0].clientY}:{x:e.clientX,y:e.clientY};}
-  function onStart(e){
-    const pos=getPos(e);isDragging=true;dragMoved=false;
-    dragStartX=pos.x;dragStartY=pos.y;
-    const rect=fab.getBoundingClientRect();
-    fabLeft=rect.left;fabBottom=window.innerHeight-rect.bottom;
-    fab.style.transition='none';
-    document.addEventListener('mousemove',onMove,{passive:false});
-    document.addEventListener('touchmove',onMove,{passive:false});
-    document.addEventListener('mouseup',onEnd);document.addEventListener('touchend',onEnd);
+// ══════════════════════════════════════════════
+//  FLOATERS
+// ══════════════════════════════════════════════
+function spawnFloaters() {
+  const cont = document.getElementById('floaters');
+  if (!cont) return;
+  cont.innerHTML = '';
+  for (let i = 0; i < 22; i++) {
+    const el = document.createElement('div');
+    el.className = 'floater';
+    el.textContent = EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+    el.style.cssText = `left:${Math.random()*100}%;top:${100+Math.random()*20}%;font-size:${10+Math.random()*14}px;animation-duration:${8+Math.random()*10}s;animation-delay:${Math.random()*8}s;`;
+    cont.appendChild(el);
   }
-  function onMove(e){
-    if(!isDragging)return;e.preventDefault();
-    const pos=getPos(e),dx=pos.x-dragStartX,dy=pos.y-dragStartY;
-    if(Math.abs(dx)>4||Math.abs(dy)>4)dragMoved=true;
-    let nl=Math.max(0,Math.min(window.innerWidth-70,fabLeft+dx));
-    let nb=Math.max(0,Math.min(window.innerHeight-70,fabBottom-dy));
-    fab.style.left=nl+'px';fab.style.right='auto';fab.style.bottom=nb+'px';
+}
+function spawnEntryFloaters() {
+  const cont = document.getElementById('entry-floaters');
+  if (!cont) return;
+  for (let i = 0; i < 14; i++) {
+    const el = document.createElement('div');
+    el.className = 'floater';
+    el.textContent = EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+    el.style.cssText = `left:${Math.random()*100}%;top:${90+Math.random()*20}%;font-size:${10+Math.random()*12}px;animation-duration:${7+Math.random()*8}s;animation-delay:${Math.random()*5}s;`;
+    cont.appendChild(el);
   }
-  function onEnd(){
-    isDragging=false;fab.style.transition='';
-    document.removeEventListener('mousemove',onMove);document.removeEventListener('touchmove',onMove);
-    document.removeEventListener('mouseup',onEnd);document.removeEventListener('touchend',onEnd);
-  }
-  btn.addEventListener('mousedown',onStart);
-  btn.addEventListener('touchstart',onStart,{passive:true});
-  btn.addEventListener('click',function(){
-    if(dragMoved)return;
-    panelOpen=!panelOpen;
-    document.getElementById('music-panel').classList.toggle('open',panelOpen);
-  });
 }
 
-// ══ MUSIC ══
-function ytCmd(func,args){if(!ytIframe)ytIframe=document.getElementById('yt-iframe');if(!ytIframe||!ytIframe.contentWindow)return;try{ytIframe.contentWindow.postMessage(JSON.stringify({event:'command',func,args:args||[]}),'*');}catch(e){}}
-function updateSeekUI(sec){const pct=Math.min(sec/SONG_DUR,1);const fill=document.getElementById('mp-fill'),thumb=document.getElementById('mp-thumb'),range=document.getElementById('mp-range'),time=document.getElementById('mp-time');if(fill)fill.style.width=(pct*100)+'%';if(thumb)thumb.style.left=(pct*100)+'%';if(range)range.value=Math.round(sec);if(time)time.textContent=fmtTime(sec)+' / '+fmtTime(SONG_DUR);}
-function fmtTime(s){s=Math.floor(s);return Math.floor(s/60)+':'+(s%60).toString().padStart(2,'0');}
-function startTicker(){clearInterval(progressInterval);progressInterval=setInterval(()=>{if(musicPlaying){currentSec=Math.min(currentSec+0.5,SONG_DUR);updateSeekUI(currentSec);if(currentSec>=SONG_DUR)currentSec=0;}},500);}
-function stopTicker(){clearInterval(progressInterval);}
-function setPlaying(val){
-  musicPlaying=val;
-  const btn=document.getElementById('mp-playpause'),fabBtn=document.getElementById('music-fab-btn');
-  const wave=document.getElementById('mp-mini-wave'),fabWave=document.getElementById('fab-wave');
-  if(btn)btn.textContent=val?'⏸':'▶';
-  if(fabBtn)fabBtn.classList.toggle('playing',val);
-  if(wave)wave.classList.toggle('paused',!val);
-  if(fabWave)fabWave.classList.toggle('paused',!val);
+// ══════════════════════════════════════════════
+//  MUSIC — full rework with proper play/pause/stop/seek/volume
+// ══════════════════════════════════════════════
+function ytCmd(func, args) {
+  if (!ytIframe) ytIframe = document.getElementById('yt-iframe');
+  if (!ytIframe || !ytIframe.contentWindow) return;
+  try {
+    ytIframe.contentWindow.postMessage(JSON.stringify({ event:'command', func, args: args||[] }), '*');
+  } catch(e) {}
 }
-window.addEventListener('message',function(e){
-  try{const data=typeof e.data==='string'?JSON.parse(e.data):e.data;if(!data||!data.event)return;
-    if(data.event==='onReady'){musicReady=true;ytCmd('unMute');ytCmd('setVolume',[document.getElementById('mp-vol')?.value||80]);setStatus('Press ▶ to play 🎵');}
-    if(data.event==='onStateChange'){const s=data.info;if(s===1){setPlaying(true);startTicker();setStatus('');}else if(s===2){setPlaying(false);stopTicker();}else if(s===0){currentSec=0;updateSeekUI(0);ytCmd('playVideo');}else if(s===3)setStatus('Buffering…');else if(s===5)setStatus('Press ▶ to play 🎵');}
-  }catch(e){}
+
+function updateSeekUI(sec) {
+  const pct = Math.min(sec / SONG_DUR, 1);
+  const fill  = document.getElementById('mw-fill');
+  const thumb = document.getElementById('mw-thumb');
+  const range = document.getElementById('mw-range');
+  const time  = document.getElementById('mw-time');
+  if (fill)  fill.style.width  = (pct*100)+'%';
+  if (thumb) thumb.style.left  = (pct*100)+'%';
+  if (range) range.value = Math.round(sec);
+  if (time)  time.textContent  = fmtTime(sec)+' / '+fmtTime(SONG_DUR);
+}
+
+function fmtTime(s) {
+  s = Math.floor(s);
+  return Math.floor(s/60)+':'+(s%60).toString().padStart(2,'0');
+}
+
+function startTicker() {
+  clearInterval(progressInterval);
+  progressInterval = setInterval(() => {
+    if (musicPlaying) {
+      currentSec = Math.min(currentSec + 0.5, SONG_DUR);
+      updateSeekUI(currentSec);
+      if (currentSec >= SONG_DUR) { currentSec = 0; } // loop resets
+    }
+  }, 500);
+}
+function stopTicker() { clearInterval(progressInterval); }
+
+function setPlaying(val) {
+  musicPlaying = val;
+  const btn  = document.getElementById('mw-playpause');
+  const wave = document.getElementById('mw-wave');
+  if (btn)  btn.textContent = val ? '⏸' : '▶';
+  if (wave) wave.classList.toggle('paused', !val);
+}
+
+// YouTube IFrame API messages
+window.addEventListener('message', function(e) {
+  try {
+    const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+    if (!data || !data.event) return;
+
+    if (data.event === 'onReady') {
+      musicReady = true;
+      ytCmd('unMute');
+      ytCmd('setVolume', [document.getElementById('mw-vol')?.value || 80]);
+      setStatus('Ready — press ▶ to play 🎵');
+    }
+
+    if (data.event === 'onStateChange') {
+      const s = data.info;
+      if (s === 1) {           // playing
+        setPlaying(true);
+        startTicker();
+        setStatus('');
+      } else if (s === 2) {   // paused
+        setPlaying(false);
+        stopTicker();
+      } else if (s === 0) {   // ended → loop
+        currentSec = 0;
+        updateSeekUI(0);
+        ytCmd('playVideo');
+      } else if (s === 3) {   // buffering
+        setStatus('Buffering…');
+      } else if (s === 5) {   // cued
+        setStatus('Ready — press ▶ to play 🎵');
+      }
+    }
+  } catch(e) {}
 });
-function setStatus(msg){const el=document.getElementById('mp-status');if(el)el.textContent=msg;}
 
-// ══ SUPABASE HELPERS ══
-async function sbFetch(path,opts={}){
-  return fetch(`${SUPABASE_URL}${path}`,{...opts,headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,...(opts.headers||{})}});
+function setStatus(msg) {
+  const el = document.getElementById('mw-status');
+  if (el) el.textContent = msg;
 }
-async function uploadToStorage(file){
-  const ext=file.name.split('.').pop()||'jpg';
-  const path=`photos/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
-  const res=await sbFetch(`/storage/v1/object/${STORAGE_BUCKET}/${path}`,{method:'POST',headers:{'Content-Type':file.type},body:file});
-  if(!res.ok)throw new Error('Upload failed: '+await res.text());
-  return{path,url:`${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}/${path}`};
-}
-async function deleteFromStorage(path){await sbFetch(`/storage/v1/object/${STORAGE_BUCKET}/${path}`,{method:'DELETE'});}
-async function savePhotoRecord(record){await sbFetch('/rest/v1/gallery_photos',{method:'POST',headers:{'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(record)});}
-async function loadPhotosFromDB(){const res=await sbFetch('/rest/v1/gallery_photos?select=*&order=created_at.asc');if(!res.ok)return[];return res.json();}
-async function deletePhotoRecord(id){await sbFetch(`/rest/v1/gallery_photos?id=eq.${id}`,{method:'DELETE'});}
 
-// ══ GALLERY ══
-function setupGalleryUpload(){
-  const fi=document.getElementById('gallery-file-input'),dz=document.getElementById('gallery-drop-zone');
-  const pi=document.getElementById('gallery-preview-thumb'),pw=document.getElementById('gallery-preview-wrap');
-  const sb=document.getElementById('gallery-submit-btn');
-  if(!fi)return;
-  fi.addEventListener('change',function(){
-    const files=Array.from(this.files);if(!files.length)return;
-    if(files.length>1){uploadMultiple(files);fi.value='';return;}
-    selectedFile=files[0];
-    const reader=new FileReader();reader.onload=ev=>{pi.src=ev.target.result;pw.classList.add('show');sb.disabled=false;};reader.readAsDataURL(files[0]);
+// ── CONTROLS ──
+
+// Play / Pause
+document.addEventListener('DOMContentLoaded', function() {
+
+  document.getElementById('mw-playpause')?.addEventListener('click', function() {
+    if (!musicReady) {
+      // Try to force-ready the player
+      ytCmd('unMute'); ytCmd('setVolume', [80]);
+    }
+    if (musicPlaying) {
+      ytCmd('pauseVideo');
+    } else {
+      ytCmd('unMute');
+      ytCmd('setVolume', [document.getElementById('mw-vol')?.value || 80]);
+      ytCmd('playVideo');
+      // Fallback warning if nothing happens in 3s
+      setTimeout(() => {
+        if (!musicPlaying) setStatus('⚠ Blocked — tap ↗ to open');
+      }, 3000);
+    }
   });
-  dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
-  dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
-  dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');const files=Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/'));if(files.length)uploadMultiple(files);});
-}
-async function uploadMultiple(files){
-  const prog=document.getElementById('gallery-upload-progress');
-  if(prog){prog.textContent=`Uploading ${files.length} photo${files.length>1?'s':''}… 🌸`;prog.classList.add('show');}
-  const caption=document.getElementById('gallery-caption-input')?.value.trim()||'';
-  for(let i=0;i<files.length;i++){
-    try{const{path,url}=await uploadToStorage(files[i]);await savePhotoRecord({path,url,caption,created_at:new Date().toISOString()});}catch(err){console.warn(err);}
-    if(prog)prog.textContent=`Uploaded ${i+1}/${files.length}… 🌸`;
-  }
-  if(prog){prog.textContent='Done! ✨';setTimeout(()=>prog.classList.remove('show'),2000);}
-  await loadGallery();
-}
-async function addGalleryPhoto(){
-  if(!selectedFile)return;
-  const prog=document.getElementById('gallery-upload-progress'),sb=document.getElementById('gallery-submit-btn');
-  if(prog){prog.textContent='Uploading… 🌸';prog.classList.add('show');}if(sb)sb.disabled=true;
-  try{
-    const caption=document.getElementById('gallery-caption-input')?.value.trim()||'';
-    const{path,url}=await uploadToStorage(selectedFile);
-    await savePhotoRecord({path,url,caption,created_at:new Date().toISOString()});
-    selectedFile=null;
-    const pw=document.getElementById('gallery-preview-wrap'),ci=document.getElementById('gallery-caption-input'),fi=document.getElementById('gallery-file-input');
-    if(pw)pw.classList.remove('show');if(ci)ci.value='';if(fi)fi.value='';
-    if(prog){prog.textContent='Uploaded! ✨';setTimeout(()=>prog.classList.remove('show'),2000);}
-    await loadGallery();
-  }catch(err){
-    console.error(err);
-    if(prog){prog.textContent='⚠ Upload failed — check Supabase bucket setup';setTimeout(()=>prog.classList.remove('show'),4000);}
-    if(sb)sb.disabled=false;
-  }
-}
-async function deleteGalleryPhoto(id,storagePath,e){
-  if(e)e.stopPropagation();if(!confirm('Remove this photo?'))return;
-  try{if(storagePath)await deleteFromStorage(storagePath);await deletePhotoRecord(id);await loadGallery();}catch(err){console.warn(err);}
-}
-async function loadGallery(){
-  const loading=document.getElementById('gallery-loading'),grid=document.getElementById('gallery-grid'),empty=document.getElementById('gallery-empty');
-  if(loading)loading.style.display='block';if(grid)grid.innerHTML='';if(empty)empty.style.display='none';
-  try{galleryPhotos=await loadPhotosFromDB();}catch(e){galleryPhotos=[];console.warn(e);}
-  if(loading)loading.style.display='none';renderGallery();
-}
-function renderGallery(){
-  const grid=document.getElementById('gallery-grid'),empty=document.getElementById('gallery-empty');if(!grid)return;
-  if(!galleryPhotos.length){grid.innerHTML='';if(empty)empty.style.display='block';return;}
-  if(empty)empty.style.display='none';
-  grid.innerHTML=galleryPhotos.map((p,i)=>{
-    const ep=(p.path||'').replace(/'/g,"\\'");
-    return`<div class="gallery-card" onclick="openLightbox(${i})" style="animation:fadeSlideUp 0.4s ${i*0.05}s both;opacity:0"><img src="${p.url}" alt="${p.caption||'Memory'}" loading="lazy"/>${p.caption?`<div class="gallery-card-caption">${p.caption}</div>`:''}<button class="gallery-card-del" onclick="deleteGalleryPhoto(${p.id},'${ep}',event)" title="Remove">✕</button></div>`;
-  }).join('');
-}
-function openLightbox(i){lightboxIndex=i;showLightboxPhoto();document.getElementById('gallery-lightbox').classList.add('open');document.body.style.overflow='hidden';}
-function closeLightbox(){document.getElementById('gallery-lightbox').classList.remove('open');document.body.style.overflow='';}
-function showLightboxPhoto(){const p=galleryPhotos[lightboxIndex];if(!p)return;document.getElementById('lightbox-img').src=p.url;document.getElementById('lightbox-caption').textContent=p.caption||'';}
-function lightboxNext(){lightboxIndex=(lightboxIndex+1)%galleryPhotos.length;showLightboxPhoto();}
-function lightboxPrev(){lightboxIndex=(lightboxIndex-1+galleryPhotos.length)%galleryPhotos.length;showLightboxPhoto();}
 
-// ══ REASONS ══
-function buildReasons(){const g=document.getElementById('reasonsGrid');if(!g)return;g.innerHTML=reasons.map((r,i)=>`<div class="reason-card" data-text="${r.toLowerCase()}" style="animation:fadeSlideUp 0.5s ${0.02*i}s both;opacity:0"><span class="reason-num">${i+1}</span><span class="reason-text">${r}</span></div>`).join('');}
-function filterReasons(){const v=document.getElementById('reasonSearch')?.value.toLowerCase()||'';document.querySelectorAll('.reason-card').forEach(c=>{c.style.display=c.dataset.text.includes(v)?'':'none';});}
-
-// ══ MONTH TALKS ══
-function buildQuestions(){const list=document.getElementById('questions-list');if(!list)return;const saved=JSON.parse(localStorage.getItem('talks_answers')||'{}');list.innerHTML=MY_QUESTIONS.map((q,i)=>`<div class="question-item" style="animation:fadeSlideUp 0.4s ${0.03*i}s both;opacity:0"><strong>Q${i+1}</strong>${q}<textarea class="q-answer" id="qa-${i}" placeholder="Her answer..." rows="1">${saved[i]||''}</textarea></div>`).join('');list.querySelectorAll('.q-answer').forEach(ta=>{ta.addEventListener('input',()=>{ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';});});}
-function saveAnswers(){const data={};MY_QUESTIONS.forEach((_,i)=>{const el=document.getElementById('qa-'+i);data[i]=el?el.value:'';});try{localStorage.setItem('talks_answers',JSON.stringify(data));}catch(e){}saveToSupabaseDB('answers',{user_name:currentUser,answers:data});showToast('save-toast-left');}
-function loadCustomQuestions(){try{customQuestions=JSON.parse(localStorage.getItem('custom_questions')||'[]');}catch(e){customQuestions=[];}renderCustomQuestions();}
-function addCustomQuestion(){const inp=document.getElementById('new-question-input');if(!inp)return;const text=inp.value.trim();if(!text)return;customQuestions.push({id:Date.now(),text,answer:''});inp.value='';try{localStorage.setItem('custom_questions',JSON.stringify(customQuestions));}catch(e){}renderCustomQuestions();}
-function deleteCustomQuestion(id){customQuestions=customQuestions.filter(q=>q.id!==id);try{localStorage.setItem('custom_questions',JSON.stringify(customQuestions));}catch(e){}renderCustomQuestions();}
-function renderCustomQuestions(){const list=document.getElementById('custom-questions-list');if(!list)return;if(!customQuestions.length){list.innerHTML='<p style="font-size:0.8rem;color:var(--muted);text-align:center;padding:1rem 0">Add your first question above 💬</p>';return;}list.innerHTML=customQuestions.map((q,i)=>`<div class="custom-question"><div class="custom-q-header"><span class="custom-q-text"><strong style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--rose-deep);display:block;margin-bottom:.2rem">Q${i+1}</strong>${q.text}</span><button class="del-q-btn" onclick="deleteCustomQuestion(${q.id})">✕</button></div><textarea class="custom-q-answer" placeholder="My answer..." rows="1" oninput="updateCustomAnswer(${q.id},this.value)">${q.answer||''}</textarea></div>`).join('');list.querySelectorAll('.custom-q-answer').forEach(ta=>{ta.addEventListener('input',()=>{ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';});});}
-function updateCustomAnswer(id,val){const q=customQuestions.find(q=>q.id===id);if(q)q.answer=val;}
-function saveCustomAnswers(){try{localStorage.setItem('custom_questions',JSON.stringify(customQuestions));}catch(e){}saveToSupabaseDB('custom_questions',{user_name:currentUser,questions:customQuestions});showToast('save-toast-right');}
-function showToast(id){const el=document.getElementById(id);if(!el)return;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2500);}
-
-// ══ TALK ANSWERS ══
-function buildAnswers(){
-  const container=document.getElementById('answers-chat-list');if(!container)return;
-  let html='',hasAny=false;
-  const saved=JSON.parse(localStorage.getItem('talks_answers')||'{}'),custom=JSON.parse(localStorage.getItem('custom_questions')||'[]');
-  const stdA=MY_QUESTIONS.map((q,i)=>({q,a:saved[i]||''})).filter(x=>x.a.trim());
-  if(stdA.length){html+=`<div class="answer-divider"><span>💭 My Questions — Her Answers</span></div>`;stdA.forEach(({q,a},idx)=>{if(idx%2===0)html+=`<div class="answer-bubble-wrap"><div class="answer-row left"><div class="answer-avatar">🌸</div><div><div class="answer-bubble"><div class="answer-question-label">Q: ${q}</div>${a}</div><div class="answer-bubble-name">Her ✦</div></div></div></div>`;else html+=`<div class="answer-bubble-wrap"><div class="answer-row right"><div><div class="answer-bubble"><div class="answer-question-label">Q: ${q}</div>${a}</div><div class="answer-bubble-name">Her ✦</div></div><div class="answer-avatar">💗</div></div></div>`;hasAny=true;});}
-  const custA=custom.filter(x=>x.answer&&x.answer.trim());
-  if(custA.length){html+=`<div class="answer-divider"><span>💬 Your Questions — My Answers</span></div>`;custA.forEach(({text,answer},idx)=>{if(idx%2===0)html+=`<div class="answer-bubble-wrap"><div class="answer-row right"><div><div class="answer-bubble"><div class="answer-question-label">Q: ${text}</div>${answer}</div><div class="answer-bubble-name">Me ✦</div></div><div class="answer-avatar">💖</div></div></div>`;else html+=`<div class="answer-bubble-wrap"><div class="answer-row left"><div class="answer-avatar">🌷</div><div><div class="answer-bubble"><div class="answer-question-label">Q: ${text}</div>${answer}</div><div class="answer-bubble-name">Me ✦</div></div></div>`;hasAny=true;});}
-  if(!hasAny)html='<div class="answer-empty">No answers saved yet 🌸<br>Head to Month Talks to fill in your answers first.</div>';
-  container.innerHTML=html;
-}
-
-// ══ SUPABASE DB ══
-async function saveToSupabaseDB(table,data){try{await sbFetch(`/rest/v1/${table}`,{method:'POST',headers:{'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(data)});}catch(e){console.warn(e);}}
-
-// ══ INIT ══
-document.addEventListener('DOMContentLoaded',function(){
-  try{const s=localStorage.getItem('lovesite_name');if(s){const inp=document.getElementById('name-input');if(inp)inp.value=s;}}catch(e){}
-  document.getElementById('name-input')?.addEventListener('keydown',e=>{if(e.key==='Enter')enterSite();});
-
-  document.getElementById('mp-playpause')?.addEventListener('click',function(){
-    if(!musicReady){ytCmd('unMute');ytCmd('setVolume',[80]);}
-    if(musicPlaying)ytCmd('pauseVideo');
-    else{ytCmd('unMute');ytCmd('setVolume',[document.getElementById('mp-vol')?.value||80]);ytCmd('playVideo');setTimeout(()=>{if(!musicPlaying)setStatus('⚠ Blocked — tap ↗ to open');},3000);}
+  // Stop
+  document.getElementById('mw-stop')?.addEventListener('click', function() {
+    ytCmd('pauseVideo');
+    ytCmd('seekTo', [0, true]);
+    currentSec = 0;
+    updateSeekUI(0);
+    setPlaying(false);
+    stopTicker();
   });
-  document.getElementById('mp-stop')?.addEventListener('click',function(){ytCmd('pauseVideo');ytCmd('seekTo',[0,true]);currentSec=0;updateSeekUI(0);setPlaying(false);stopTicker();});
-  const sr=document.getElementById('mp-range');
-  if(sr){sr.addEventListener('input',function(){currentSec=parseFloat(this.value);updateSeekUI(currentSec);});sr.addEventListener('change',function(){currentSec=parseFloat(this.value);ytCmd('seekTo',[currentSec,true]);updateSeekUI(currentSec);});}
-  document.getElementById('mp-vol')?.addEventListener('input',function(){ytCmd('setVolume',[parseInt(this.value)]);if(parseInt(this.value)===0)ytCmd('mute');else ytCmd('unMute');});
-  document.getElementById('mp-close-btn')?.addEventListener('click',function(e){e.stopPropagation();panelOpen=false;document.getElementById('music-panel').classList.remove('open');});
-  document.getElementById('yt-iframe')?.addEventListener('load',function(){setTimeout(()=>{ytCmd('addEventListener',['onReady']);ytCmd('addEventListener',['onStateChange']);},1500);});
-  document.getElementById('new-question-input')?.addEventListener('keydown',e=>{if(e.key==='Enter')addCustomQuestion();});
-  document.addEventListener('keydown',e=>{const lb=document.getElementById('gallery-lightbox');if(!lb||!lb.classList.contains('open'))return;if(e.key==='ArrowRight')lightboxNext();if(e.key==='ArrowLeft')lightboxPrev();if(e.key==='Escape')closeLightbox();});
 
-  initFabDrag();
-  buildReasons();buildQuestions();loadCustomQuestions();
-  loadGallery();spawnEntryFloaters();updateSeekUI(0);
+  // Seek slider — drag to seek
+  const seekRange = document.getElementById('mw-range');
+  if (seekRange) {
+    seekRange.addEventListener('input', function() {
+      currentSec = parseFloat(this.value);
+      updateSeekUI(currentSec);
+    });
+    seekRange.addEventListener('change', function() {
+      currentSec = parseFloat(this.value);
+      ytCmd('seekTo', [currentSec, true]);
+      updateSeekUI(currentSec);
+    });
+  }
+
+  // Volume
+  document.getElementById('mw-vol')?.addEventListener('input', function() {
+    ytCmd('setVolume', [parseInt(this.value)]);
+    if (parseInt(this.value) === 0) ytCmd('mute');
+    else ytCmd('unMute');
+  });
+
+  // YouTube iframe ready
+  document.getElementById('yt-iframe')?.addEventListener('load', function() {
+    setTimeout(() => {
+      ytCmd('addEventListener', ['onReady']);
+      ytCmd('addEventListener', ['onStateChange']);
+    }, 1500);
+  });
+
+  // Entry name enter key
+  document.getElementById('name-input')?.addEventListener('keydown', e => { if (e.key==='Enter') enterSite(); });
+
+  // Custom question enter key
+  document.getElementById('new-question-input')?.addEventListener('keydown', e => { if (e.key==='Enter') addCustomQuestion(); });
+
+  // Lightbox keyboard
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('gallery-lightbox');
+    if (!lb || !lb.classList.contains('open')) return;
+    if (e.key==='ArrowRight') lightboxNext();
+    if (e.key==='ArrowLeft')  lightboxPrev();
+    if (e.key==='Escape')     closeLightbox();
+  });
+
+  // Restore name
+  try {
+    const saved = localStorage.getItem('lovesite_name');
+    if (saved) { const inp = document.getElementById('name-input'); if (inp) inp.value = saved; }
+  } catch(e) {}
+
+  // Gallery file input
+  setupGalleryUpload();
+
+  // Build content
+  buildReasons();
+  buildQuestions();
+  loadCustomQuestions();
+  loadGallery();
+  spawnEntryFloaters();
+  updateSeekUI(0);
 });
+
+// ══════════════════════════════════════════════
+//  GALLERY — file upload from device
+// ══════════════════════════════════════════════
+function setupGalleryUpload() {
+  const fileInput  = document.getElementById('gallery-file-input');
+  const dropZone   = document.getElementById('gallery-drop-zone');
+  const previewImg = document.getElementById('gallery-preview-thumb');
+  const previewWrap= document.getElementById('gallery-preview-wrap');
+  const submitBtn  = document.getElementById('gallery-submit-btn');
+
+  if (!fileInput) return;
+
+  // Show preview when file selected
+  fileInput.addEventListener('change', function() {
+    const files = Array.from(this.files);
+    if (!files.length) return;
+
+    if (files.length > 1) {
+      // Multiple files: add them all immediately
+      files.forEach((file, i) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const caption = document.getElementById('gallery-caption-input')?.value.trim() || '';
+          galleryPhotos.push({ id: Date.now() + i, dataUrl: e.target.result, caption });
+        };
+        reader.onloadend = () => {
+          if (i === files.length - 1) { saveGallery(); renderGallery(); }
+        };
+        reader.readAsDataURL(file);
+      });
+      fileInput.value = '';
+      return;
+    }
+
+    // Single file — show preview first
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      selectedFileDataUrl = ev.target.result;
+      previewImg.src = selectedFileDataUrl;
+      previewWrap.classList.add('show');
+      submitBtn.disabled = false;
+    };
+    reader.readAsDataURL(files[0]);
+  });
+
+  // Drag & drop
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+    if (!files.length) return;
+    files.forEach((file, i) => {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const caption = document.getElementById('gallery-caption-input')?.value.trim() || '';
+        galleryPhotos.push({ id: Date.now() + i, dataUrl: ev.target.result, caption });
+      };
+      reader.onloadend = () => {
+        if (i === files.length - 1) { saveGallery(); renderGallery(); }
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+}
+
+function addGalleryPhoto() {
+  if (!selectedFileDataUrl) return;
+  const caption = document.getElementById('gallery-caption-input')?.value.trim() || '';
+  galleryPhotos.push({ id: Date.now(), dataUrl: selectedFileDataUrl, caption });
+  selectedFileDataUrl = null;
+  const previewWrap = document.getElementById('gallery-preview-wrap');
+  const submitBtn   = document.getElementById('gallery-submit-btn');
+  const capInp      = document.getElementById('gallery-caption-input');
+  const fileInput   = document.getElementById('gallery-file-input');
+  if (previewWrap) previewWrap.classList.remove('show');
+  if (submitBtn)   submitBtn.disabled = true;
+  if (capInp)      capInp.value = '';
+  if (fileInput)   fileInput.value = '';
+  saveGallery();
+  renderGallery();
+}
+
+function deleteGalleryPhoto(id, e) {
+  if (e) e.stopPropagation();
+  if (!confirm('Remove this photo?')) return;
+  galleryPhotos = galleryPhotos.filter(p => p.id !== id);
+  saveGallery();
+  renderGallery();
+}
+
+function saveGallery() {
+  try {
+    // Only save metadata (not full dataUrls) to Supabase to avoid size limits
+    const meta = galleryPhotos.map(p => ({ id: p.id, caption: p.caption }));
+    saveToSupabase('gallery', { user_name: currentUser, photos: meta });
+    // Save full photos to localStorage
+    localStorage.setItem('gallery_photos', JSON.stringify(galleryPhotos));
+  } catch(e) {
+    // localStorage might be full — skip silently
+    console.warn('Gallery save error', e);
+  }
+}
+
+function loadGallery() {
+  try { galleryPhotos = JSON.parse(localStorage.getItem('gallery_photos') || '[]'); } catch(e) { galleryPhotos = []; }
+  renderGallery();
+}
+
+function renderGallery() {
+  const grid  = document.getElementById('gallery-grid');
+  const empty = document.getElementById('gallery-empty');
+  if (!grid) return;
+  if (!galleryPhotos.length) {
+    grid.innerHTML = '';
+    if (empty) empty.style.display = 'block';
+    return;
+  }
+  if (empty) empty.style.display = 'none';
+  grid.innerHTML = galleryPhotos.map((p, i) =>
+    `<div class="gallery-card" onclick="openLightbox(${i})" style="animation:fadeSlideUp 0.4s ${i*0.05}s both;opacity:0">
+      <img src="${p.dataUrl}" alt="${p.caption||'Memory'}" />
+      ${p.caption ? `<div class="gallery-card-caption">${p.caption}</div>` : ''}
+      <button class="gallery-card-del" onclick="deleteGalleryPhoto(${p.id},event)" title="Remove">✕</button>
+    </div>`
+  ).join('');
+}
+
+// Lightbox
+function openLightbox(index) {
+  lightboxIndex = index;
+  showLightboxPhoto();
+  document.getElementById('gallery-lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('gallery-lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function showLightboxPhoto() {
+  const p = galleryPhotos[lightboxIndex];
+  if (!p) return;
+  document.getElementById('lightbox-img').src = p.dataUrl;
+  document.getElementById('lightbox-caption').textContent = p.caption || '';
+}
+function lightboxNext() { lightboxIndex = (lightboxIndex+1) % galleryPhotos.length; showLightboxPhoto(); }
+function lightboxPrev() { lightboxIndex = (lightboxIndex-1+galleryPhotos.length) % galleryPhotos.length; showLightboxPhoto(); }
+
+// ══════════════════════════════════════════════
+//  REASONS
+// ══════════════════════════════════════════════
+function buildReasons() {
+  const grid = document.getElementById('reasonsGrid');
+  if (!grid) return;
+  grid.innerHTML = reasons.map((r, i) =>
+    `<div class="reason-card" data-text="${r.toLowerCase()}" style="animation:fadeSlideUp 0.5s ${0.02*i}s both;opacity:0"><span class="reason-num">${i+1}</span><span class="reason-text">${r}</span></div>`
+  ).join('');
+}
+function filterReasons() {
+  const val = document.getElementById('reasonSearch')?.value.toLowerCase() || '';
+  document.querySelectorAll('.reason-card').forEach(c => { c.style.display = c.dataset.text.includes(val) ? '' : 'none'; });
+}
+
+// ══════════════════════════════════════════════
+//  MONTH TALKS
+// ══════════════════════════════════════════════
+function buildQuestions() {
+  const list = document.getElementById('questions-list');
+  if (!list) return;
+  const saved = JSON.parse(localStorage.getItem('talks_answers') || '{}');
+  list.innerHTML = MY_QUESTIONS.map((q, i) =>
+    `<div class="question-item" style="animation:fadeSlideUp 0.4s ${0.03*i}s both;opacity:0"><strong>Q${i+1}</strong>${q}<textarea class="q-answer" id="qa-${i}" placeholder="Her answer..." rows="1">${saved[i]||''}</textarea></div>`
+  ).join('');
+  list.querySelectorAll('.q-answer').forEach(ta => {
+    ta.addEventListener('input', () => { ta.style.height='auto'; ta.style.height=ta.scrollHeight+'px'; });
+  });
+}
+
+function saveAnswers() {
+  const data = {};
+  MY_QUESTIONS.forEach((_, i) => { const el = document.getElementById('qa-'+i); data[i] = el ? el.value : ''; });
+  try { localStorage.setItem('talks_answers', JSON.stringify(data)); } catch(e) {}
+  saveToSupabase('answers', { user_name: currentUser, answers: data });
+  showToast('save-toast-left');
+}
+
+function loadCustomQuestions() {
+  try { customQuestions = JSON.parse(localStorage.getItem('custom_questions') || '[]'); } catch(e) { customQuestions = []; }
+  renderCustomQuestions();
+}
+function addCustomQuestion() {
+  const inp = document.getElementById('new-question-input');
+  if (!inp) return;
+  const text = inp.value.trim();
+  if (!text) return;
+  customQuestions.push({ id: Date.now(), text, answer: '' });
+  inp.value = '';
+  try { localStorage.setItem('custom_questions', JSON.stringify(customQuestions)); } catch(e) {}
+  renderCustomQuestions();
+}
+function deleteCustomQuestion(id) {
+  customQuestions = customQuestions.filter(q => q.id !== id);
+  try { localStorage.setItem('custom_questions', JSON.stringify(customQuestions)); } catch(e) {}
+  renderCustomQuestions();
+}
+function renderCustomQuestions() {
+  const list = document.getElementById('custom-questions-list');
+  if (!list) return;
+  if (!customQuestions.length) {
+    list.innerHTML = '<p style="font-size:0.8rem;color:var(--muted);text-align:center;padding:1rem 0">Add your first question above 💬</p>';
+    return;
+  }
+  list.innerHTML = customQuestions.map((q, i) =>
+    `<div class="custom-question"><div class="custom-q-header"><span class="custom-q-text"><strong style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--rose-deep);display:block;margin-bottom:.2rem">Q${i+1}</strong>${q.text}</span><button class="del-q-btn" onclick="deleteCustomQuestion(${q.id})">✕</button></div><textarea class="custom-q-answer" placeholder="My answer..." rows="1" oninput="updateCustomAnswer(${q.id},this.value)">${q.answer||''}</textarea></div>`
+  ).join('');
+  list.querySelectorAll('.custom-q-answer').forEach(ta => {
+    ta.addEventListener('input', () => { ta.style.height='auto'; ta.style.height=ta.scrollHeight+'px'; });
+  });
+}
+function updateCustomAnswer(id, val) { const q = customQuestions.find(q => q.id===id); if (q) q.answer=val; }
+function saveCustomAnswers() {
+  try { localStorage.setItem('custom_questions', JSON.stringify(customQuestions)); } catch(e) {}
+  saveToSupabase('custom_questions', { user_name: currentUser, questions: customQuestions });
+  showToast('save-toast-right');
+}
+function showToast(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+// ══════════════════════════════════════════════
+//  TALK ANSWERS
+// ══════════════════════════════════════════════
+function buildAnswers() {
+  const container = document.getElementById('answers-chat-list');
+  if (!container) return;
+  let html = '', hasAny = false;
+  const saved  = JSON.parse(localStorage.getItem('talks_answers') || '{}');
+  const custom = JSON.parse(localStorage.getItem('custom_questions') || '[]');
+  const stdAnswered = MY_QUESTIONS.map((q,i) => ({ q, a: saved[i]||'' })).filter(x => x.a.trim());
+  if (stdAnswered.length) {
+    html += `<div class="answer-divider"><span>💭 My Questions — Her Answers</span></div>`;
+    stdAnswered.forEach(({ q, a }, idx) => {
+      if (idx%2===0) html += `<div class="answer-bubble-wrap"><div class="answer-row left"><div class="answer-avatar">🌸</div><div><div class="answer-bubble"><div class="answer-question-label">Q: ${q}</div>${a}</div><div class="answer-bubble-name">Her ✦</div></div></div></div>`;
+      else           html += `<div class="answer-bubble-wrap"><div class="answer-row right"><div><div class="answer-bubble"><div class="answer-question-label">Q: ${q}</div>${a}</div><div class="answer-bubble-name">Her ✦</div></div><div class="answer-avatar">💗</div></div></div>`;
+      hasAny = true;
+    });
+  }
+  const customAnswered = custom.filter(x => x.answer && x.answer.trim());
+  if (customAnswered.length) {
+    html += `<div class="answer-divider"><span>💬 Your Questions — My Answers</span></div>`;
+    customAnswered.forEach(({ text, answer }, idx) => {
+      if (idx%2===0) html += `<div class="answer-bubble-wrap"><div class="answer-row right"><div><div class="answer-bubble"><div class="answer-question-label">Q: ${text}</div>${answer}</div><div class="answer-bubble-name">Me ✦</div></div><div class="answer-avatar">💖</div></div></div>`;
+      else           html += `<div class="answer-bubble-wrap"><div class="answer-row left"><div class="answer-avatar">🌷</div><div><div class="answer-bubble"><div class="answer-question-label">Q: ${text}</div>${answer}</div><div class="answer-bubble-name">Me ✦</div></div></div>`;
+      hasAny = true;
+    });
+  }
+  if (!hasAny) html = '<div class="answer-empty">No answers saved yet 🌸<br>Head to Month Talks to fill in your answers first.</div>';
+  container.innerHTML = html;
+}
+
+// ══════════════════════════════════════════════
+//  SUPABASE
+// ══════════════════════════════════════════════
+async function saveToSupabase(table, data) {
+  if (!SUPABASE_URL || SUPABASE_URL.includes('YOUR')) return;
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'apikey':SUPABASE_KEY, 'Authorization':`Bearer ${SUPABASE_KEY}`, 'Prefer':'return=minimal' },
+      body: JSON.stringify(data)
+    });
+  } catch(e) { console.warn('Supabase error', e); }
+}
 </script>
 </body>
 </html>
